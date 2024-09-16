@@ -1,4 +1,5 @@
 using GuineaPigApp.Server.Database;
+using GuineaPigApp.Server.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 if (builder.Environment.IsDevelopment())
 {
@@ -18,6 +20,8 @@ if (builder.Environment.IsProduction())
 }
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
