@@ -398,4 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Application configuration files
-appsettings.Production.json
+appsettings.json
