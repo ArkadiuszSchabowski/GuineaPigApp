@@ -15,5 +15,7 @@ namespace GuineaPigApp.Server.Models
         public string Description { get; set; } = string.Empty;
 
         public string ImageUrl { get; set; } = "/assets/images/products/default.jpg";
+        [Required]
+        public bool isGoodProduct { get; set; }
     }
 }
