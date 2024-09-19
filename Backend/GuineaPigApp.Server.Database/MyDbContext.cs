@@ -5,8 +5,7 @@ namespace GuineaPigApp.Server.Database
 {
     public class MyDbContext : DbContext
     {
-        public DbSet<Product> BadProducts { get; set; }
-        public DbSet<Product> GoodProducts { get; set; }
+        public DbSet<Product> Products { get; set; }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
             
