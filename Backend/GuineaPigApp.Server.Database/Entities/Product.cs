@@ -16,5 +16,7 @@ namespace GuineaPigApp.Server.Database.Entities
         [MaxLength(200, ErrorMessage = "Opis produktu nie może być dłuższy niż 200 znaków!")]
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = "/assets/images/products/default.jpg";
+        [Required]
+        public bool isGoodProduct { get; set; }
     }
 }
