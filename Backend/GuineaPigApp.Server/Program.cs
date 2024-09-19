@@ -9,14 +9,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
+
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionDbConnectionString")));
+
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<MyDbContext>(options => options.UseInMemoryDatabase("MemoryDb"));
-}
-
-if (builder.Environment.IsProduction())
-{
-    builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ProductionDbConnectionString")));
 }
 
 var app = builder.Build();
