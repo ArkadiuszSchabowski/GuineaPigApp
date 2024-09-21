@@ -1,6 +1,10 @@
 ﻿namespace GuineaPigApp.Server.Exceptions
 {
-    public class ConflictException
+    public class ConflictException : Exception
     {
+        public ConflictException(string message) : base(message) 
+        {
+        
+        }
     }
 }

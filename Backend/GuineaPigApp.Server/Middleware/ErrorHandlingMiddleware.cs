@@ -1,4 +1,6 @@
-﻿namespace GuineaPigApp.Server.Middleware
+﻿using GuineaPigApp.Server.Exceptions;
+
+namespace GuineaPigApp.Server.Middleware
 {
     public class ErrorHandlingMiddleware : IMiddleware
     {
@@ -13,6 +15,12 @@
             try
             {
                 await next.Invoke(context);
+            }
+            catch(BadRequestException e)
+            {
+                _logger.LogError(e, e.Message);
+                context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(e.Message);
             }
             catch(Exception e)
             {
