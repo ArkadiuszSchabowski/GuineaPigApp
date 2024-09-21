@@ -17,7 +17,10 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
+if (app.Environment.IsProduction())
+{
 app.UseMiddleware<ErrorHandlingMiddleware>();
+}
 
 if (app.Environment.IsDevelopment())
 {
