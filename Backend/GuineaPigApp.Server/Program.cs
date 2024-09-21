@@ -1,6 +1,7 @@
 using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Middleware;
+using GuineaPigApp.Server.Repositories;
 using GuineaPigApp.Server.Services;
 using GuineaPigApp.Server.Validators;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(build
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 

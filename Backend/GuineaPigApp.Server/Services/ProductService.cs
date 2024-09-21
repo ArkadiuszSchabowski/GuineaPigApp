@@ -1,5 +1,4 @@
-﻿using GuineaPigApp.Server.Database;
-using GuineaPigApp.Server.Database.Entities;
+﻿using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
@@ -8,12 +7,12 @@ namespace GuineaPigApp.Server.Services
 {
     public class ProductService : IProductService
     {
-        private readonly MyDbContext _context;
+        private readonly IProductRepository _repository;
         private readonly IProductValidator _validator;
 
-        public ProductService(MyDbContext context, IProductValidator validator)
+        public ProductService(IProductRepository repository, IProductValidator validator)
         {
-            _context = context;
+            _repository = repository;
             _validator = validator;
         }
 
@@ -28,31 +27,27 @@ namespace GuineaPigApp.Server.Services
             product.ImageUrl = dto.ImageUrl;
             product.isGoodProduct = dto.isGoodProduct;
 
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            _repository.AddProduct(product);
+            _repository.SaveChanges();
         }
 
         public List<Product> GetBadProducts()
         {
-            var badProducts = _context.Products
-                     .Where(x => x.isGoodProduct == false)
-                     .ToList();
+            var badProducts = _repository.GetBadProducts();
 
             return badProducts;
         }
 
         public List<Product> GetGoodProducts()
         {
-            var goodProducts = _context.Products
-         .Where(x => x.isGoodProduct == true)
-         .ToList();
+            var goodProducts = _repository.GetGoodProducts();
 
             return goodProducts;
         }
 
         public Product GetProduct(int id)
         {
-            var product = _context.Products.SingleOrDefault(x => x.Id == id);
+            var product = _repository.GetProduct(id);
 
             if (product == null)
             {
@@ -65,15 +60,15 @@ namespace GuineaPigApp.Server.Services
 
         public void RemoveProduct(int id)
         {
-            var product = _context.Products.SingleOrDefault(x => x.Id == id);
+            var product = _repository.GetProduct(id);
 
             if (product == null)
             {
                 throw new BadRequestException("Nie znaleziono produktu o podanym Id!");
             }
 
-            _context.Products.Remove(product);
-            _context.SaveChanges();
+            _repository.RemoveProduct(product);
+            _repository.SaveChanges();
         }
     }
 }
