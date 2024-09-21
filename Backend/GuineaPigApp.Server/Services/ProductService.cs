@@ -9,14 +9,18 @@ namespace GuineaPigApp.Server.Services
     public class ProductService : IProductService
     {
         private readonly MyDbContext _context;
+        private readonly IProductValidator _validator;
 
-        public ProductService(MyDbContext context)
+        public ProductService(MyDbContext context, IProductValidator validator)
         {
             _context = context;
+            _validator = validator;
         }
 
         public void AddProduct(ProductDto dto)
         {
+            _validator.ValidateName(dto.Name);
+
             var product = new Product();
 
             product.Name = dto.Name;
