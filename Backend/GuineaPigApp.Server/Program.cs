@@ -18,6 +18,7 @@ builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(build
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductValidator, ProductValidator>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IGuineaPigService, GuineaPigService>();
 
 var app = builder.Build();
 
