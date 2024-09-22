@@ -48,5 +48,49 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             Assert.Equal(result, product1);
         }
+        [Fact]
+        public void GetBadProducts_ShouldReturn_BadProductsList()
+        {
+            var products = new List<Product>()
+            {
+                new Product
+                { Id = 1, Name = "Bad Product 1", Description = "Bad Product Description 1", isGoodProduct = false },
+                new Product
+                { Id = 2, Name = "Bad Product 2", Description = "Bad Product Description 2", isGoodProduct = false }
+            };
+
+            var mockRepository = new Mock<IProductRepository>();
+            var mockValidator = new Mock<IProductValidator>();
+
+            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
+
+            mockRepository.Setup(x => x.GetBadProducts()).Returns(products);
+
+            var result = productService.GetBadProducts();
+
+            Assert.Equal(result, products);
+        }
+        [Fact]
+        public void GetGoodProducts_ShouldReturn_GoodProductsList()
+        {
+            var products = new List<Product>()
+            {
+                new Product
+                { Id = 1, Name = "Good Product 1", Description = "Good Product Description 1", isGoodProduct = true },
+                new Product
+                { Id = 2, Name = "Good Product 2", Description = "Good Product Description 2", isGoodProduct = true }
+            };
+
+            var mockRepository = new Mock<IProductRepository>();
+            var mockValidator = new Mock<IProductValidator>();
+
+            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
+
+            mockRepository.Setup(x => x.GetGoodProducts()).Returns(products);
+
+            var result = productService.GetGoodProducts();
+
+            Assert.Equal(result, products);
+        }
     }
 }
