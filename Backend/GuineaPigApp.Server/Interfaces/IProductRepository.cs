@@ -9,6 +9,5 @@ namespace GuineaPigApp.Server.Interfaces
         List<Product> GetGoodProducts();
         Product? GetProduct(int id);
         void RemoveProduct(Product product);
-        void SaveChanges();
     }
 }
