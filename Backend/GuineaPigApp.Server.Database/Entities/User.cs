@@ -12,10 +12,7 @@ namespace GuineaPigApp.Server.Database.Entities
         public string Email { get; set; } = string.Empty;
 
         [Required]
-        [PasswordPropertyText]
-        [MinLength(3, ErrorMessage = "Długość hasła nie może być krótsza niż 3 znaki!")]
-        [MaxLength(25, ErrorMessage = "Długość hasła nie może być dłuższa niż 25 znaków!")]
-        public string Password { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
 
         [Required]
         [MinLength(3, ErrorMessage = "Długość imienia nie może być krótsza niż 3 znaki!")]
