@@ -32,15 +32,12 @@ namespace GuineaPigApp.Server.Repositories
         public void AddProduct(Product product)
         {
             _context.Products.Add(product);
+            _context.SaveChanges();
         }
 
         public void RemoveProduct(Product product)
         {
             _context.Products.Remove(product);
-        }
-
-        public void SaveChanges()
-        {
             _context.SaveChanges();
         }
     }

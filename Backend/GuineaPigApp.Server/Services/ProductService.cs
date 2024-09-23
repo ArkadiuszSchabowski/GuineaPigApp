@@ -28,7 +28,6 @@ namespace GuineaPigApp.Server.Services
             product.isGoodProduct = dto.isGoodProduct;
 
             _repository.AddProduct(product);
-            _repository.SaveChanges();
         }
 
         public List<Product> GetBadProducts()
@@ -68,7 +67,6 @@ namespace GuineaPigApp.Server.Services
             }
 
             _repository.RemoveProduct(product);
-            _repository.SaveChanges();
         }
     }
 }
