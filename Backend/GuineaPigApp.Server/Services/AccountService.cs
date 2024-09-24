@@ -116,7 +116,7 @@ namespace GuineaPigApp.Server.Services
 
             if (user == null)
             {
-                throw new Exception("Taki użytkownik nie istnieje!");
+                throw new BadRequestException("Taki użytkownik nie istnieje!");
             }
                 _userRepository.RemoveUser(user);
         }
