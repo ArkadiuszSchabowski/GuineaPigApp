@@ -46,6 +46,11 @@ namespace GuineaPigApp.Server.Services
 
         public Product GetProduct(int id)
         {
+            if(id <= 0)
+            {
+                throw new BadRequestException("Wartość Id musi być większa od 0");
+            }
+
             var product = _repository.GetProduct(id);
 
             if (product == null)
@@ -54,11 +59,15 @@ namespace GuineaPigApp.Server.Services
             }
 
             return product;
-
         }
 
         public void RemoveProduct(int id)
         {
+            if (id <= 0)
+            {
+                throw new BadRequestException("Wartość Id musi być większa od 0");
+            }
+
             var product = _repository.GetProduct(id);
 
             if (product == null)
