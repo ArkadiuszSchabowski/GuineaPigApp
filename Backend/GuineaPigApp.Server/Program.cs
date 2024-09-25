@@ -5,7 +5,6 @@ using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Middleware;
 using GuineaPigApp.Server.Repositories;
 using GuineaPigApp.Server.Services;
-using GuineaPigApp.Server.Validators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -51,8 +50,6 @@ builder.Services.AddScoped<IGuineaPigService, GuineaPigService>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IProductValidator, ProductValidator>();
 
 var app = builder.Build();
 
