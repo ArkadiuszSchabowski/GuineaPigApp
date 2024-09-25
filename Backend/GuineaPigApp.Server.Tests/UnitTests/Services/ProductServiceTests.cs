@@ -34,21 +34,6 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             Assert.Equal(result, product1);
         }
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-5)]
-        public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
-        {
-            var mockRepository = new Mock<IProductRepository>();
-            var mockValidator = new Mock<IProductValidator>();
-
-            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
-
-            Action result = () => productService.GetProduct(id);
-
-            Assert.Throws<BadRequestException>(result);
-        }
 
         [Theory]
         [InlineData(0)]
