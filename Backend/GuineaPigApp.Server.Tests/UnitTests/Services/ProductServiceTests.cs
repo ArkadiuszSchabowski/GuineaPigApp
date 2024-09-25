@@ -1,4 +1,6 @@
-﻿using GuineaPigApp.Server.Database.Entities;
+﻿#nullable disable
+
+using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Services;
@@ -91,6 +93,34 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             var result = productService.GetGoodProducts();
 
             Assert.Equal(result, products);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-5)]
+        public void GetProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
+        {
+            var productService = new ProductService(null, null);
+
+            Action action = () => productService.GetProduct(id);
+            var exception = Assert.Throws<BadRequestException>(action);
+
+            Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-5)]
+        public void RemoveProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
+        {
+            var productService = new ProductService(null, null);
+
+            Action action = () => productService.RemoveProduct(id);
+            var exception = Assert.Throws<BadRequestException>(action);
+
+            Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
         }
     }
 }
