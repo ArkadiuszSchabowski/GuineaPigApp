@@ -8,17 +8,15 @@ namespace GuineaPigApp.Server.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
-        private readonly IProductValidator _validator;
 
-        public ProductService(IProductRepository repository, IProductValidator validator)
+        public ProductService(IProductRepository repository)
         {
             _repository = repository;
-            _validator = validator;
         }
 
         public void AddProduct(ProductDto dto)
         {
-            _validator.ValidateName(dto.Name);
+            _repository.EnsureProductDoesNotExist(dto.Name);
 
             var product = new Product();
 
