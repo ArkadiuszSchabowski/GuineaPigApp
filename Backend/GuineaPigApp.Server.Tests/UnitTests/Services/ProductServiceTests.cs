@@ -39,7 +39,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
         [InlineData(0)]
         [InlineData(-1)]
         [InlineData(-5)]
-        public void GetProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
+        public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
         {
             var productService = new ProductService(null, null);
 
