@@ -25,7 +25,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             var mockRepository = new Mock<IProductRepository>();
 
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object);
 
             mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product1);
 
@@ -40,7 +40,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
         [InlineData(-5)]
         public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
         {
-            var productService = new ProductService(null, null);
+            var productService = new ProductService(null);
 
             Action action = () => productService.GetProduct(id);
             var exception = Assert.Throws<BadRequestException>(action);
@@ -61,7 +61,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             var mockRepository = new Mock<IProductRepository>();
 
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object);
 
             mockRepository.Setup(x => x.GetBadProducts()).Returns(products);
 
@@ -82,7 +82,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             var mockRepository = new Mock<IProductRepository>();
 
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object);
 
             mockRepository.Setup(x => x.GetGoodProducts()).Returns(products);
 
@@ -97,7 +97,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
         [InlineData(-5)]
         public void RemoveProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
         {
-            var productService = new ProductService(null, null);
+            var productService = new ProductService(null);
 
             Action action = () => productService.RemoveProduct(id);
             var exception = Assert.Throws<BadRequestException>(action);
