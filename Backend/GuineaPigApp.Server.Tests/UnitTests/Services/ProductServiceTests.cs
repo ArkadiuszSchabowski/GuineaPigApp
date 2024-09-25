@@ -24,9 +24,8 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             };
 
             var mockRepository = new Mock<IProductRepository>();
-            var mockValidator = new Mock<IProductValidator>();
 
-            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
+            var productService = new ProductService(mockRepository.Object, null);
 
             mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product1);
 
@@ -61,9 +60,8 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             };
 
             var mockRepository = new Mock<IProductRepository>();
-            var mockValidator = new Mock<IProductValidator>();
 
-            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
+            var productService = new ProductService(mockRepository.Object, null);
 
             mockRepository.Setup(x => x.GetBadProducts()).Returns(products);
 
@@ -83,9 +81,8 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             };
 
             var mockRepository = new Mock<IProductRepository>();
-            var mockValidator = new Mock<IProductValidator>();
 
-            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
+            var productService = new ProductService(mockRepository.Object, null);
 
             mockRepository.Setup(x => x.GetGoodProducts()).Returns(products);
 
