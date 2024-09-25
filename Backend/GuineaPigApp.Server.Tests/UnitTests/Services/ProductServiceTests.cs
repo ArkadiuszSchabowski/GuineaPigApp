@@ -10,22 +10,6 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 {
     public class ProductServiceTests
     {
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-5)]
-        public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
-        {
-            var mockRepository = new Mock<IProductRepository>();
-            var mockValidator = new Mock<IProductValidator>();
-
-            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
-
-            Action result = () => productService.GetProduct(id);
-
-            Assert.Throws<BadRequestException>(result);
-        }
         [Fact]
         public void GetProduct_WhenCorrectId_ShouldReturnProduct()
         {
@@ -50,6 +34,36 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             Assert.Equal(result, product1);
         }
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-5)]
+        public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
+        {
+            var mockRepository = new Mock<IProductRepository>();
+            var mockValidator = new Mock<IProductValidator>();
+
+            var productService = new ProductService(mockRepository.Object, mockValidator.Object);
+
+            Action result = () => productService.GetProduct(id);
+
+            Assert.Throws<BadRequestException>(result);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        [InlineData(-5)]
+        public void GetProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
+        {
+            var productService = new ProductService(null, null);
+
+            Action action = () => productService.GetProduct(id);
+            var exception = Assert.Throws<BadRequestException>(action);
+
+            Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
+        }
+
         [Fact]
         public void GetBadProducts_ShouldReturn_BadProductsList()
         {
@@ -93,20 +107,6 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             var result = productService.GetGoodProducts();
 
             Assert.Equal(result, products);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-5)]
-        public void GetProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
-        {
-            var productService = new ProductService(null, null);
-
-            Action action = () => productService.GetProduct(id);
-            var exception = Assert.Throws<BadRequestException>(action);
-
-            Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
         }
 
         [Theory]
