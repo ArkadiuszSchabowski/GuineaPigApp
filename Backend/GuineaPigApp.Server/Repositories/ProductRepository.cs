@@ -1,5 +1,6 @@
 ﻿using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 
 namespace GuineaPigApp.Server.Repositories
@@ -39,6 +40,15 @@ namespace GuineaPigApp.Server.Repositories
         {
             _context.Products.Remove(product);
             _context.SaveChanges();
+        }
+        public void EnsureProductDoesNotExist(string name)
+        {
+            var product = _context.Products.SingleOrDefault(x => x.Name == name);
+
+            if (product != null)
+            {
+                throw new ConflictException("Podany produkt istnieje już w bazie danych");
+            }
         }
     }
 }
