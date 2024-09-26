@@ -16,16 +16,21 @@ namespace GuineaPigApp.Server.Services
 
         public void AddProduct(ProductDto dto)
         {
-            _repository.EnsureProductDoesNotExist(dto.Name);
+            var product = _repository.EnsureProductDoesNotExist(dto.Name);
 
-            var product = new Product();
+            if (product != null)
+            {
+                throw new ConflictException("Podany produkt istnieje już w bazie danych");
+            }
 
-            product.Name = dto.Name;
-            product.Description = dto.Description;
-            product.ImageUrl = dto.ImageUrl;
-            product.isGoodProduct = dto.isGoodProduct;
+            var newProduct = new Product();
 
-            _repository.AddProduct(product);
+            newProduct.Name = dto.Name;
+            newProduct.Description = dto.Description;
+            newProduct.ImageUrl = dto.ImageUrl;
+            newProduct.isGoodProduct = dto.isGoodProduct;
+
+            _repository.AddProduct(newProduct);
         }
 
         public List<Product> GetBadProducts()
