@@ -12,6 +12,5 @@ namespace GuineaPigApp.Server.Models
         [Required]
         [Range(50, 3000, ErrorMessage = "Waga świnki powinna wynosić od 50 do 3000 gram!")]
         public int Weight { get; set; }
-        public string Date { get; set; } = DateTime.Now.ToString();
     }
 }

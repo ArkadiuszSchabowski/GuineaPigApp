@@ -50,6 +50,7 @@ builder.Services.AddScoped<IGuineaPigService, GuineaPigService>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IGuineaPigRepository, GuineaPigRepository>();
 
 var app = builder.Build();
 
