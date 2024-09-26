@@ -1,4 +1,5 @@
-﻿using GuineaPigApp.Server.Database.Entities;
+﻿using AutoMapper;
+using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
@@ -8,10 +9,12 @@ namespace GuineaPigApp.Server.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _repository;
+        private readonly IMapper _mapper;
 
-        public ProductService(IProductRepository repository)
+        public ProductService(IProductRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public void AddProduct(ProductDto dto)
@@ -23,12 +26,7 @@ namespace GuineaPigApp.Server.Services
                 throw new ConflictException("Podany produkt istnieje już w bazie danych");
             }
 
-            var newProduct = new Product();
-
-            newProduct.Name = dto.Name;
-            newProduct.Description = dto.Description;
-            newProduct.ImageUrl = dto.ImageUrl;
-            newProduct.isGoodProduct = dto.isGoodProduct;
+            var newProduct = _mapper.Map<Product>(dto);
 
             _repository.AddProduct(newProduct);
         }
