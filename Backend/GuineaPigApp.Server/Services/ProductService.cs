@@ -23,7 +23,7 @@ namespace GuineaPigApp.Server.Services
 
             if (product != null)
             {
-                throw new ConflictException("Podany produkt istnieje już w bazie danych");
+                throw new ConflictException("Podany produkt istnieje już w bazie danych!");
             }
 
             var newProduct = _mapper.Map<Product>(dto);
