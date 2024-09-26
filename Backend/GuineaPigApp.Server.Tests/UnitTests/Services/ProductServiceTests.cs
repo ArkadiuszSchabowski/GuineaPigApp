@@ -35,7 +35,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 
             var exception = Assert.Throws<ConflictException>(action);
 
-            Assert.Equal("Podany produkt istnieje już w bazie danych", exception.Message);
+            Assert.Equal("Podany produkt istnieje już w bazie danych!", exception.Message);
         }
 
         [Fact]
