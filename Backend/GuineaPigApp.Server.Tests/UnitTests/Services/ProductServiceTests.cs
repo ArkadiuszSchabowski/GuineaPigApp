@@ -3,6 +3,7 @@
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
+using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Services;
 using Moq;
 
@@ -10,6 +11,33 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
 {
     public class ProductServiceTests
     {
+        [Fact]
+        public void AddProduct_WhenProductExist_ShouldThrowConflictException()
+        {
+            var mockRepository = new Mock<IProductRepository>();
+            var productService = new ProductService(mockRepository.Object, null);
+
+            var productDto = new ProductDto()
+            {
+                Name = "Test ProductDto",
+                isGoodProduct = true
+            };
+
+            var product = new Product()
+            {
+                Name = "Test Product",
+                isGoodProduct = true
+            };
+
+            mockRepository.Setup(x => x.EnsureProductDoesNotExist(productDto.Name)).Returns(product);
+
+            Action action = () => productService.AddProduct(productDto);
+
+            var exception = Assert.Throws<ConflictException>(action);
+
+            Assert.Equal("Podany produkt istnieje już w bazie danych", exception.Message);
+        }
+
         [Fact]
         public void GetProduct_WhenCorrectId_ShouldReturnProduct()
         {
