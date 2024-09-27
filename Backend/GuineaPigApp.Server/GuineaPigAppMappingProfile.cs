@@ -11,6 +11,8 @@ namespace GuineaPigApp.Server
             CreateMap<RegisterUserDto, User>();
             CreateMap<GuineaPigDto, GuineaPig>();
             CreateMap<ProductDto, Product>();
+
+            CreateMap<GuineaPig, GuineaPigDto>();
         }
     }
 }
