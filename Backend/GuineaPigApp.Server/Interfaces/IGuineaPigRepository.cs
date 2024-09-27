@@ -1,4 +1,4 @@
-﻿using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Interfaces
