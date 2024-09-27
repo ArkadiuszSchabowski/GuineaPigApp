@@ -41,5 +41,10 @@ namespace GuineaPigApp.Server.Repositories
             return guineaPig;
         }
 
+        public void RemoveGuineaPig(GuineaPig guineaPig)
+        {
+            _context.GuineaPigs.Remove(guineaPig);
+            _context.SaveChanges();
+        }
     }
 }
