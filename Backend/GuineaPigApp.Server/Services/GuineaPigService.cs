@@ -50,7 +50,23 @@ namespace GuineaPigApp.Server.Services
 
         public GuineaPigDto GetGuineaPig(string email, string name)
         {
-            throw new NotImplementedException();
+            User? user = _userRepository.GetUser(email);
+
+            if (user == null)
+            {
+                throw new BadRequestException("Taki użytkownik nie istnieje!");
+            }
+
+            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, name);
+
+            if (guineaPig == null)
+            {
+                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
+            }
+
+            var guineaPigDto = _mapper.Map<GuineaPigDto>(guineaPig);
+
+            return guineaPigDto;
         }
 
         public List<GuineaPig> GetGuineaPigs(string email)
