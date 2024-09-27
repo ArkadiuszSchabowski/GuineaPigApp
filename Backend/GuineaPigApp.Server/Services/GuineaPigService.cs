@@ -85,9 +85,23 @@ namespace GuineaPigApp.Server.Services
             return guineaPigsDto;
         }
 
-        public void RemoveGuineaPig(string email, string name)
+        public void RemoveGuineaPig(string email, string guineaPigName)
         {
-            throw new NotImplementedException();
+            User? user = _userRepository.GetUser(email);
+
+            if (user == null)
+            {
+                throw new BadRequestException("Taki użytkownik nie istnieje!");
+            }
+
+            var guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, guineaPigName);
+
+            if (guineaPig == null)
+            {
+                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
+            }
+
+            _guineaPigRepository.RemoveGuineaPig(guineaPig);
         }
     }
 }
