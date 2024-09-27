@@ -12,13 +12,12 @@ namespace GuineaPigApp.Server.Services
         private readonly IGuineaPigRepository _guineaPigRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        private readonly MyDbContext _context;
 
-        public GuineaPigService(IGuineaPigRepository guineaPigRepository, IUserRepository userRepository, MyDbContext context, IMapper mapper)
+
+        public GuineaPigService(IGuineaPigRepository guineaPigRepository, IUserRepository userRepository, IMapper mapper)
         {
             _guineaPigRepository = guineaPigRepository;
             _userRepository = userRepository;
-            _context = context;
             _mapper = mapper;
         }
         public void AddGuineaPig(string email, GuineaPigDto dto)
@@ -28,6 +27,11 @@ namespace GuineaPigApp.Server.Services
             if (user == null)
             {
                 throw new BadRequestException("Taki użytkownik nie istnieje!");
+            }
+
+            if(dto.Weight < 50 || dto.Weight > 3000)
+            {
+                throw new BadRequestException("Waga świnki musi mieścić się w przedziale 50 do 3000gram!");
             }
 
             var guineaPig = _guineaPigRepository.PigExists(user, dto.Name);
