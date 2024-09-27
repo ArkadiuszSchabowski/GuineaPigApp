@@ -1,6 +1,7 @@
 ﻿using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
+using GuineaPigApp.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuineaPigApp.Server.Repositories
@@ -26,11 +27,10 @@ namespace GuineaPigApp.Server.Repositories
             return guineaPig;
         }
 
-        public List<GuineaPig> GetGuineaPigs(User user)
+        public List<GuineaPig> GetGuineaPigs(int userId)
         {
-            return user.GuineaPig.ToList();
+            return _context.GuineaPigs.Where(g => g.UserId == userId).ToList();
         }
-
 
         public bool PigExists(User user, string name)
         {
