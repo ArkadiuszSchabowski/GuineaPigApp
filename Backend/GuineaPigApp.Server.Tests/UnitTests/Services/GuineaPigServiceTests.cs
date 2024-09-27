@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using AutoMapper;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
@@ -95,6 +96,63 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             var exception = Assert.Throws<BadRequestException>(action);
 
             Assert.Equal("Waga świnki musi mieścić się w przedziale 50 do 3000gram!", exception.Message);
+        }
+        [Fact]
+        public void GetGuineaPigs_WhenCorrectEmail_ShouldInvokeMapOnce()
+        {
+            var mockGuineaPigRepository = new Mock<IGuineaPigRepository>();
+            var mockUserRepository = new Mock<IUserRepository>();
+            var mockMapper = new Mock<IMapper>();
+
+            var guineaPigService = new GuineaPigService(mockGuineaPigRepository.Object, mockUserRepository.Object, mockMapper.Object);
+
+            var email = "correct@gmail.com";
+
+            var user = new User()
+            {
+                Id = 1,
+                Name = "Test"
+            };
+
+            var listGuineaPigs = new List<GuineaPig>();
+
+            mockUserRepository.Setup(x => x.GetUser(email)).Returns(user);
+            mockGuineaPigRepository.Setup(x => x.GetGuineaPigs(user.Id)).Returns(listGuineaPigs);
+
+            guineaPigService.GetGuineaPigs(email);
+
+            mockMapper.Verify(x => x.Map<List<GuineaPigDto>>(listGuineaPigs), Times.Once());
+        }
+        [Fact]
+        public void RemoveGuineaPig_WhenCorrectParameters_ShouldInvokeGuineaPigRepositoryRemoveOnce()
+        {
+            var mockGuineaPigRepository = new Mock<IGuineaPigRepository>();
+            var mockUserRepository = new Mock<IUserRepository>();
+
+            var guineaPigService = new GuineaPigService(mockGuineaPigRepository.Object, mockUserRepository.Object, null);
+
+            var email = "correct@gmail.com";
+
+            var user = new User()
+            {
+                Id = 1,
+                Name = "Test User"
+            };
+
+            var guineaPig = new GuineaPig()
+            {
+                Id = 1,
+                Name = "Test Pig",
+            };
+
+            string guineaPigName = "Test Pig";
+
+            mockUserRepository.Setup(x => x.GetUser(email)).Returns(user);
+            mockGuineaPigRepository.Setup(x => x.GetGuineaPig(user.Id, guineaPigName)).Returns(guineaPig);
+
+            guineaPigService.RemoveGuineaPig(email, guineaPigName);
+
+            mockGuineaPigRepository.Verify(x => x.RemoveGuineaPig(guineaPig), Times.Once());
         }
     }
 }
