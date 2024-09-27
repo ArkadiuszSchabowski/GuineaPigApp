@@ -53,7 +53,7 @@ namespace GuineaPigApp.Server.Services
             throw new NotImplementedException();
         }
 
-        public List<GuineaPig> GetGuineaPigs(string email)
+        public List<GuineaPigDto> GetGuineaPigs(string email)
         {
             User? user = _userRepository.GetUser(email);
 
@@ -62,9 +62,11 @@ namespace GuineaPigApp.Server.Services
                 throw new BadRequestException("Taki użytkownik nie istnieje!");
             }
 
-            List<GuineaPig>? guineaPigs = _guineaPigRepository.GetGuineaPigs(user);
+            List<GuineaPig> guineaPigs = _guineaPigRepository.GetGuineaPigs(user.Id);
 
-            return guineaPigs;
+            var guineaPigsDto = _mapper.Map<List<GuineaPigDto>>(guineaPigs);
+
+            return guineaPigsDto;
         }
 
         public void RemoveGuineaPig(string email, string name)
