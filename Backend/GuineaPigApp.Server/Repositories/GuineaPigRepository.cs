@@ -1,7 +1,6 @@
 ﻿using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
-using GuineaPigApp.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuineaPigApp.Server.Repositories
@@ -21,11 +20,17 @@ namespace GuineaPigApp.Server.Repositories
             _context.SaveChanges();
         }
 
+        public List<GuineaPig> GetGuineaPigs(User user)
+        {
+            return user.GuineaPig.ToList();
+        }
+
+
         public bool PigExists(User user, string name)
         {
             bool guineaPig = _context.Users.Include(x => x.GuineaPig)
                 .Where(x => x.Id == user.Id)
-                .Any(x =>x.GuineaPig.Any(x => x.Name == name));
+                .Any(x => x.GuineaPig.Any(x => x.Name == name));
 
             return guineaPig;
         }
