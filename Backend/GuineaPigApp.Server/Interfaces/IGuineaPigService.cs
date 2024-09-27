@@ -1,4 +1,5 @@
-﻿using GuineaPigApp.Server.Models;
+﻿using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Interfaces
 {
@@ -6,7 +7,7 @@ namespace GuineaPigApp.Server.Interfaces
     {
         void AddGuineaPig(string email, GuineaPigDto dto);
         GuineaPigDto GetGuineaPig(string email, string name);
-        List<GuineaPigDto> GetGuineaPigs(string email);
+        List<GuineaPig> GetGuineaPigs(string email);
         void RemoveGuineaPig(string email, string name);
     }
 }

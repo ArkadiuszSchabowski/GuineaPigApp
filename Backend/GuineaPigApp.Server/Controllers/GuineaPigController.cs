@@ -1,4 +1,5 @@
-﻿using GuineaPigApp.Server.Interfaces;
+﻿using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,9 @@ namespace GuineaPigApp.Server.Controllers
             _guineaPigService = guineaPigService;
         }
         [HttpGet]
-        public ActionResult<List<GuineaPigDto>> GetGuineaPigs([FromQuery] string email)
+        public ActionResult<List<GuineaPig>> GetGuineaPigs([FromQuery] string email)
         {
-            List<GuineaPigDto> guineaPigs = _guineaPigService.GetGuineaPigs(email);
+            List<GuineaPig> guineaPigs = _guineaPigService.GetGuineaPigs(email);
             return Ok(guineaPigs);
         }
         [HttpGet("{name}")]
