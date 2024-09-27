@@ -68,7 +68,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
         [InlineData(0)]
         [InlineData(49)]
         [InlineData(3001)]
-        public void AddGuineaPig_WhenInvalidWeight_ShouldThrowBadRequestException(int id)
+        public void AddGuineaPig_WhenInvalidWeight_ShouldThrowBadRequestException(int weight)
         {
             var mockUserRepository = new Mock<IUserRepository>();
 
@@ -87,7 +87,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             var guineaPigDto = new GuineaPigDto()
             {
                 Name = "Test",
-                Weight = id
+                Weight = weight
             };
 
             Action action = () => guineaPigService.AddGuineaPig(email, guineaPigDto);
