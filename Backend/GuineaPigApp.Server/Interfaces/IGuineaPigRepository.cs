@@ -9,5 +9,6 @@ namespace GuineaPigApp.Server.Interfaces
         GuineaPig? GetGuineaPig(int userId, string guineaPigName);
         List<GuineaPig> GetGuineaPigs(int userId);
         bool PigExists(User user, string guineaPigName);
+        void RemoveGuineaPig(GuineaPig guineaPig);
     }
 }
