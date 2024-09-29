@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using GuineaPigApp;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
@@ -7,7 +8,7 @@ using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Services;
 using Moq;
 
-namespace GuineaPigApp.Server.Tests.UnitTests.Services
+namespace GuineaPigApp.Server.UnitTests.Services
 {
     public class ProductServiceTests
     {

@@ -8,7 +8,7 @@ using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Services;
 using Moq;
 
-namespace GuineaPigApp.Server.Tests.UnitTests.Services
+namespace GuineaPigApp.Server.UnitTests.Services
 {
     public class GuineaPigServiceTests
     {

@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using GuineaPigApp;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
@@ -8,7 +9,7 @@ using GuineaPigApp.Server.Services;
 using Microsoft.AspNetCore.Identity;
 using Moq;
 
-namespace GuineaPigApp.Server.Tests.UnitTests.Services
+namespace GuineaPigApp.Server.UnitTests.Services
 {
     public class AccountServiceTests
     {
@@ -114,7 +115,7 @@ namespace GuineaPigApp.Server.Tests.UnitTests.Services
             Action action = () => accountService.ChangePassword(dto);
 
             var exception = Assert.Throws<BadRequestException>(action);
-            Assert.Equal("Wprowadzono niepoprawne hasło!", exception.Message);     
+            Assert.Equal("Wprowadzono niepoprawne hasło!", exception.Message);
         }
     }
 }
