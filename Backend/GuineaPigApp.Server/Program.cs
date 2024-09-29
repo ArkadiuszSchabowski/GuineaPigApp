@@ -4,6 +4,7 @@ using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Middleware;
 using GuineaPigApp.Server.Repositories;
+using GuineaPigApp.Server.Seeders;
 using GuineaPigApp.Server.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -52,11 +53,20 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGuineaPigRepository, GuineaPigRepository>();
 
+builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
+
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<IAccountSeeder>();
+
+    seeder.SeedData();
+}
 
 if (app.Environment.IsProduction())
 {
-app.UseMiddleware<ErrorHandlingMiddleware>();
+    app.UseMiddleware<ErrorHandlingMiddleware>();
 }
 
 if (app.Environment.IsDevelopment())
