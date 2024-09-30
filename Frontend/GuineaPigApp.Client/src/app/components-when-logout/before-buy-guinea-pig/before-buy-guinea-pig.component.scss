@@ -1,0 +1,59 @@
+#main-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  font-size: 20px;
+  margin-left: 25px;
+}
+#sub-container {
+  display: flex;
+  flex-direction: column;
+}
+img {
+  display: flex;
+  width: 400px;
+  height: auto;
+  border-radius: 50px;
+}
+.img-container {
+  margin: 10px 0 10px 25px;;
+}
+#benefits-container,
+#dangers-container,
+#responsibilities-container {
+  margin-right: 20px;
+  padding: 20px;
+}
+#responsibilities-container {
+  margin-bottom: 20px;
+}
+.title-description {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 40px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.title {
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.description {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-bottom: 10px;
+}
+ul {
+  padding-left: 20px;
+}
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  img {
+    width: 500px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  img {
+    width: 600px;
+  }
+}

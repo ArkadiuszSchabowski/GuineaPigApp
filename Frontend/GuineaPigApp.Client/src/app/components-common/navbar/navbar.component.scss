@@ -1,0 +1,85 @@
+@use '@angular/material' as mat;
+@use 'src/custom-theme' as theme;
+
+#navbar-container {
+  display: flex;
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+#left-side{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 70%;
+  height: 100%;
+}
+#right-side{
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 30%;
+  height: 100%;
+}
+button{
+  display: flex;
+  width: auto;
+  height: auto;
+  font-size: 16px;
+  padding: 10px;
+}
+mat-toolbar-row {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+mat-slide-toggle {
+  padding-left: 10px;
+}
+.menu-button{
+  display: none;
+}
+#slide-toogle{
+  display: flex;
+  margin-right: 20px;
+  margin-left:0;
+}
+#profile-menu-button{
+  display: flex;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  #navbar-container {
+    display: flex;
+    min-width: 800px;
+  }
+  #hamburger-menu-button{
+        display: flex;
+    }
+    .menu-button{
+      display:none;
+    }
+    #logoutButton{
+      display: flex;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    #hamburger-menu-button{
+      display: none;
+  }
+      .menu-button{
+      display:flex
+    }
+    #navbar-container {
+      display: flex;
+      min-width: 800px;
+    }
+    #logoutButton{
+      display: flex;
+    }
+  }
+  

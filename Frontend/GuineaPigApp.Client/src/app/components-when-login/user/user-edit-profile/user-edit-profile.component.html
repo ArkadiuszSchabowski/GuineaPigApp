@@ -1,0 +1,68 @@
+<div class="container">
+    <form #ngForm="ngForm" (ngSubmit)="checkPersonalInformation()">
+      <mat-card
+        [ngClass]="{ 'light-theme': themeHelper.currentTheme, 'dark-theme': !themeHelper.currentTheme}"
+      >
+      <mat-card-content>
+        <label class="mat-card-label">Edytuj Profil</label>
+        <mat-form-field>
+          <mat-label
+            [ngClass]="{
+              'light-theme-icon': themeHelper.currentTheme,
+              'dark-theme-icon': !themeHelper.currentTheme
+            }"
+            >Imię:</mat-label
+          >
+          <input
+           matInput 
+           name="email"
+           [(ngModel)]="model.name"
+           />
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Nazwisko:</mat-label
+            >
+            <input
+             matInput 
+             name="email"
+             [(ngModel)]="model.surname"
+             />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Miejsce zamieszkania:</mat-label
+            >
+            <input
+             matInput 
+             name="email"
+             [(ngModel)]="model.city"
+             />
+          </mat-form-field>
+
+          <button
+          type="submit"
+          mat-flat-button
+          class="submit-button"
+          [ngClass]="{
+            'light-theme-icon': themeHelper.currentTheme,
+            'dark-theme-icon': !themeHelper.currentTheme
+          }"
+        >
+          OK
+        </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+  

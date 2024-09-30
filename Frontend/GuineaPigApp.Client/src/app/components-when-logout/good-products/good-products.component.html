@@ -1,0 +1,23 @@
+<div class="container">
+  <div id="left-container">
+    <div id="title">Ulubione produkty dla świnki morskiej:</div>
+    <div id="product-container">
+      <ul id="product" *ngFor="let product of products">
+        <div id="container-product-left">
+          <div id="product-imageUrl"><img [ngClass]="{'light-theme-img-green-border': themeHelper.currentTheme, 'dark-theme-img-green-border': !themeHelper.currentTheme}" src="{{ product.imageUrl }} "></div>
+          <div id="product-name">{{ product.name }}</div>
+        </div>
+        <div id="container-product-right">
+          <div id="product-description">{{ product.description }}</div>
+        </div>
+      </ul>
+    </div>
+  </div>
+  <mat-paginator [ngClass]="{'light-theme-img-green-border': themeHelper.currentTheme, 'dark-theme-img-green-border': !themeHelper.currentTheme}" [length]="counter"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page"
+              (page)="changePage($event)"
+              >
+</mat-paginator>
+</div>

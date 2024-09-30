@@ -1,0 +1,65 @@
+<div class="container">
+  <div id="left-container">
+    <form #ngForm="ngForm" (ngSubmit)="validateModel()">
+      <mat-card
+        appearance="outlined"
+        [ngClass]="{
+          'light-theme': themeHelper.currentTheme,
+          'dark-theme': !themeHelper.currentTheme
+        }"
+      >
+        <mat-card-content>
+          <label class="mat-card-label">Formularz logowania</label>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Podaj swój e-mail</mat-label
+            >
+            <input matInput name="email" [(ngModel)]="model.email" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Podaj swoje hasło</mat-label
+            >
+            <input
+              name="password"
+              [(ngModel)]="model.password"
+              matInput
+              [type]="hidePassword ? 'password' : 'text'"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="changePasswordVisibility()"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hidePassword"
+            >
+              <mat-icon>{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <button
+            type="submit"
+            mat-flat-button
+            class="submit-button"
+            [ngClass]="{
+              'light-theme-icon': themeHelper.currentTheme,
+              'dark-theme-icon': !themeHelper.currentTheme
+            }"
+          >
+            Zaloguj się
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>
