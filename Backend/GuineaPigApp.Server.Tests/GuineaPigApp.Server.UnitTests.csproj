@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
 	<AssemblyName>GuineaPigApp.Server.UnitTests</AssemblyName>
+	<RootNamespace>GuineaPigApp.Server.UnitTests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
