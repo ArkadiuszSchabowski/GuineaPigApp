@@ -1,12 +1,14 @@
 ﻿using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuineaPigApp.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GuineaPigController : ControllerBase
     {
         private readonly IGuineaPigService _guineaPigService;

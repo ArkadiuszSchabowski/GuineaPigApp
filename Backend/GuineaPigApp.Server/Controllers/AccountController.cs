@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuineaPigApp.Server.Controllers
@@ -30,12 +31,14 @@ namespace GuineaPigApp.Server.Controllers
 
             return Ok(new { message = token });
         }
+        [Authorize]
         [HttpPost("change-password")]
         public ActionResult ChangePassword([FromBody] ChangePasswordDto dto)
         {
             _accountService.ChangePassword(dto);
             return Ok(new { message = "Twoje hasło zostało zmienione!" });
         }
+        [Authorize]
         [HttpDelete]
         public ActionResult DeleteAccount([FromQuery] string email)
         {
