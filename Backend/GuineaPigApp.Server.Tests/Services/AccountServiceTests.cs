@@ -63,14 +63,18 @@ namespace GuineaPigApp.Server.UnitTests.Services
             var loginUserDto = new LoginUserDto()
             {
                 Email = "Test@gmail.com",
-                Password = "Test123"
+                Password = "Test123",
             };
 
             var user = new User()
             {
                 Email = "Test@gmail.com",
                 PasswordHash = "###",
-                RoleId = 1
+                Role = new Role
+                {
+                    Id = 1,
+                    Name = "Admin"
+                }
             };
 
             var testAuthenticationSettings = new AuthenticationSettings()
