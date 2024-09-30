@@ -14,7 +14,7 @@ Chart.register(...registerables);
 @Component({
   selector: 'app-guinea-pig-check-weights',
   templateUrl: './guinea-pig-check-weights.component.html',
-  styleUrls: ['./guinea-pig-check-weights.component.css'],
+  styleUrls: ['./guinea-pig-check-weights.component.scss'],
 })
 export class GuineaPigCheckWeightsComponent
   extends BaseComponent

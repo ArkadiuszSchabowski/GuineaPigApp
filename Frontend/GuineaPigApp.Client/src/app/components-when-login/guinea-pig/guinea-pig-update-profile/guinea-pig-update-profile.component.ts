@@ -11,7 +11,7 @@ import { BaseComponent } from 'src/app/_shared/base.component';
 @Component({
   selector: 'app-guinea-pig-update-profile',
   templateUrl: './guinea-pig-update-profile.component.html',
-  styleUrls: ['./guinea-pig-update-profile.component.css'],
+  styleUrls: ['./guinea-pig-update-profile.component.scss'],
 })
 export class GuineaPigUpdateProfileComponent
   extends BaseComponent

@@ -11,7 +11,7 @@ import { BaseComponent } from 'src/app/_shared/base.component';
 @Component({
   selector: 'app-guinea-pig-remove-profile',
   templateUrl: './guinea-pig-remove-profile.component.html',
-  styleUrls: ['./guinea-pig-remove-profile.component.css']
+  styleUrls: ['./guinea-pig-remove-profile.component.scss']
 })
 export class GuineaPigRemoveProfileComponent extends BaseComponent implements OnInit{
 

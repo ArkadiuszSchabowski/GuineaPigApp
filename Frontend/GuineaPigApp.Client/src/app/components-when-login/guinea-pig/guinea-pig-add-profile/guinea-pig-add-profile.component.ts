@@ -13,7 +13,7 @@ import { BaseComponent } from 'src/app/_shared/base.component';
 @Component({
   selector: 'app-guinea-pig-add-profile',
   templateUrl: './guinea-pig-add-profile.component.html',
-  styleUrls: ['./guinea-pig-add-profile.component.css'],
+  styleUrls: ['./guinea-pig-add-profile.component.scss'],
 })
 export class GuineaPigAddProfileComponent
   extends BaseComponent

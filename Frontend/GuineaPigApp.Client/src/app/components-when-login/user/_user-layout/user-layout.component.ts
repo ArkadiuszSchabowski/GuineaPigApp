@@ -4,7 +4,7 @@ import { ThemeHelper } from 'src/app/_service/themeHelper.service';
 @Component({
   selector: 'app-user-layout',
   templateUrl: './user-layout.component.html',
-  styleUrls: ['./user-layout.component.css'],
+  styleUrls: ['./user-layout.component.scss'],
 })
 export class UserLayoutComponent {
   backgroundUrl: string = 'assets/images/backgrounds/userLayout.jpg';

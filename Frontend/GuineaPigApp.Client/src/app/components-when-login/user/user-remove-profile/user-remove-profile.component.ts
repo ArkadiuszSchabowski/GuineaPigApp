@@ -13,7 +13,7 @@ import { BaseComponent } from 'src/app/_shared/base.component';
 @Component({
   selector: 'app-user-remove-profile',
   templateUrl: './user-remove-profile.component.html',
-  styleUrls: ['./user-remove-profile.component.css']
+  styleUrls: ['./user-remove-profile.component.scss']
 })
 export class UserRemoveProfileComponent extends BaseComponent implements OnInit{
   override cloudText: string =

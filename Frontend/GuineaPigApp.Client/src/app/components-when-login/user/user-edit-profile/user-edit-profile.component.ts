@@ -13,7 +13,7 @@ import { BaseComponent } from 'src/app/_shared/base.component';
 @Component({
   selector: 'app-user-edit-profile',
   templateUrl: './user-edit-profile.component.html',
-  styleUrls: ['./user-edit-profile.component.css'],
+  styleUrls: ['./user-edit-profile.component.scss'],
 })
 export class UserEditProfileComponent extends BaseComponent implements OnInit {
   override cloudText: string =
