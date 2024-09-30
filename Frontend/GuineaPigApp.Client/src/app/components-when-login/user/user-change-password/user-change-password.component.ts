@@ -13,7 +13,7 @@ import { TokenService } from 'src/app/_service/token.service';
 @Component({
   selector: 'app-user-change-password',
   templateUrl: './user-change-password.component.html',
-  styleUrls: ['./user-change-password.component.css'],
+  styleUrls: ['./user-change-password.component.scss'],
 })
 export class UserChangePasswordComponent
   extends BaseComponent

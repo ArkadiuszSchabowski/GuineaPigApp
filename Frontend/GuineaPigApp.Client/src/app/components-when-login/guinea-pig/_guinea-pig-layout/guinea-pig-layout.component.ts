@@ -4,7 +4,7 @@ import { ThemeHelper } from 'src/app/_service/themeHelper.service';
 @Component({
   selector: 'app-guinea-pig-layout',
   templateUrl: './guinea-pig-layout.component.html',
-  styleUrls: ['./guinea-pig-layout.component.css']
+  styleUrls: ['./guinea-pig-layout.component.scss']
 })
 export class GuineaPigLayoutComponent implements OnInit{
 
