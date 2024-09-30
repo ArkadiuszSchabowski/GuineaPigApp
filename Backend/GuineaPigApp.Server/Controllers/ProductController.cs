@@ -1,6 +1,7 @@
 ﻿using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GuineaPigApp.Server.Controllers
@@ -38,6 +39,8 @@ namespace GuineaPigApp.Server.Controllers
 
             return Ok(product);
         }
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         public ActionResult AddProduct(ProductDto dto)
         {
@@ -45,6 +48,8 @@ namespace GuineaPigApp.Server.Controllers
 
             return Created();
         }
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         [HttpDelete("{id}")]
         public ActionResult RemoveProduct(int id)
         {
