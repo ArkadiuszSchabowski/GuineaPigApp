@@ -1,6 +1,7 @@
 ﻿using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GuineaPigApp.Server.Repositories
 {
@@ -14,7 +15,8 @@ namespace GuineaPigApp.Server.Repositories
         }
         public User? GetUser(string email)
         {
-            var user = _context.Users.FirstOrDefault(x => x.Email == email);
+            var user = _context.Users.Include(x => x.Role).
+                FirstOrDefault(x => x.Email == email);
 
             return user;
         }
