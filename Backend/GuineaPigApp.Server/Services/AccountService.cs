@@ -68,11 +68,14 @@ namespace GuineaPigApp.Server.Services
                 throw new BadRequestException("Błędne dane logowania");
             }
 
+            if(user.Role == null) {
+                throw new Exception("Użytkownik nie ma przypisanej roli!");
+            }
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim(ClaimTypes.Role, user.RoleId.ToString())
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.Role.Name.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
