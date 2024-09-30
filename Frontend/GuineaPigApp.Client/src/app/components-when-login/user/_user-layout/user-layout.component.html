@@ -1,0 +1,14 @@
+<div id="profile-container" >
+    <div id="profile-title" [ngClass]="{ 'light-theme': themeHelper.currentTheme, 'dark-theme': !themeHelper.currentTheme }">Profil Użytkownika</div>
+    <div id="profile-content-container">
+        <div id="profile-content-navigation">
+          <button mat-button routerLink="/user/profile" [ngClass]="{'dark-theme-font-color': !themeHelper.currentTheme, 'light-theme-font-color': themeHelper.currentTheme}">Informacje profilowe</button>
+            <button mat-button routerLink="/user/edit-profile" [ngClass]="{'dark-theme-font-color': !themeHelper.currentTheme, 'light-theme-font-color': themeHelper.currentTheme}">Edytuj profil</button>
+            <button mat-button routerLink="/user/user-change-password" [ngClass]="{'dark-theme-font-color': !themeHelper.currentTheme, 'light-theme-font-color': themeHelper.currentTheme}">Zmień hasło</button>
+            <button mat-button routerLink="/user/remove-profile" [ngClass]="{'dark-theme-font-color': !themeHelper.currentTheme, 'light-theme-font-color': themeHelper.currentTheme}">Usuń profil</button>
+        </div>
+        <div id="profile-content-body">
+          <router-outlet></router-outlet>
+        </div>
+    </div>
+  </div>

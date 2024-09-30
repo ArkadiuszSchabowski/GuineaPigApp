@@ -1,0 +1,48 @@
+<div class="container">
+  <div id="guinea-pig-container">
+    <form #ngForm="ngForm" (ngSubmit)="addGuineaPigProfile()">
+      <mat-card
+        [ngClass]="{
+          'light-theme': themeHelper.currentTheme,
+          'dark-theme': !themeHelper.currentTheme
+        }"
+      >
+        <mat-card-content>
+          <label class="mat-card-label">Dodaj profil świnki</label>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Imię:</mat-label
+            >
+            <input matInput name="name" [(ngModel)]="model.name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Waga (gramy):</mat-label
+            >
+            <input matInput name="weight" [(ngModel)]="model.weight" />
+          </mat-form-field>
+
+          <button
+            type="submit"
+            mat-flat-button
+            class="submit-button"
+            [ngClass]="{
+              'light-theme-icon': themeHelper.currentTheme,
+              'dark-theme-icon': !themeHelper.currentTheme
+            }"
+          >
+            OK
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>

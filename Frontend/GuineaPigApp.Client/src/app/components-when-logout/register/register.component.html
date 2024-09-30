@@ -1,0 +1,186 @@
+<mat-vertical-stepper linear #stepper>
+  <mat-step [editable]="false" [completed]="isFirstStepCompleted">
+    <ng-template matStepLabel>
+      <div [ngClass]="{
+        'light-theme-font-color': themeHelper.currentTheme,
+        'dark-theme-font-color': !themeHelper.currentTheme
+      }">Krok pierwszy - Email oraz hasło</div>
+    </ng-template>
+    <form #ngForm="ngForm">
+      <mat-card
+        id="mat-card-email-and-password"
+        appearance="outlined"
+        [ngClass]="{
+          'light-theme': themeHelper.currentTheme,
+          'dark-theme': !themeHelper.currentTheme
+        }"
+      >
+        <mat-card-content>
+          <label class="mat-card-label">Formularz rejestracji</label>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Podaj swój e-mail:</mat-label
+            >
+            <input matInput name="email" [(ngModel)]="model.email" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Podaj swoje hasło:</mat-label
+            >
+            <input
+              name="password"
+              [(ngModel)]="model.password"
+              matInput
+              [type]="hide ? 'password' : 'text'"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="hidePassword()"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Powtórz hasło:</mat-label
+            >
+            <input
+              name="repeatPassword"
+              [(ngModel)]="model.repeatPassword"
+              matInput
+              [type]="hide2 ? 'password' : 'text'"
+            />
+            <button
+              type="button"
+              mat-icon-button
+              matSuffix
+              (click)="hideRepeatPassword()"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide2"
+            >
+              <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="checkEmailAndPassword(stepper)"
+            class="submit-button"
+            [ngClass]="{
+              'light-theme-icon': themeHelper.currentTheme,
+              'dark-theme-icon': !themeHelper.currentTheme
+            }"
+          >
+            Dalej
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </mat-step>
+
+  <mat-step [editable]="false" [completed]="isSecondStepCompleted">
+    <ng-template matStepLabel>
+      <div [ngClass]="{
+        'light-theme-font-color': themeHelper.currentTheme,
+        'dark-theme-font-color': !themeHelper.currentTheme
+      }">Krok drugi - dane personalne</div></ng-template>
+    <form #ngForm="ngForm">
+      <mat-card
+        id="mat-card-personal-information"
+        appearance="outlined"
+        [ngClass]="{
+          'light-theme': themeHelper.currentTheme,
+          'dark-theme': !themeHelper.currentTheme
+        }"
+      >
+        <mat-card-content>
+          <label class="mat-card-label">Formularz rejestracji</label>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Imię:</mat-label
+            >
+            <input matInput name="name" [(ngModel)]="model.name" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Nazwisko:</mat-label
+            >
+            <input name="surname" [(ngModel)]="model.surname" matInput />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              >Miasto:</mat-label
+            >
+            <input name="city" [(ngModel)]="model.city" matInput />
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            class="submit-button"
+            [ngClass]="{
+              'light-theme-icon': themeHelper.currentTheme,
+              'dark-theme-icon': !themeHelper.currentTheme
+            }"
+            color="primary"
+            (click)="checkPersonalInformation(stepper)"
+          >
+            Dalej
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </mat-step>
+
+  <mat-step [editable]="false">
+    <ng-template matStepLabel>
+      <div [ngClass]="{
+        'light-theme-font-color': themeHelper.currentTheme,
+        'dark-theme-font-color': !themeHelper.currentTheme
+      }">Krok trzeci - potwierdzenie</div></ng-template>
+    <form #ngForm="ngForm">
+      <mat-card
+        id="mat-card-confirm-register"
+        appearance="outlined"
+        [ngClass]="{
+          'light-theme': themeHelper.currentTheme,
+          'dark-theme': !themeHelper.currentTheme
+        }"
+      >
+        <mat-card-content>
+          <label>Twoje konto zostało zarejestrowane!</label>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </mat-step>
+</mat-vertical-stepper>

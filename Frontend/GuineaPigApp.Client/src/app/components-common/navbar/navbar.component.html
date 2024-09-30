@@ -1,0 +1,42 @@
+<div id="navbar-container">
+  <mat-toolbar
+    [ngClass]="{ 'light-theme': currentTheme, 'dark-theme': !currentTheme }"
+  >
+    <mat-toolbar-row>
+      <div id="left-side">
+      <button mat-button [matMenuTriggerFor]="menu1" id="hamburger-menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+        <mat-menu #menu1="matMenu">
+          <button mat-menu-item routerLink="">Strona główna</button>
+          <button mat-menu-item routerLink="login" *ngIf="!(accountService.currentUser$ | async)">Logowanie</button>
+          <button mat-menu-item routerLink="register" *ngIf="!(accountService.currentUser$ | async)">Rejestracja</button>
+          <button mat-menu-item routerLink="info">Dla kogo świnka?</button>
+          <button mat-menu-item routerLink="good-products">Produkty polecane</button>
+          <button mat-menu-item routerLink="bad-products">Produkty zabronione</button>
+        </mat-menu>
+      <button mat-button routerLink="" class="menu-button">Strona główna</button>
+      <button mat-button routerLink="login" class="menu-button" *ngIf="!(accountService.currentUser$ | async)">Logowanie</button>
+      <button mat-button routerLink="register" class="menu-button" *ngIf="!(accountService.currentUser$ | async)">Rejestracja</button>
+      <button mat-button routerLink="info" class="menu-button">Dla kogo świnka?</button>
+      <button mat-button routerLink="good-products" class="menu-button">
+        Produkty polecane
+      </button>
+      <button mat-button routerLink="bad-products" class="menu-button">Produkty zabronione</button>
+    </div>
+    <div id="right-side">
+      <button mat-button [matMenuTriggerFor]="menu2" id="profile-menu-button" *ngIf="(accountService.currentUser$ | async)">
+        <mat-icon>pets</mat-icon>
+      </button>
+      <mat-menu #menu2="matMenu">
+        <button mat-menu-item routerLink="user/profile">Profil Użytkownika</button>
+        <button mat-menu-item routerLink="guinea-pig/profile">Profil Świnki Morskiej</button>
+        <button mat-menu-item (click)="logout()" routerLink="">Wyloguj</button>
+      </mat-menu>
+      <div id="slide-toogle"
+      >Tryb<mat-slide-toggle (change)="changeTheme()"></mat-slide-toggle
+        ></div>
+    </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+  <form #ngForm="ngForm" (ngSubmit)="updateGuineaPigProfile(selectedPig)">
+    <mat-card
+      [ngClass]="{
+        'light-theme': themeHelper.currentTheme,
+        'dark-theme': !themeHelper.currentTheme
+      }"
+    >
+      <mat-card-content>
+        <label class="mat-card-label">Aktualizuj wagę świnki</label>
+        <mat-form-field>
+          <mat-label  [ngClass]="{
+            'light-theme-icon': themeHelper.currentTheme,
+            'dark-theme-icon': !themeHelper.currentTheme
+          }">Wybierz świnkę</mat-label>
+            <mat-select [(ngModel)]="selectedPig" name="selectedPig">
+              <mat-option *ngFor="let guineapig of guineaPigs" [value]="guineapig">
+                {{ guineapig.name }}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label
+            [ngClass]="{
+              'light-theme-icon': themeHelper.currentTheme,
+              'dark-theme-icon': !themeHelper.currentTheme
+            }"
+            >Waga (gramy):</mat-label
+          >
+          <input matInput name="weight" [(ngModel)]="model.weight" />
+        </mat-form-field>
+
+        <button
+          type="submit"
+          mat-flat-button
+          class="submit-button"
+          [ngClass]="{
+            'light-theme-icon': themeHelper.currentTheme,
+            'dark-theme-icon': !themeHelper.currentTheme
+          }"
+        >
+          OK
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

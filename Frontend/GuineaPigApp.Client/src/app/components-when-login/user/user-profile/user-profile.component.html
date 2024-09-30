@@ -1,0 +1,24 @@
+<div class="container">
+    <form #ngForm="ngForm">
+        <div id="table" [ngClass]="{ 'light-theme': themeHelper.currentTheme, 'dark-theme': !themeHelper.currentTheme }">
+            <table>
+                <tr>
+                    <td class="table-property-name">Adres e-mail:</td>
+                    <td class="table-property">{{model?.email}}</td>
+                </tr>
+                <tr>
+                    <td class="table-property-name">Imię:</td>
+                    <td class="table-property">{{model?.name}}</td>
+                </tr>
+                <tr>
+                    <td class="table-property-name">Nazwisko:</td>
+                    <td class="table-property">{{model?.surname}}</td>
+                </tr>
+                <tr>
+                    <td class="table-property-name">Miasto:</td>
+                    <td class="table-property">{{model?.city}}</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

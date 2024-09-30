@@ -1,0 +1,22 @@
+<div class="container">
+    <form #ngForm="ngForm" (ngSubmit)="removeProfile()">
+       <mat-card
+          [ngClass]="{ 'light-theme': themeHelper.currentTheme, 'dark-theme': !themeHelper.currentTheme}"
+       >
+          <mat-card-content>
+             <label class="mat-card-label">Usuwanie konta użytkownika</label>
+             <button
+                type="submit"
+                mat-flat-button
+                class="submit-button"
+                [ngClass]="{
+                   'light-theme-icon': themeHelper.currentTheme,
+                   'dark-theme-icon': !themeHelper.currentTheme
+                }"
+             >
+             OK
+             </button>
+          </mat-card-content>
+       </mat-card>
+    </form>
+ </div> 
