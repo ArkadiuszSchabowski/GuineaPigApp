@@ -5,7 +5,7 @@ import { RegisterComponent } from './components-when-logout/register/register.co
 import { LoginComponent } from './components-when-logout/login/login.component';
 import { GoodProductsComponent } from './components-when-logout/good-products/good-products.component';
 import { BadProductsComponent } from './components-when-logout/bad-products/bad-products.component';
-import { BeforeBuyGuineaPigComponent } from './components-when-logout/before-buy-guinea-pig/before-buy-guinea-pig.component';
+import { InfoComponent } from './components-when-logout/info/info.component';
 import { GuineaPigLayoutComponent } from './components-when-login/guinea-pig/_guinea-pig-layout/guinea-pig-layout.component';
 import { GuineaPigAddProfileComponent } from './components-when-login/guinea-pig/guinea-pig-add-profile/guinea-pig-add-profile.component';
 import { GuineaPigProfileComponent } from './components-when-login/guinea-pig/guinea-pig-profile/guinea-pig-profile.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: "login", component: LoginComponent, canActivate: [NoLoginGuard]},
   {path: "good-products", component: GoodProductsComponent},
   {path: "bad-products", component: BadProductsComponent},
-  {path: "info", component: BeforeBuyGuineaPigComponent},
+  {path: "info", component: InfoComponent},
   {
     path: "user",
     canActivate: [authGuard],

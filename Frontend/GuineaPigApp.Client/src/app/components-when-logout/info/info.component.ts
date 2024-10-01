@@ -4,11 +4,11 @@ import { BaseComponent } from 'src/app/_shared/base.component';
 import { ThemeHelper } from 'src/app/_service/themeHelper.service';
 
 @Component({
-  selector: 'app-before-buy-guinea-pig',
-  templateUrl: './before-buy-guinea-pig.component.html',
-  styleUrls: ['./before-buy-guinea-pig.component.scss'],
+  selector: 'app-info',
+  templateUrl: './info.component.html',
+  styleUrls: ['./info.component.scss'],
 })
-export class BeforeBuyGuineaPigComponent extends BaseComponent implements OnInit {
+export class InfoComponent extends BaseComponent implements OnInit {
 
   backgroundUrl: string = "assets/images/backgrounds/no-login/beforeBuyGuineaPig.jpg"
   override cloudText: string = 'Zapewnij mi proszę odpowiednie warunki do rozwoju!';

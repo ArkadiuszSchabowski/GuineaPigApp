@@ -6,12 +6,10 @@ import { PolishPaginatorIntl } from './_internationalization/polish-paginator-in
 import { AppComponent } from './app.component';
 
 import { BadProductsComponent } from './components-when-logout/bad-products/bad-products.component';
-import { BeforeBuyGuineaPigComponent } from './components-when-logout/before-buy-guinea-pig/before-buy-guinea-pig.component';
 import { GoodProductsComponent } from './components-when-logout/good-products/good-products.component';
 import { LoginComponent } from './components-when-logout/login/login.component';
 import { MainPageComponent } from './components-when-logout/main-page/main-page.component';
 import { RegisterComponent } from './components-when-logout/register/register.component';
-
 
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
@@ -41,6 +39,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './_inteceptors/error.interceptor';
 import { UserRemoveProfileComponent } from './components-when-login/user/user-remove-profile/user-remove-profile.component';
 import { GuineaPigCheckWeightsComponent } from './components-when-login/guinea-pig/guinea-pig-check-weights/guinea-pig-check-weights.component';
+import { InfoComponent } from './components-when-logout/info/info.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,7 @@ import { GuineaPigCheckWeightsComponent } from './components-when-login/guinea-p
     MainPageComponent,
     RegisterComponent,
     LoginComponent,
-    BeforeBuyGuineaPigComponent,
+    InfoComponent,
     GoodProductsComponent,
     BadProductsComponent,
     NavbarComponent,
