@@ -1,23 +1,30 @@
 <div id="main-container">
-  <div class="title-description">{{ information?.title }}</div>
-  <div id="description" class="description">{{ information?.description }}</div>
+  <div class="title-description">Dlaczego Świnka Morska to Doskonały Wybór na Zwierzę Domowe?</div>
+  <div id="description" class="description">Świnki morskie, znane również jako świnki morskie, są uroczymi i przyjaznymi stworzeniami, które szybko mogą stać się integralną częścią każdego domu. Choć nie są to duże zwierzęta, ich osobowość i łatwość w pielęgnacji czynią je idealnymi towarzyszami dla rodzin, par oraz osób samotnych. Świnki morskie wyróżniają się swoją ciekawością i łagodnym charakterem. Są to zwierzęta, które lubią towarzystwo ludzi i szybko nawiązują więź z swoimi opiekunami. Ich radosne piski i zabawne zachowania mogą przynosić codzienną radość i uśmiech na twarzach ich właścicieli. Jedną z największych zalet posiadania świnki morskiej jest ich łatwość w pielęgnacji. Potrzebują one regularnego karmienia, dostępu do świeżej wody oraz czystej klatki. Dzięki temu są doskonałym wyborem dla osób, które chcą cieszyć się obecnością zwierzęcia domowego, ale nie mają dużo czasu na jego codzienną opiekę. Oprócz tego należy regularnie zapewniać śwince morskiej dostęp do świeżego siana oraz dbać o odpowiednie przycinanie jej pazurków, co jest istotne dla jej zdrowia i komfortu. Świnki morskie mogą również przynosić liczne korzyści emocjonalne swoim opiekunom. Ich towarzystwo może pomóc w redukcji stresu oraz poczucia samotności, szczególnie dla osób starszych czy tych mieszkających samotnie. Dodatkowo, interakcja z świnką morską może uczyć dzieci odpowiedzialności i troski o inne istoty.\r\n\r\nŚwinka morska to nie tylko urocze zwierzę domowe, ale także wierny towarzysz, który może wnieść do każdego domu radość i ciepło. Decyzja o przyjęciu świnki morskiej do rodziny może okazać się nie tylko odpowiedzialną, ale również bardzo satysfakcjonującą.</div>
   <div class="img-container">
     <img src="../../assets/images/guineapig1.jpg" />
   </div>
   <div id="sub-container">
     <div id="benefits-container">
       <div class="title">Korzyści posiadania świnki morskiej:</div>
-      <ul id="benefits" *ngFor="let benefit of information?.benefits">
-        <li>{{ benefit }}</li>
+      <ul>
+        <li>Świnki morskie są bardzo towarzyskie i mogą zapewnić wiele radości</li>
+        <li>Są stosunkowo łatwe w pielęgnacji w porównaniu do innych zwierząt domowych</li>
+        <li>Nie wymagają dużej przestrzeni do życia</li>
+        <li>Pomagają dzieciom nauczyć się odpowiedzialności (pod nadzorem dorosłych)</li>
       </ul>
+
     </div>
     <div class="img-container">
       <img src="../../assets/images/guineapig2.jpg" />
     </div>
     <div id="dangers-container">
       <div class="title">Poważne zagrożenia dla świnki morskiej:</div>
-      <ul id="dangers" *ngFor="let danger of information?.dangers">
-        <li>{{ danger }}</li>
+      <ul>
+          <li>Psy o silnym instynkcie łowieckim</li>
+          <li>Koty, które mogą polować na małe zwierzęta</li>
+          <li>Węże oraz inne niebezpieczne zwierzęta egzotyczne</li>
+          <li>Fretki</li>
       </ul>
     </div>
     <div class="img-container">
@@ -25,11 +32,13 @@
     </div>
     <div id="responsibilities-container">
       <div class="title">Obowiązki opiekuna świnki morskiej:</div>
-      <ul
-        id="responsibilities"
-        *ngFor="let responsibilities of information?.responsibilities"
-      >
-        <li>{{ responsibilities }}</li>
+      <ul>
+        <li>Codzienne karmienie i świeża woda</li>
+        <li>Dostęp do siana, na którym świnka ściera zęby</li>
+        <li>Regularne sprzątanie klatki</li>
+        <li>Codzienne chwile uwagi i interakcji</li>
+        <li>Delikatne obchodzenie się ze zwierzęciem</li>
+        <li>Zapewnienie odpowiedniej opieki weterynaryjnej</li>
       </ul>
     </div>
   </div>

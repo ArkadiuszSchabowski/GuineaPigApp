@@ -12,7 +12,6 @@ export class InfoComponent extends BaseComponent implements OnInit {
 
   backgroundUrl: string = "assets/images/backgrounds/no-login/beforeBuyGuineaPig.jpg"
   override cloudText: string = 'Zapewnij mi proszę odpowiednie warunki do rozwoju!';
-  information: any;
 
   constructor(guineaPigService: GuineaPigService, private themeHelper: ThemeHelper) {
     super(guineaPigService);
@@ -20,16 +19,7 @@ export class InfoComponent extends BaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getInformationGuineaPigs();
-    this.themeHelper.setBackground(this.backgroundUrl);
-  }
 
-  getInformationGuineaPigs() {
-    this.guineaPigService.getInformationGuineaPigs().subscribe({
-      next: (response) => {
-        this.information = response;
-      },
-      error: () => {}
-    });
+    this.themeHelper.setBackground(this.backgroundUrl);
   }
 }
