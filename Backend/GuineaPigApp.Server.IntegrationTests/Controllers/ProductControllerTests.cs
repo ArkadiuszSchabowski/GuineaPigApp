@@ -6,6 +6,7 @@ using System.Text;
 
 namespace GuineaPigApp.Server.IntegrationTests.Controllers
 {
+    [Trait("Category", "Integration")]
     public class ProductControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private HttpClient _client;
