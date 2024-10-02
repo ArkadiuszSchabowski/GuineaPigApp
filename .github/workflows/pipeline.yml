@@ -1,0 +1,33 @@
+name: Master - Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest 
+    
+    steps:
+      - uses: actions/checkout@v3
+          
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v4.0.1
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./Backend/GuineaPigApp.Server
+
+      - name: Build
+        run: dotnet build
+        working-directory: ./Backend/GuineaPigApp.Server
+
+      - name: Test
+        run: dotnet test --filter Category=Unit
+        working-directory: ./Backend/GuineaPigApp.Server
