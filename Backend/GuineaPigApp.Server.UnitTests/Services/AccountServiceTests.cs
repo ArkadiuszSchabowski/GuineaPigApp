@@ -11,6 +11,7 @@ using Moq;
 
 namespace GuineaPigApp.Server.UnitTests.Services
 {
+    [Trait("Category", "Unit")]
     public class AccountServiceTests
     {
         [Fact]
