@@ -57,6 +57,8 @@ builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
 
 var app = builder.Build();
 
+app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<IAccountSeeder>();
