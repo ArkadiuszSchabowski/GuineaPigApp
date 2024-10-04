@@ -6,7 +6,7 @@ import { ProductResult } from '../_models/product-result';
 import { GuineaPigDto } from '../_models/guinea-pig-dto';
 import { RemoveGuineaPigDto } from '../_models/remove-guinea-pig-dto';
 import { GuineaPigWeightsDto } from '../_models/guinea-pigs-weights-dto';
-import { environment } from '../_environments/environment_prod';
+import { environment } from '../_environments/environment_dev';
 
 @Injectable({
   providedIn: 'root',
