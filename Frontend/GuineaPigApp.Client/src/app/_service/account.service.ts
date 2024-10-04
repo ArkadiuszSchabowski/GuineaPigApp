@@ -1,10 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterUserDto } from '../_models/register-user-dto';
-import { environment } from '../_environments/environment_prod';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { LoginUserDto } from '../_models/login-user-dto';
 import { ChangePasswordDto } from '../_models/change-password-dto';
+import { environment } from '../_environments/environment_dev';
 
 @Injectable({
   providedIn: 'root',

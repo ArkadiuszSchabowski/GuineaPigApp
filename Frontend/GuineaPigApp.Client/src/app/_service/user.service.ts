@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../_environments/environment_prod';
 import { UserDto } from '../_models/user-dto';
 import { UpdateUserDto } from '../_models/update-user-dto';
+import { environment } from '../_environments/environment_dev';
 
 @Injectable({
   providedIn: 'root'
