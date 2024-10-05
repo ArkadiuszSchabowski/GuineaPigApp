@@ -52,8 +52,10 @@ builder.Services.AddScoped<IGuineaPigService, GuineaPigService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IGuineaPigRepository, GuineaPigRepository>();
+builder.Services.AddScoped<IProductSeederRepository, ProductSeederRepository>();
 
 builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
+builder.Services.AddScoped<IProductSeeder,  ProductSeeder>();
 
 var app = builder.Build();
 
@@ -61,9 +63,11 @@ app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAn
 
 using (var scope = app.Services.CreateScope())
 {
-    var seeder = scope.ServiceProvider.GetRequiredService<IAccountSeeder>();
+    var accountSeeder = scope.ServiceProvider.GetRequiredService<IAccountSeeder>();
+    var productSeeder = scope.ServiceProvider.GetRequiredService<IProductSeeder>();
 
-    seeder.SeedData();
+    accountSeeder.SeedData();
+    productSeeder.SeedData();
 }
 
 if (app.Environment.IsProduction())
