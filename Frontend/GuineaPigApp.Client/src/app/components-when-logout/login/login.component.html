@@ -18,7 +18,7 @@
               }"
               >Podaj swój e-mail</mat-label
             >
-            <input matInput name="email" [(ngModel)]="model.email" />
+            <input matInput name="email" [(ngModel)]="model.email" autocomplete="off"/>
           </mat-form-field>
           <mat-form-field>
             <mat-label
@@ -30,7 +30,7 @@
             >
             <input
               name="password"
-              [(ngModel)]="model.password"
+              [(ngModel)]="model.password" autocomplete="off"
               matInput
               [type]="hidePassword ? 'password' : 'text'"
             />

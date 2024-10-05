@@ -25,7 +25,7 @@
               }"
               >Podaj swój e-mail:</mat-label
             >
-            <input matInput name="email" [(ngModel)]="model.email" />
+            <input matInput name="email" [(ngModel)]="model.email" autocomplete="off"/>
           </mat-form-field>
           <mat-form-field>
             <mat-label
@@ -37,7 +37,7 @@
             >
             <input
               name="password"
-              [(ngModel)]="model.password"
+              [(ngModel)]="model.password" autocomplete="off"
               matInput
               [type]="hide ? 'password' : 'text'"
             />
@@ -63,7 +63,7 @@
             >
             <input
               name="repeatPassword"
-              [(ngModel)]="model.repeatPassword"
+              [(ngModel)]="model.repeatPassword" autocomplete="off"
               matInput
               [type]="hide2 ? 'password' : 'text'"
             />
@@ -121,7 +121,7 @@
               }"
               >Imię:</mat-label
             >
-            <input matInput name="name" [(ngModel)]="model.name" />
+            <input matInput name="name" [(ngModel)]="model.name" autocomplete="off"/>
           </mat-form-field>
           <mat-form-field>
             <mat-label
@@ -131,7 +131,7 @@
               }"
               >Nazwisko:</mat-label
             >
-            <input name="surname" [(ngModel)]="model.surname" matInput />
+            <input name="surname" [(ngModel)]="model.surname" autocomplete="off" matInput />
           </mat-form-field>
 
           <mat-form-field>
@@ -142,7 +142,7 @@
               }"
               >Miasto:</mat-label
             >
-            <input name="city" [(ngModel)]="model.city" matInput />
+            <input name="city" [(ngModel)]="model.city" autocomplete="off" matInput />
           </mat-form-field>
 
           <button
