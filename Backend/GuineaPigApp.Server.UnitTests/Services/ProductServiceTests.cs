@@ -22,7 +22,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
             var productDto = new ProductDto()
             {
                 Name = "Test ProductDto",
-                isGoodProduct = true
+                IsGoodProduct = true
             };
 
             var product = new Product()

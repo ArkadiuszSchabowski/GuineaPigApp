@@ -37,7 +37,7 @@ namespace GuineaPigApp.Server.IntegrationTests.Controllers
             {
                 Name = "Test Model",
                 Description = "Test decription which have 15 letters",
-                isGoodProduct = true,
+                IsGoodProduct = true,
             };
 
             var json = JsonConvert.SerializeObject(model);
