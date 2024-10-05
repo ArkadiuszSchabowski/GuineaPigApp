@@ -16,13 +16,13 @@ namespace GuineaPigApp.Server.Repositories
         public List<Product> GetBadProducts()
         {
             return _context.Products
-                     .Where(x => x.isGoodProduct == false)
+                     .Where(x => x.IsGoodProduct == false)
                      .ToList();
         }
         public List<Product> GetGoodProducts()
         {
             return _context.Products
-         .Where(x => x.isGoodProduct == true)
+         .Where(x => x.IsGoodProduct == true)
          .ToList();
         }
         public Product? GetProduct(int id)

@@ -28,7 +28,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
             var product = new Product()
             {
                 Name = "Test Product",
-                isGoodProduct = true
+                IsGoodProduct = true
             };
 
             mockRepository.Setup(x => x.EnsureProductDoesNotExist(productDto.Name)).Returns(product);
@@ -50,7 +50,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 Id = 1,
                 Name = "Test name 1",
                 Description = "Test description 1",
-                isGoodProduct = true
+                IsGoodProduct = true
             };
 
             var mockRepository = new Mock<IProductRepository>();
@@ -84,9 +84,9 @@ namespace GuineaPigApp.Server.UnitTests.Services
             var products = new List<Product>()
             {
                 new Product
-                { Id = 1, Name = "Bad Product 1", Description = "Bad Product Description 1", isGoodProduct = false },
+                { Id = 1, Name = "Bad Product 1", Description = "Bad Product Description 1", IsGoodProduct = false },
                 new Product
-                { Id = 2, Name = "Bad Product 2", Description = "Bad Product Description 2", isGoodProduct = false }
+                { Id = 2, Name = "Bad Product 2", Description = "Bad Product Description 2", IsGoodProduct = false }
             };
 
             var mockRepository = new Mock<IProductRepository>();
@@ -105,9 +105,9 @@ namespace GuineaPigApp.Server.UnitTests.Services
             var products = new List<Product>()
             {
                 new Product
-                { Id = 1, Name = "Good Product 1", Description = "Good Product Description 1", isGoodProduct = true },
+                { Id = 1, Name = "Good Product 1", Description = "Good Product Description 1", IsGoodProduct = true },
                 new Product
-                { Id = 2, Name = "Good Product 2", Description = "Good Product Description 2", isGoodProduct = true }
+                { Id = 2, Name = "Good Product 2", Description = "Good Product Description 2", IsGoodProduct = true }
             };
 
             var mockRepository = new Mock<IProductRepository>();

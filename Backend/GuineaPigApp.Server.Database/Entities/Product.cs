@@ -15,6 +15,6 @@ namespace GuineaPigApp.Server.Database.Entities
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = "/assets/images/products/default.jpg";
         [Required]
-        public bool isGoodProduct { get; set; }
+        public bool IsGoodProduct { get; set; }
     }
 }
