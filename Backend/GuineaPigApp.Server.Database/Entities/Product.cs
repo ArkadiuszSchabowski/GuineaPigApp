@@ -6,14 +6,14 @@ namespace GuineaPigApp.Server.Database.Entities
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Nazwa produktu jest wymagana!")]
-        [MinLength(3, ErrorMessage = "Nazwa produktu nie może być krótsza niż 3 znaki!")]
-        [MaxLength(25, ErrorMessage = "Nazwa produktu nie może być dłuższa niż 25 znaków!")]
+        [StringLength(maximumLength: 25, MinimumLength = 3,
+            ErrorMessage = "Nazwa produktu nie może być krótsza niż 3 znaki i dłuższa niż 25 znaków!"
+        )]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Opis produktu jest wymagany")]
-        [MinLength(25, ErrorMessage = "Opis produktu mnie może być krótszy niż 25 znaków!")]
-        [MaxLength(1000, ErrorMessage = "Opis produktu nie może być dłuższy niż 1000 znaków!")]
+        [StringLength(maximumLength: 1000, MinimumLength = 25,
+            ErrorMessage = "Opis produktu nie może być krótszy niż 25 znaków i dłuższa niż 1000 znaków!"
+        )]
         public string Description { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = "/assets/images/products/default.jpg";
         [Required]
