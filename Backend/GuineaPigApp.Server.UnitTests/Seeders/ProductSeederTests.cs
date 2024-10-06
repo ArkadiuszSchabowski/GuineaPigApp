@@ -15,7 +15,7 @@ namespace GuineaPigApp.Server.UnitTests.Seeders
         public void GetProducts_WithCorrectList_ShouldMapProductDtoToProduct()
         {
             var mockMapper = new Mock<IMapper>();
-            var productSeeder = new ProductSeeder(null, mockMapper.Object);
+            var productSeeder = new ProductSeeder(null, mockMapper.Object, null);
 
             List<ProductDto> productsDto = new List<ProductDto>()
             {
