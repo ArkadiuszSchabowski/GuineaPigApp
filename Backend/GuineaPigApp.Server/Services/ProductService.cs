@@ -10,11 +10,13 @@ namespace GuineaPigApp.Server.Services
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IPaginatorValidator _paginator;
 
-        public ProductService(IProductRepository repository, IMapper mapper)
+        public ProductService(IProductRepository repository, IMapper mapper, IPaginatorValidator paginator)
         {
             _repository = repository;
             _mapper = mapper;
+            _paginator = paginator;
         }
 
         public void AddProduct(ProductDto dto)
@@ -31,16 +33,20 @@ namespace GuineaPigApp.Server.Services
             _repository.AddProduct(newProduct);
         }
 
-        public List<Product> GetBadProducts()
+        public List<Product> GetBadProducts(PaginationDto dto)
         {
-            var badProducts = _repository.GetBadProducts();
+            _paginator.ValidatePagination(dto);
+
+            var badProducts = _repository.GetBadProducts(dto);
 
             return badProducts;
         }
 
-        public List<Product> GetGoodProducts()
+        public List<Product> GetGoodProducts(PaginationDto dto)
         {
-            var goodProducts = _repository.GetGoodProducts();
+            _paginator.ValidatePagination(dto);
+
+            var goodProducts = _repository.GetGoodProducts(dto);
 
             return goodProducts;
         }
