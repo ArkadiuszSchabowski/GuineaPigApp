@@ -5,6 +5,7 @@ import { ProductDto } from '../../_models/product-dto';
 import { GuineaPigService } from 'src/app/_service/guinea-pig.service';
 import { BaseComponent } from 'src/app/_shared/base.component';
 import { ThemeHelper } from 'src/app/_service/themeHelper.service';
+import { ProductService } from 'src/app/_service/product.service';
 
 @Component({
   selector: 'app-good-products',
@@ -20,7 +21,7 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
   counter: number | undefined= undefined;
   pagination: PaginationDto = new PaginationDto();
 
-  constructor(guineaPigService: GuineaPigService, public themeHelper: ThemeHelper){
+  constructor(guineaPigService: GuineaPigService, public themeHelper: ThemeHelper, public productService: ProductService){
     super(guineaPigService);
   }
 
@@ -34,7 +35,7 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
 
   getGoodProductsInformation(){
 
-    this.guineaPigService.getGoodProducts(this.pagination).subscribe({
+    this.productService.getGoodProducts(this.pagination).subscribe({
       next: response => {
         this.products = response.products;
         this.counter = response.counter;
@@ -47,7 +48,7 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
     this.pagination.PageNumber = event.pageIndex + 1;
     this.pagination.PageSize = event.pageSize;
 
-    this.guineaPigService.getGoodProducts(this.pagination).subscribe({
+    this.productService.getGoodProducts(this.pagination).subscribe({
       next: response => {
         this.products = response.products
         this.counter = response.counter
