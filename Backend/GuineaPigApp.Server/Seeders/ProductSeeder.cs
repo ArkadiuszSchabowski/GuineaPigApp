@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
@@ -9,22 +10,30 @@ namespace GuineaPigApp.Server.Seeders
     {
         private readonly IProductSeederRepository _repository;
         private readonly IMapper _mapper;
+        private readonly MyDbContext _context;
 
-        public ProductSeeder(IProductSeederRepository repository, IMapper mapper)
+        public ProductSeeder(IProductSeederRepository repository, IMapper mapper, MyDbContext context)
         {
             _repository = repository;
             _mapper = mapper;
+            _context = context;
         }
         public void SeedData()
         {
-            List<ProductDto> badProductsDto = GetBadProducts();
-            List<ProductDto> goodProductsDto = GetGoodProducts();
+            if (_context.Database.CanConnect())
+            {
+                if (!_context.Products.Any())
+                {
+                    List<ProductDto> badProductsDto = GetBadProducts();
+                    List<ProductDto> goodProductsDto = GetGoodProducts();
 
-            List<Product> badProducts = GetProducts(badProductsDto);
-            List<Product> goodProducts = GetProducts(goodProductsDto);
+                    List<Product> badProducts = GetProducts(badProductsDto);
+                    List<Product> goodProducts = GetProducts(goodProductsDto);
 
-            _repository.AddListProduct(badProducts);
-            _repository.AddListProduct(goodProducts);
+                    _repository.AddListProduct(badProducts);
+                    _repository.AddListProduct(goodProducts);
+                }
+            }
         }
         public List<Product> GetProducts(List<ProductDto> dto)
         {
