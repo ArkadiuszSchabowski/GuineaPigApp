@@ -17,7 +17,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         public void AddProduct_WhenProductExist_ShouldThrowConflictException()
         {
             var mockRepository = new Mock<IProductRepository>();
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object, null, null);
 
             var productDto = new ProductDto()
             {
@@ -55,7 +55,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
 
             var mockRepository = new Mock<IProductRepository>();
 
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object, null, null);
 
             mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product1);
 
@@ -70,7 +70,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [InlineData(-5)]
         public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
         {
-            var productService = new ProductService(null, null);
+            var productService = new ProductService(null, null, null);
 
             Action action = () => productService.GetProduct(id);
             var exception = Assert.Throws<BadRequestException>(action);
@@ -90,12 +90,20 @@ namespace GuineaPigApp.Server.UnitTests.Services
             };
 
             var mockRepository = new Mock<IProductRepository>();
+            var mockPaginator = new Mock<IPaginatorValidator>();
 
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object, null, mockPaginator.Object);
 
-            mockRepository.Setup(x => x.GetBadProducts()).Returns(products);
+            var paginationDto = new PaginationDto()
+            {
+                PageNumber = 1,
+                PageSize = 10
+            };
 
-            var result = productService.GetBadProducts();
+            mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
+            mockRepository.Setup(x => x.GetBadProducts(paginationDto)).Returns(products);
+
+            var result = productService.GetBadProducts(paginationDto);
 
             Assert.Equal(result, products);
         }
@@ -110,13 +118,21 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 { Id = 2, Name = "Good Product 2", Description = "Good Product Description 2", IsGoodProduct = true }
             };
 
+            var paginationDto = new PaginationDto()
+            {
+                PageNumber = 1,
+                PageSize = 10
+            };
+
             var mockRepository = new Mock<IProductRepository>();
+            var mockPaginator = new Mock<IPaginatorValidator>();
 
-            var productService = new ProductService(mockRepository.Object, null);
+            var productService = new ProductService(mockRepository.Object, null, mockPaginator.Object);
 
-            mockRepository.Setup(x => x.GetGoodProducts()).Returns(products);
+            mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
+            mockRepository.Setup(x => x.GetGoodProducts(paginationDto)).Returns(products);
 
-            var result = productService.GetGoodProducts();
+            var result = productService.GetGoodProducts(paginationDto);
 
             Assert.Equal(result, products);
         }
@@ -127,7 +143,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [InlineData(-5)]
         public void RemoveProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
         {
-            var productService = new ProductService(null, null);
+            var productService = new ProductService(null, null, null);
 
             Action action = () => productService.RemoveProduct(id);
             var exception = Assert.Throws<BadRequestException>(action);

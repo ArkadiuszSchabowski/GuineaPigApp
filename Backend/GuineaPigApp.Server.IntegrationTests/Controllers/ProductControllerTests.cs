@@ -18,15 +18,24 @@ namespace GuineaPigApp.Server.IntegrationTests.Controllers
         [Fact]
         public async Task GetBadProducts_WhenCalled_ShouldReturnStatusCodeOk()
         {
-            var response = await _client.GetAsync("/api/product/bad");
+            var paginatorDto = new PaginationDto()
+            {
+                PageNumber = 1,
+                PageSize = 10
+            };
+            var response = await _client.GetAsync($"/api/Product/bad?pageNumber={paginatorDto.PageNumber}&PageSize={paginatorDto.PageSize}");
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
         [Fact]
         public async Task GetGoodProducts_WhenCalled_ShouldReturnStatusCodeOk()
         {
-
-            var response = await _client.GetAsync("/api/product/good");
+            var paginatorDto = new PaginationDto()
+            {
+                PageNumber = 1,
+                PageSize = 10
+            };
+            var response = await _client.GetAsync($"/api/Product/good?pageNumber={paginatorDto.PageNumber}&PageSize={paginatorDto.PageSize}");
 
             response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
