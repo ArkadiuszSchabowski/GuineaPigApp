@@ -6,6 +6,7 @@ import { ProductDto } from '../../_models/product-dto';
 import { ProductResult } from '../../_models/product-result';
 import { BaseComponent } from 'src/app/_shared/base.component';
 import { ThemeHelper } from 'src/app/_service/themeHelper.service';
+import { ProductService } from 'src/app/_service/product.service';
 
 @Component({
   selector: 'app-bad-products',
@@ -21,7 +22,7 @@ export class BadProductsComponent extends BaseComponent implements OnInit{
   counter: number | undefined = undefined;
   pagination: PaginationDto = new PaginationDto();
 
-  constructor(guineaPigService: GuineaPigService, public themeHelper: ThemeHelper){
+  constructor(guineaPigService: GuineaPigService, public themeHelper: ThemeHelper, public productService: ProductService){
     super(guineaPigService);
   }
   override ngOnInit(): void {
@@ -33,7 +34,7 @@ export class BadProductsComponent extends BaseComponent implements OnInit{
 
   getBadProductsInformation(paginationDto: PaginationDto){
 
-    this.guineaPigService.getBadProducts(paginationDto).subscribe({
+    this.productService.getBadProducts(paginationDto).subscribe({
       next: (response: ProductResult) => {
         this.products = response.products;
         this.counter = response.counter;
@@ -47,7 +48,7 @@ export class BadProductsComponent extends BaseComponent implements OnInit{
     this.pagination.PageSize = event.pageSize;
     this.pagination.PageNumber = event.pageIndex + 1;
 
-    this.guineaPigService.getBadProducts(this.pagination).subscribe({
+    this.productService.getBadProducts(this.pagination).subscribe({
       next: response => this.products = response.products,
       error: () => {}
     })
