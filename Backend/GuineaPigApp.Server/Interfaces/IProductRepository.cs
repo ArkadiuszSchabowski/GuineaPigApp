@@ -1,4 +1,5 @@
 ﻿using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Interfaces
 {
@@ -6,8 +7,8 @@ namespace GuineaPigApp.Server.Interfaces
     {
         void AddProduct(Product product);
         Product? EnsureProductDoesNotExist(string name);
-        List<Product> GetBadProducts();
-        List<Product> GetGoodProducts();
+        List<Product> GetBadProducts(PaginationDto dto);
+        List<Product> GetGoodProducts(PaginationDto dto);
         Product? GetProduct(int id);
         void RemoveProduct(Product product);
     }
