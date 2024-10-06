@@ -2,6 +2,7 @@
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
+using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Repositories
 {
@@ -13,17 +14,21 @@ namespace GuineaPigApp.Server.Repositories
         {
             _context = context;
         }
-        public List<Product> GetBadProducts()
+        public List<Product> GetBadProducts(PaginationDto dto)
         {
             return _context.Products
                      .Where(x => x.IsGoodProduct == false)
+                     .Skip((dto.PageNumber - 1) * dto.PageSize)
+                     .Take(dto.PageSize)
                      .ToList();
         }
-        public List<Product> GetGoodProducts()
+        public List<Product> GetGoodProducts(PaginationDto dto)
         {
             return _context.Products
-         .Where(x => x.IsGoodProduct == true)
-         .ToList();
+        .Where(x => x.IsGoodProduct == true)
+        .Skip((dto.PageNumber - 1) * dto.PageSize)
+        .Take(dto.PageSize)
+        .ToList();
         }
         public Product? GetProduct(int id)
         {
