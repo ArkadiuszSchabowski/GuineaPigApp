@@ -6,6 +6,7 @@ using GuineaPigApp.Server.Middleware;
 using GuineaPigApp.Server.Repositories;
 using GuineaPigApp.Server.Seeders;
 using GuineaPigApp.Server.Services;
+using GuineaPigApp.Server.Validators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -56,6 +57,8 @@ builder.Services.AddScoped<IProductSeederRepository, ProductSeederRepository>();
 
 builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
 builder.Services.AddScoped<IProductSeeder,  ProductSeeder>();
+
+builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
 
 var app = builder.Build();
 
