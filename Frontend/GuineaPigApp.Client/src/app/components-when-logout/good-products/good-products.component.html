@@ -13,7 +13,7 @@
       </ul>
     </div>
   </div>
-  <mat-paginator [ngClass]="{'light-theme-img-green-border': themeHelper.currentTheme, 'dark-theme-img-green-border': !themeHelper.currentTheme}" [length]="counter"
+  <mat-paginator [ngClass]="{'light-theme-img-green-border': themeHelper.currentTheme, 'dark-theme-img-green-border': !themeHelper.currentTheme}" [length]="totalCount"
               [pageSize]="10"
               [pageSizeOptions]="[5, 10, 25, 100]"
               aria-label="Select page"
