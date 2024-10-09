@@ -27,12 +27,12 @@ export class BadProductsComponent extends BaseComponent implements OnInit{
   }
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getBadProductsInformation(this.pagination);
+    this.getBadProducts(this.pagination);
     this.themeHelper.setTheme();
     this.themeHelper.setBackground(this.backgroundUrl);
   }
 
-  getBadProductsInformation(paginationDto: PaginationDto){
+  getBadProducts(paginationDto: PaginationDto){
 
     this.productService.getBadProducts(paginationDto).subscribe({
       next: (response: ProductResult) => {

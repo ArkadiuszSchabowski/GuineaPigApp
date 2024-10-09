@@ -28,12 +28,12 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getGoodProductsInformation();
+    this.getGoodProducts();
     this.themeHelper.setTheme();
     this.themeHelper.setBackground(this.backgroundUrl);
   }
 
-  getGoodProductsInformation(){
+  getGoodProducts(){
 
     this.productService.getGoodProducts(this.pagination).subscribe({
       next: response => {
