@@ -18,7 +18,7 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
   override cloudText: string = "Co za pyszności! Pamiętaj o porze karmienia!"
 
   products: ProductDto[] = [];
-  counter: number | undefined= undefined;
+  totalCount: number | undefined= undefined;
   pagination: PaginationDto = new PaginationDto();
 
   constructor(guineaPigService: GuineaPigService, public themeHelper: ThemeHelper, public productService: ProductService){
@@ -28,17 +28,17 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.getGoodProductsInformation();
+    this.getGoodProducts();
     this.themeHelper.setTheme();
     this.themeHelper.setBackground(this.backgroundUrl);
   }
 
-  getGoodProductsInformation(){
+  getGoodProducts(){
 
     this.productService.getGoodProducts(this.pagination).subscribe({
       next: response => {
         this.products = response.products;
-        this.counter = response.counter;
+        this.totalCount = response.totalCount;
       },
       error: () => {}
     })
@@ -51,7 +51,7 @@ export class GoodProductsComponent extends BaseComponent implements OnInit{
     this.productService.getGoodProducts(this.pagination).subscribe({
       next: response => {
         this.products = response.products
-        this.counter = response.counter
+        this.totalCount = response.totalCount
       },
 
       error: () => {}
