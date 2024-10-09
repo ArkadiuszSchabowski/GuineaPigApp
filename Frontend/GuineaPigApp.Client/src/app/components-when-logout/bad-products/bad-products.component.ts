@@ -19,7 +19,7 @@ export class BadProductsComponent extends BaseComponent implements OnInit{
   override cloudText: string = "Proszę pamiętaj, by nigdy nie dawać mi tych produktów! Niektóre z nich są nawet śmiertelnie szkodliwe!"
 
   products: ProductDto[] = [];
-  counter: number | undefined = undefined;
+  totalCount: number | undefined = undefined;
   pagination: PaginationDto = new PaginationDto();
 
   constructor(guineaPigService: GuineaPigService, public themeHelper: ThemeHelper, public productService: ProductService){
@@ -37,7 +37,7 @@ export class BadProductsComponent extends BaseComponent implements OnInit{
     this.productService.getBadProducts(paginationDto).subscribe({
       next: (response: ProductResult) => {
         this.products = response.products;
-        this.counter = response.counter;
+        this.totalCount = response.totalCount;
       },
       error: () => {}
     })
