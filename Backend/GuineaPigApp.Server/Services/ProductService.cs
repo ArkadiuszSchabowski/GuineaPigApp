@@ -33,22 +33,41 @@ namespace GuineaPigApp.Server.Services
             _repository.AddProduct(newProduct);
         }
 
-        public List<Product> GetBadProducts(PaginationDto dto)
+        public ProductResultDto GetBadProductsResult(PaginationDto dto)
         {
             _paginator.ValidatePagination(dto);
+
+            int countBadProducts = _repository.CountBadProducts();
 
             var badProducts = _repository.GetBadProducts(dto);
 
-            return badProducts;
+            var badProductsDto = _mapper.Map<List<ProductDto>>(badProducts);
+
+            var productResultDto = new ProductResultDto()
+            {
+                Products = badProductsDto,
+                TotalCount = countBadProducts,
+            };
+
+            return productResultDto;
         }
 
-        public List<Product> GetGoodProducts(PaginationDto dto)
+        public ProductResultDto GetGoodProductsResult(PaginationDto dto)
         {
             _paginator.ValidatePagination(dto);
 
+            int countGoodProducts = _repository.CountGoodProducts();
+
             var goodProducts = _repository.GetGoodProducts(dto);
 
-            return goodProducts;
+            var goodProductsDto = _mapper.Map<List<ProductDto>>(goodProducts);
+
+            var productResultDto = new ProductResultDto()
+            {
+                Products = goodProductsDto,
+                TotalCount = countGoodProducts,
+            };
+            return productResultDto;
         }
 
         public Product GetProduct(int id)

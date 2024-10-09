@@ -9,9 +9,9 @@ namespace GuineaPigApp.Server
         public GuineaPigAppMappingProfile()
         {
             CreateMap<RegisterUserDto, User>();
-            CreateMap<GuineaPigDto, GuineaPig>();
             CreateMap<ProductDto, Product>();
-
+            CreateMap<Product, ProductDto>();
+            CreateMap<GuineaPigDto, GuineaPig>();
             CreateMap<GuineaPig, GuineaPigDto>();
         }
     }

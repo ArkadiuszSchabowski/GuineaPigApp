@@ -14,21 +14,35 @@ namespace GuineaPigApp.Server.Repositories
         {
             _context = context;
         }
+        public int CountBadProducts()
+        {
+            return _context.Products
+            .Where(x => x.IsGoodProduct == false)
+            .Count();
+        }
         public List<Product> GetBadProducts(PaginationDto dto)
         {
             return _context.Products
                      .Where(x => x.IsGoodProduct == false)
+                     .OrderBy(x => x.Name)
                      .Skip((dto.PageNumber - 1) * dto.PageSize)
                      .Take(dto.PageSize)
                      .ToList();
         }
+        public int CountGoodProducts()
+        {
+            return _context.Products
+            .Where(x => x.IsGoodProduct == true)
+            .Count();
+        }
         public List<Product> GetGoodProducts(PaginationDto dto)
         {
             return _context.Products
-        .Where(x => x.IsGoodProduct == true)
-        .Skip((dto.PageNumber - 1) * dto.PageSize)
-        .Take(dto.PageSize)
-        .ToList();
+            .Where(x => x.IsGoodProduct == true)
+           .OrderBy(x => x.Name)
+           .Skip((dto.PageNumber - 1) * dto.PageSize)
+           .Take(dto.PageSize)
+           .ToList();
         }
         public Product? GetProduct(int id)
         {

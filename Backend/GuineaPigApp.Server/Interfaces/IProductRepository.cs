@@ -6,6 +6,8 @@ namespace GuineaPigApp.Server.Interfaces
     public interface IProductRepository
     {
         void AddProduct(Product product);
+        int CountBadProducts();
+        int CountGoodProducts();
         Product? EnsureProductDoesNotExist(string name);
         List<Product> GetBadProducts(PaginationDto dto);
         List<Product> GetGoodProducts(PaginationDto dto);
