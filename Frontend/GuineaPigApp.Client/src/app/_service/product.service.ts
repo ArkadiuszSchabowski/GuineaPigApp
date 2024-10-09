@@ -17,7 +17,7 @@ export class ProductService {
       .set('PageNumber', paginationDto.PageNumber.toString())
       .set('PageSize', paginationDto.PageSize.toString());
     return this.http.get<ProductResult>(
-      environment.apiUrl + 'guineapig/bad-products',
+      environment.apiUrl + 'product/bad',
       { params }
     );
   }
@@ -27,7 +27,7 @@ export class ProductService {
       .set('PageNumber', paginationDto.PageNumber.toString())
       .set('PageSize', paginationDto.PageSize.toString());
     return this.http.get<ProductResult>(
-      environment.apiUrl + 'guineapig/good-products',
+      environment.apiUrl + 'product/good',
       { params }
     );
   }
