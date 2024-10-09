@@ -18,18 +18,18 @@ namespace GuineaPigApp.Server.Controllers
         }
 
         [HttpGet("bad")]
-        public ActionResult<List<Product>> GetBadProducts([FromQuery] PaginationDto dto)
+        public ActionResult<ProductResultDto> GetBadProducts([FromQuery] PaginationDto dto)
         {
-            List<Product> products = _service.GetBadProducts(dto);
+            ProductResultDto result = _service.GetBadProductsResult(dto);
 
-            return Ok(products);
+            return Ok(result);
         }
         [HttpGet("good")]
-        public ActionResult<List<Product>> GetGoodProducts([FromQuery] PaginationDto dto)
+        public ActionResult<ProductResultDto> GetGoodProducts([FromQuery] PaginationDto dto)
         {
-            List<Product> products = _service.GetGoodProducts(dto);
+            ProductResultDto result = _service.GetGoodProductsResult(dto);
 
-            return Ok(products);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
