@@ -42,16 +42,16 @@ export class UserEditProfileComponent extends BaseComponent implements OnInit {
 
   checkPersonalInformation(){
 
-    this.model.email = this.tokenService.getEmailFromToken();
+    this.email = this.tokenService.getEmailFromToken();
 
     this.isPersonalInformation = this.validateService.validatePersonalInformation(this.model);
-    this.updateUser(this.model);
+    this.updateUser(this.email, this.model);
   }
 
-  updateUser(model: UpdateUserDto) {
+  updateUser(email: string, model: UpdateUserDto) {
 
     if(this.isPersonalInformation){
-      this.userService.updateProfileInformation(model).subscribe({
+      this.userService.updateProfileInformation(email, model).subscribe({
         next: () => {
           this.toastr.success("Twoje dane zostały zaaktualizowane!")
           this.router.navigateByUrl("/user/profile");
