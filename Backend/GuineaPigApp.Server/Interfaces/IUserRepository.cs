@@ -8,5 +8,6 @@ namespace GuineaPigApp.Server.Interfaces
         void AddUser(User user);
         void RemoveUser(User user);
         void UpdateUser(User user);
+        void SaveChanges();
     }
 }

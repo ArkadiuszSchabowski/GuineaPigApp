@@ -35,5 +35,9 @@ namespace GuineaPigApp.Server.Repositories
             _context.Users.Update(user);
             _context.SaveChanges();
         }
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }
