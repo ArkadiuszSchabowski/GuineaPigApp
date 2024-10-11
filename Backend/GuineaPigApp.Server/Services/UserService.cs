@@ -29,5 +29,19 @@ namespace GuineaPigApp.Server.Services
 
             return userDto;
         }
+
+        public void UpdateUser(string email, UpdateUserDto dto)
+        {
+            User? user = _userRepository.GetUser(email);
+
+            if (user == null)
+            {
+                throw new BadRequestException("Nie znaleziono użytkownika o podanym adresie e-mail!");
+            }
+
+            _mapper.Map(dto, user);
+
+            _userRepository.SaveChanges();
+        }
     }
 }
