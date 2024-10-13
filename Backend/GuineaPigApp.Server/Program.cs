@@ -60,6 +60,7 @@ builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
 builder.Services.AddScoped<IProductSeeder,  ProductSeeder>();
 
 builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
+builder.Services.AddScoped<IUserValidator, UserValidator>();
 
 var app = builder.Build();
 

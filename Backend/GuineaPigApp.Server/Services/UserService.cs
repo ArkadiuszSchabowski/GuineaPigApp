@@ -10,14 +10,18 @@ namespace GuineaPigApp.Server.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IUserValidator _userValidator;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, IUserValidator userValidator)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _userValidator = userValidator;
         }
         public GetUserDto GetUser(string email)
         {
+            _userValidator.ValidateEmailFormat(email);
+
             User? user = _userRepository.GetUser(email);
 
             if (user == null)
@@ -32,6 +36,8 @@ namespace GuineaPigApp.Server.Services
 
         public void UpdateUser(string email, UpdateUserDto dto)
         {
+            _userValidator.ValidateEmailFormat(email);
+            
             User? user = _userRepository.GetUser(email);
 
             if (user == null)
