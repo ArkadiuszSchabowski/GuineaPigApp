@@ -26,7 +26,7 @@ namespace GuineaPigApp.Server.Services
 
             if (user == null)
             {
-                throw new BadRequestException("Nie znaleziono użytkownika o podanym adresie e-mail!");
+                throw new NotFoundException("Nie znaleziono użytkownika o podanym adresie e-mail!");
             }
 
             var userDto = _mapper.Map<GetUserDto>(user);
@@ -42,7 +42,7 @@ namespace GuineaPigApp.Server.Services
 
             if (user == null)
             {
-                throw new BadRequestException("Nie znaleziono użytkownika o podanym adresie e-mail!");
+                throw new NotFoundException("Nie znaleziono użytkownika o podanym adresie e-mail!");
             }
 
             _mapper.Map(dto, user);
