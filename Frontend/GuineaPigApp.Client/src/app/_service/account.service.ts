@@ -61,6 +61,6 @@ export class AccountService {
 
     let params = new HttpParams().set('email', email)
 
-    return this.http.delete(this.baseUrl + "account/remove-account", {params});
+    return this.http.delete(this.baseUrl + "account", {params});
   }
 }
