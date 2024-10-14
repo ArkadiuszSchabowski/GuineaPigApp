@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterUserDto } from '../_models/register-user-dto';
 import { BehaviorSubject, map, Observable } from 'rxjs';
@@ -59,8 +59,12 @@ export class AccountService {
   }
   removeProfile(email: string){
 
-    let params = new HttpParams().set('email', email)
-
-    return this.http.delete(this.baseUrl + "account", {params});
+    const token = localStorage.getItem('token');
+  
+    let params = new HttpParams().set('email', email);
+  
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    return this.http.delete(this.baseUrl + "account", { params, headers });
   }
 }
