@@ -55,7 +55,12 @@ export class AccountService {
     this.currentUserSource.next(null);
   }
   changePassword(changePasswordDto: ChangePasswordDto){
-    return this.http.post<ChangePasswordDto>(this.baseUrl + "account/change-password", changePasswordDto)
+
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post<ChangePasswordDto>(this.baseUrl + "account/change-password", changePasswordDto, {headers})
   }
   removeProfile(email: string){
 
