@@ -33,7 +33,7 @@ export class GuineaPigService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 
     return this.http.get<GuineaPigDto[]>(
-      environment.apiUrl + 'guineapig/guinea-pigs',
+      environment.apiUrl + 'guineapig',
       { params, headers }
     );
   }
