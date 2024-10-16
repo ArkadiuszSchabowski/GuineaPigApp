@@ -28,9 +28,13 @@ export class GuineaPigService {
   getGuineaPigs(email: string) {
     let params = new HttpParams().set('email', email);
 
+    this.token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+
     return this.http.get<GuineaPigDto[]>(
       environment.apiUrl + 'guineapig/guinea-pigs',
-      { params }
+      { params, headers }
     );
   }
   getGuineaPigWeights(email: string, name: string){
@@ -46,6 +50,8 @@ export class GuineaPigService {
     let params = new HttpParams().set('email', email);
 
     this.token = localStorage.getItem('token');
+
+    console.log(this.token);
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
 
