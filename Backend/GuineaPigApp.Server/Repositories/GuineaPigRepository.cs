@@ -20,6 +20,11 @@ namespace GuineaPigApp.Server.Repositories
             _context.GuineaPigs.Add(guineaPig);
             _context.SaveChanges();
         }
+        public void AddGuineaPigWeight(GuineaPigWeight guineaPigWeight)
+        {
+            _context.GuineaPigWeights.Add(guineaPigWeight);
+            _context.SaveChanges();
+        }
         public GuineaPig? GetGuineaPig(int userId, string guineaPigName)
         {
             GuineaPig? guineaPig = _context.GuineaPigs.SingleOrDefault(g => g.UserId == userId && g.Name == guineaPigName);
