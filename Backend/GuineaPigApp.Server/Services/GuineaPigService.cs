@@ -46,6 +46,13 @@ namespace GuineaPigApp.Server.Services
             newGuineaPig.User = user;
 
             _guineaPigRepository.AddGuineaPig(newGuineaPig);
+
+            var guineaPigWeight = new GuineaPigWeight();
+
+            guineaPigWeight.Weight = newGuineaPig.Weight;
+            guineaPigWeight.GuineaPig = newGuineaPig;
+
+            _guineaPigRepository.AddGuineaPigWeight(guineaPigWeight);
         }
 
         public GuineaPigDto GetGuineaPig(string email, string name)

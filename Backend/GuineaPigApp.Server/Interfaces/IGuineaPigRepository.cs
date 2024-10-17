@@ -6,6 +6,7 @@ namespace GuineaPigApp.Server.Interfaces
     public interface IGuineaPigRepository
     {
         void AddGuineaPig(GuineaPig guineaPig);
+        void AddGuineaPigWeight(GuineaPigWeight guineaPigWeight);
         GuineaPig? GetGuineaPig(int userId, string guineaPigName);
         List<GuineaPig> GetGuineaPigs(int userId);
         bool PigExists(User user, string guineaPigName);
