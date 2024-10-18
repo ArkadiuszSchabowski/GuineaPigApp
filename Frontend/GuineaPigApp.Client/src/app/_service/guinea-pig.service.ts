@@ -10,7 +10,6 @@ import { environment } from '../_environments/environment_dev';
   providedIn: 'root',
 })
 export class GuineaPigService {
-  token: string | null = "";
   textSubject = new BehaviorSubject<string>('');
   isTextSubject$ = this.textSubject.asObservable();
 
@@ -28,9 +27,11 @@ export class GuineaPigService {
   getGuineaPigs(email: string) {
     let params = new HttpParams().set('email', email);
 
-    this.token = localStorage.getItem('token');
+    let token: string | null = "";
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<GuineaPigDto[]>(
       environment.apiUrl + 'guineapig',
@@ -49,11 +50,11 @@ export class GuineaPigService {
   addGuineaPig(email: string, guineaPigDto: GuineaPigDto) {
     let params = new HttpParams().set('email', email);
 
-    this.token = localStorage.getItem('token');
+    let token: string | null = "";
 
-    console.log(this.token);
+    token = localStorage.getItem('token');
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.post(environment.apiUrl + 'guineapig', guineaPigDto, {params, headers},
     );
