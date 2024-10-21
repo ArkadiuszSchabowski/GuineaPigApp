@@ -71,14 +71,18 @@ export class GuineaPigService {
   }
 
   removeGuineaPig(guineaPig: RemoveGuineaPigDto) {
-    let params = new HttpParams()
-      .set('email', guineaPig.email)
-      .set('name', guineaPig.name);
 
-      console.log(params + "params");
+      let token: string | null = "";
 
-    return this.http.delete(environment.apiUrl + 'guineapig', {
-      params,
+      token = localStorage.getItem('token');
+  
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+      let params = new HttpParams()
+      .set('email', guineaPig.email);
+  
+    return this.http.delete(`${environment.apiUrl}guineapig/${guineaPig.name}`, {
+      params, headers
     });
   }
-}
+}  
