@@ -110,5 +110,33 @@ namespace GuineaPigApp.Server.Services
 
             _guineaPigRepository.RemoveGuineaPig(guineaPig);
         }
+
+        public void UpdateWeight(string email, string guineaPigName, GuineaPigWeightDto dto)
+        {
+            User? user = _userRepository.GetUser(email);
+
+            if (user == null)
+            {
+                throw new BadRequestException("Taki użytkownik nie istnieje!");
+            }
+
+            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, guineaPigName);
+
+            if (guineaPig == null)
+            {
+                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
+            }
+
+            _mapper.Map(dto, guineaPig);
+
+            var guineaPigWeight = new GuineaPigWeight();
+
+            guineaPigWeight.Weight = guineaPig.Weight;
+            guineaPigWeight.GuineaPig = guineaPig;
+
+            _guineaPigRepository.AddGuineaPigWeight(guineaPigWeight);
+
+            _userRepository.SaveChanges();
+        }
     }
 }
