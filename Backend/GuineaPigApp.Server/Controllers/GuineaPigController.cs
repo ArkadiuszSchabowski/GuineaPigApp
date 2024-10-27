@@ -35,6 +35,12 @@ namespace GuineaPigApp.Server.Controllers
             _guineaPigService.AddGuineaPig(email, dto);
             return Ok(new { message = "Profil świnki morskiej został dodany!" });
         }
+        [HttpPatch("update-weight/{name}")]
+        public ActionResult UpdateWeightGuineaPig([FromQuery] string email, [FromRoute] string name, [FromBody] GuineaPigWeightDto dto)
+        {
+            _guineaPigService.UpdateWeight(email, name, dto);
+            return Ok(new { message = "Waga świnki została zaaktualizowana!" });
+        }
 
         [HttpDelete("{name}")]
         public ActionResult RemoveGuineaPig([FromQuery] string email, [FromRoute] string name)
