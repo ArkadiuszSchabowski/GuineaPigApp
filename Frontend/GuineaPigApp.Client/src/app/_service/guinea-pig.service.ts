@@ -63,10 +63,16 @@ export class GuineaPigService {
 
     let params = new HttpParams().set('email', email);
 
-    return this.http.post(
-      environment.apiUrl + 'guineapig/update-weight',
+    let token: string | null = "";
+
+    token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.patch(
+      environment.apiUrl + `guineapig/update-weight/${guineaPig.name}`,
       guineaPig,
-      { params }
+      { params, headers }
     );
   }
 
