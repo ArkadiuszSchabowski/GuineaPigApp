@@ -41,5 +41,8 @@
       </mat-card-content>
     </mat-card>
   </form>
-  <div id="canvas-container"></div>
+  <div id="canvas-container" [ngClass]="{
+    'light-theme': themeHelper.currentTheme,
+    'dark-theme': !themeHelper.currentTheme
+  }"></div>
 </div>
