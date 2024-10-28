@@ -29,6 +29,13 @@ namespace GuineaPigApp.Server.Controllers
             GuineaPigDto guineaPig = _guineaPigService.GetGuineaPig(email, name);
             return Ok(guineaPig);
         }
+        [HttpGet("weights/{name}")]
+        public ActionResult<List<GuineaPigWeightsDto>> GetWeights([FromQuery] string email, [FromRoute] string name)
+        {
+            List<GuineaPigWeightsDto> weights = _guineaPigService.GetWeights(email, name);
+            return Ok(weights);
+        }
+
         [HttpPost]
         public ActionResult AddGuineaPig([FromQuery] string email, [FromBody] GuineaPigDto dto)
         {
