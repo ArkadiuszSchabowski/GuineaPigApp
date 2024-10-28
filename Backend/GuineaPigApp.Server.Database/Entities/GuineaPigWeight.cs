@@ -9,7 +9,7 @@ namespace GuineaPigApp.Server.Database.Entities
         [Required]
         [Range(50, 3000, ErrorMessage = "Waga świnki powinna wynosić od 50 do 3000 gram!")]
         public int Weight { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateOnly Date { get; set; }
 
         [Required]
         public int GuineaPigId { get; set; }
