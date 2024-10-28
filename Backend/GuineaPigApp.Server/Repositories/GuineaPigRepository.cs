@@ -37,6 +37,13 @@ namespace GuineaPigApp.Server.Repositories
             return _context.GuineaPigs.Where(g => g.UserId == userId).ToList();
         }
 
+        public List<GuineaPigWeight> GetWeights(GuineaPig guineaPig)
+        {
+            var weights = _context.GuineaPigWeights
+                .Where(w => w.GuineaPigId == guineaPig.Id).ToList();
+            return weights;
+        }
+
         public bool PigExists(User user, string name)
         {
             bool guineaPig = _context.Users.Include(x => x.GuineaPig)
