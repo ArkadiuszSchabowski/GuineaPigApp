@@ -9,6 +9,7 @@ namespace GuineaPigApp.Server.Interfaces
         void AddGuineaPigWeight(GuineaPigWeight guineaPigWeight);
         GuineaPig? GetGuineaPig(int userId, string guineaPigName);
         List<GuineaPig> GetGuineaPigs(int userId);
+        List<GuineaPigWeight> GetWeights(GuineaPig guineaPig);
         bool PigExists(User user, string guineaPigName);
         void RemoveGuineaPig(GuineaPig guineaPig);
     }
