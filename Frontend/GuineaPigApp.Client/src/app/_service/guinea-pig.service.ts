@@ -39,11 +39,17 @@ export class GuineaPigService {
     );
   }
   getGuineaPigWeights(email: string, name: string){
-    let params = new HttpParams().set('email', email).set('name', name)
+    let params = new HttpParams().set('email', email)
+
+    let token: string | null = "";
+
+    token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     return this.http.get<GuineaPigWeightsDto[]>(
-      environment.apiUrl + 'guineapig/weights',
-      { params }
+      environment.apiUrl + `guineapig/weights/${name}`,
+      { params, headers }
     );
   }
 
