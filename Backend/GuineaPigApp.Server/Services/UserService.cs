@@ -34,6 +34,13 @@ namespace GuineaPigApp.Server.Services
             return userDto;
         }
 
+        public List<GetUserDto> GetUsers()
+        {
+            List<User> users = _userRepository.GetUsers();
+            var usersDto = _mapper.Map<List<GetUserDto>>(users);
+            return usersDto;
+        }
+
         public void UpdateUser(string email, UpdateUserDto dto)
         {
             _userValidator.ValidateEmailFormat(email);

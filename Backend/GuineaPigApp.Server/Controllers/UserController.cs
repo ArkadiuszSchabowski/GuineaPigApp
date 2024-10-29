@@ -20,6 +20,12 @@ namespace GuineaPigApp.Server.Controllers
             GetUserDto user = _userService.GetUser(email);
             return user;
         }
+        [HttpGet("users")]
+        public List<GetUserDto> GetUsers()
+        {
+            var users = _userService.GetUsers();
+            return users;
+        }
         [HttpPatch]
         public ActionResult UpdateUser([FromQuery] string email, [FromBody] UpdateUserDto dto)
         {
