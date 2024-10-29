@@ -66,5 +66,24 @@ namespace GuineaPigApp.Server.UnitTests.Services
 
             mockMapper.Verify(x => x.Map(updateUserDto, user), Times.Once());
         }
+        [Fact]
+        public void GetUsers_WhenCalled_ShouldMapOnce()
+        {
+            var mockUserRepository = new Mock<IUserRepository>();
+            var mockMapper = new Mock<IMapper>();
+            var mockUserValidator = new Mock<IUserValidator>();
+
+            var userService = new UserService(mockUserRepository.Object, mockMapper.Object, mockUserValidator.Object);
+
+            var users = new List<User>();
+            var usersDto = new List<GetUserDto>();
+
+            mockUserRepository.Setup(x => x.GetUsers()).Returns(users);
+            mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
+
+            userService.GetUsers();
+
+            mockMapper.Verify(x =>x.Map<List<GetUserDto>>(users), Times.Once());
+        }
     }
 }
