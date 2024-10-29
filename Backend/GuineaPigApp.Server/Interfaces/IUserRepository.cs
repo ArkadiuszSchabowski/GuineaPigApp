@@ -1,4 +1,5 @@
 ﻿using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Interfaces
 {
@@ -9,5 +10,6 @@ namespace GuineaPigApp.Server.Interfaces
         void RemoveUser(User user);
         void UpdateUser(User user);
         void SaveChanges();
+        List<User> GetUsers();
     }
 }
