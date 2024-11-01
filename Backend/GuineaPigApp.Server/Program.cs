@@ -62,9 +62,19 @@ builder.Services.AddScoped<IProductSeeder,  ProductSeeder>();
 builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("GuineaPigPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://guineapigapp.azurewebsites.net") 
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
-app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+app.UseCors("GuineaPigPolicy");
 
 using (var scope = app.Services.CreateScope())
 {
