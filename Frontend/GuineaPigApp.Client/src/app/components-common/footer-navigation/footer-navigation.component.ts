@@ -11,7 +11,7 @@ export class FooterNavigationComponent implements OnInit{
 
   currentTheme: boolean | undefined = undefined;
   componentText: string ="";
-  guineaPigUrl: string = "assets/images/guineapig.webp"
+  guineaPigUrl: string = "assets/images/guineapig.png"
 
   constructor(private theme: ThemeService, private guineaPigService: GuineaPigService) {
 
