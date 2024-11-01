@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { PaginationDto } from '../_models/pagination-dto';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../_environments/environment_dev';
 import { ProductResult } from '../_models/product-result';
+import { environment } from '../_environments/environment_prod';
 
 @Injectable({
   providedIn: 'root'
