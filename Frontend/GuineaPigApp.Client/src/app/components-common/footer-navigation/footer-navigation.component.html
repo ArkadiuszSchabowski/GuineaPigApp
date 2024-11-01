@@ -3,7 +3,7 @@
   <div id="point3" [ngClass]="{'light-theme-cloud': currentTheme, 'dark-theme-cloud': !currentTheme}"></div>
   <div id="point2" [ngClass]="{'light-theme-cloud': currentTheme, 'dark-theme-cloud': !currentTheme}"></div>
   <div id="point1" [ngClass]="{'light-theme-cloud': currentTheme, 'dark-theme-cloud': !currentTheme}"></div>
-    <div id="photoGuineaPig"></div>
+  <div id="photoGuineaPig" [ngStyle]="{'background-image': 'url(' + guineaPigUrl + ')'}"></div>
 
   <div id="bar" [ngClass]="{'light-theme': currentTheme, 'dark-theme': !currentTheme}">
     <button mat-flat-button id="sound-icon" (click)="playGuineaPigSound()"><mat-icon [ngClass]="{'light-theme-icon': currentTheme, 'dark-theme-icon': !currentTheme}">volume_up</mat-icon></button>
