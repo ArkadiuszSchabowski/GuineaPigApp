@@ -65,6 +65,7 @@ builder.Services.AddScoped<IUserValidator, UserValidator>();
 var app = builder.Build();
 
 app.UseCors(x => x.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+app.UseCors(x => x.WithOrigins("https://guineapigapp.azurewebsites.net").AllowAnyHeader().AllowAnyMethod());
 
 using (var scope = app.Services.CreateScope())
 {
