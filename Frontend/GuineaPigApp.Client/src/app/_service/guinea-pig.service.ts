@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { GuineaPigDto } from '../_models/guinea-pig-dto';
 import { RemoveGuineaPigDto } from '../_models/remove-guinea-pig-dto';
 import { GuineaPigWeightsDto } from '../_models/guinea-pigs-weights-dto';
-import { environment } from '../_environments/environment_prod';
+import { environment } from '../_environments/environment';
 
 @Injectable({
   providedIn: 'root',
