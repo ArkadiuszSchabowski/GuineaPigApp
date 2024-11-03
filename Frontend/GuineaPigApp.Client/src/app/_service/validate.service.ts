@@ -13,9 +13,9 @@ export class ValidateService {
   constructor(private toastr: ToastrService) {}
 
   validatePersonalInformation(model: any): boolean {
-    this.isCorrectName = this.validateName(model.name);
-    this.isCorrectSurname = this.validateSurname(model.surname);
     this.isCorrectCity = this.validateCity(model.city);
+    this.isCorrectSurname = this.validateSurname(model.surname);
+    this.isCorrectName = this.validateName(model.name);
 
     if (this.isCorrectName && this.isCorrectSurname && this.isCorrectCity) {
       return true;
