@@ -117,9 +117,19 @@ namespace GuineaPigApp.Server.Services
         {
             var user = _userRepository.GetUser(email);
 
+            var defaultUserEmail = "user@gmail.com";
+            var defaultManagerEmail = "manager@gmail.com";
+            var defaultAdminEmail = "admin@gmail.com";
+
             if (user == null)
             {
                 throw new BadRequestException("Taki użytkownik nie istnieje!");
+            }
+
+
+            if(user.Email == defaultUserEmail || user.Email == defaultManagerEmail || user.Email == defaultAdminEmail)
+            {
+                throw new ForbiddenException("Nie możesz usunąć domyślnego konta użytkownika");
             }
                 _userRepository.RemoveUser(user);
         }
