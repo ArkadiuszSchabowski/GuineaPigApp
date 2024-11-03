@@ -4,7 +4,7 @@ import { RegisterUserDto } from '../_models/register-user-dto';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { LoginUserDto } from '../_models/login-user-dto';
 import { ChangePasswordDto } from '../_models/change-password-dto';
-import { environment } from '../_environments/environment_prod';
+import { environment } from '../_environments/environment';
 
 @Injectable({
   providedIn: 'root',

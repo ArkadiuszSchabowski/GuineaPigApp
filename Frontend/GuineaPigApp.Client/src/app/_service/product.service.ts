@@ -3,7 +3,8 @@ import { PaginationDto } from '../_models/pagination-dto';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProductResult } from '../_models/product-result';
-import { environment } from '../_environments/environment_prod';
+import { environment } from '../_environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
