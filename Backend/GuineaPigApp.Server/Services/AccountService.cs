@@ -25,6 +25,13 @@ namespace GuineaPigApp.Server.Services
             _authenticationSettings = authenticationSettings;
             _userRepository = userRepository;
         }
+        public void CheckEmail(string email)
+        {
+            User? result = _userRepository.CheckEmail(email);
+            if (result != null) {
+                throw new ConflictException("Istnieje już użytkownik z takim adresem e-mail!");
+            }
+        }
 
         public void ChangePassword(ChangePasswordDto dto)
         {
