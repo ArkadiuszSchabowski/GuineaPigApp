@@ -16,6 +16,13 @@ namespace GuineaPigApp.Server.Controllers
         {
             _accountService = accountService;
         }
+        [HttpGet("check-email")]
+        public ActionResult CheckEmail([FromQuery] string email) {
+
+            _accountService.CheckEmail(email);
+            return Ok();
+        }
+
         [HttpPost("register")]
         public ActionResult Register([FromBody] RegisterUserDto registerUserDto)
         {
