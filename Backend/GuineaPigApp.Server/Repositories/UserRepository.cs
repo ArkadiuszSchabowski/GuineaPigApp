@@ -14,6 +14,10 @@ namespace GuineaPigApp.Server.Repositories
         {
             _context = context;
         }
+        public User? CheckEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(x => x.Email == email);
+        }
         public User? GetUser(string email)
         {
             var user = _context.Users.Include(x => x.Role).

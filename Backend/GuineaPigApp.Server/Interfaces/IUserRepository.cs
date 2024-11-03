@@ -11,5 +11,6 @@ namespace GuineaPigApp.Server.Interfaces
         void UpdateUser(User user);
         void SaveChanges();
         List<User> GetUsers();
+        User? CheckEmail(string email);
     }
 }
