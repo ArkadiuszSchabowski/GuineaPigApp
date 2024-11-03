@@ -22,6 +22,12 @@ namespace GuineaPigApp.Server.Middleware
                 context.Response.StatusCode = 400;
                 await context.Response.WriteAsync(e.Message);
             }
+            catch (ForbiddenException e)
+            {
+                _logger.LogError(e, e.Message);
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync(e.Message);
+            }
             catch (NotFoundException e)
             {
                 _logger.LogError(e, e.Message);
