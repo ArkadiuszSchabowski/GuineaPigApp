@@ -129,7 +129,7 @@ namespace GuineaPigApp.Server.Services
 
             if(user.Email == defaultUserEmail || user.Email == defaultManagerEmail || user.Email == defaultAdminEmail)
             {
-                throw new ForbiddenException("Nie możesz usunąć domyślnego konta użytkownika");
+                throw new ForbiddenException("Nie możesz usunąć domyślnego konta użytkownika!");
             }
                 _userRepository.RemoveUser(user);
         }
