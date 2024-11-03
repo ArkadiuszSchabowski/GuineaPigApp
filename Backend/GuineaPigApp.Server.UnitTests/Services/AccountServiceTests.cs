@@ -55,6 +55,34 @@ namespace GuineaPigApp.Server.UnitTests.Services
             var exception = Assert.Throws<BadRequestException>(action);
             Assert.Equal("Taki użytkownik nie istnieje!", exception.Message);
         }
+
+        [Fact]
+        public void DeleteAccount_WithDefaultUser_ShouldThrowForbiddenException()
+        {
+            var mockUserRepository = new Mock<IUserRepository>();
+
+            var accountService = new AccountService(null, null, null, mockUserRepository.Object);
+
+            var defaultUserEmail = "user@gmail.com";
+
+            var defaultUser = new User()
+            {
+                Id = 1,
+                Email = "user@gmail.com",
+                Name = "Damian",
+                Surname = "Kowalski",
+                City = "Warszawa",
+                RoleId = 1
+            };
+
+            mockUserRepository.Setup(x => x.GetUser(defaultUserEmail)).Returns(defaultUser);
+
+            Action action = () => accountService.DeleteAccount(defaultUserEmail);
+
+            var exception = Assert.Throws<ForbiddenException>(action);
+            Assert.Equal("Nie możesz usunąć domyślnego konta użytkownika!", exception.Message);
+        }
+
         [Fact]
         public void GenerateJWT_WhenValidLogin_ShouldGenerateJWTToken()
         {
