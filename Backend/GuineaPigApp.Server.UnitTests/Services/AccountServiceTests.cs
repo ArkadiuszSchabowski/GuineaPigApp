@@ -36,7 +36,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
             Action action = () => accountService.RegisterUser(dto);
 
             var exception = Assert.Throws<ConflictException>(action);
-            Assert.Equal("Wprowadzone hasła są róźne", exception.Message);
+            Assert.Equal("Wprowadzone hasła są róźne!", exception.Message);
         }
 
         [Fact]

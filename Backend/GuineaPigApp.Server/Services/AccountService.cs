@@ -65,14 +65,14 @@ namespace GuineaPigApp.Server.Services
 
             if (user == null)
             {
-                throw new BadRequestException("Błędne dane logowania");
+                throw new BadRequestException("Błędne dane logowania!");
             }
 
             var password = _hasher.VerifyHashedPassword(user, user.PasswordHash, loginUserDto.Password);
 
             if (password != PasswordVerificationResult.Success)
             {
-                throw new BadRequestException("Błędne dane logowania");
+                throw new BadRequestException("Błędne dane logowania!");
             }
 
             if(user.Role == null) {
@@ -104,12 +104,12 @@ namespace GuineaPigApp.Server.Services
 
             if (user != null)
             {
-                throw new ConflictException("Taki użytkownik istnieje już w bazie danych");
+                throw new ConflictException("Taki użytkownik istnieje już w bazie danych!");
             }
 
             if (dto.Password != dto.RepeatPassword)
             {
-                throw new ConflictException("Wprowadzone hasła są róźne");
+                throw new ConflictException("Wprowadzone hasła są róźne!");
             }
 
             var newUser = _mapper.Map<User>(dto);
