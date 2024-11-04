@@ -57,7 +57,7 @@ builder.Services.AddScoped<IGuineaPigRepository, GuineaPigRepository>();
 builder.Services.AddScoped<IProductSeederRepository, ProductSeederRepository>();
 
 builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
-builder.Services.AddScoped<IProductSeeder,  ProductSeeder>();
+builder.Services.AddScoped<IProductSeeder, ProductSeeder>();
 
 builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
 builder.Services.AddScoped<IUserValidator, UserValidator>();
@@ -66,7 +66,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("GuineaPigPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "https://guineapigapp.azurewebsites.net") 
+        policy.WithOrigins("http://localhost:4200", "https://guineapigapp.azurewebsites.net")
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -85,10 +85,7 @@ using (var scope = app.Services.CreateScope())
     productSeeder.SeedData();
 }
 
-if (app.Environment.IsProduction())
-{
-    app.UseMiddleware<ErrorHandlingMiddleware>();
-}
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
