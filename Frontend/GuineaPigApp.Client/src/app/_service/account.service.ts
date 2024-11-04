@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterUserDto } from '../_models/register-user-dto';
 import { BehaviorSubject, map, Observable } from 'rxjs';
@@ -30,11 +30,13 @@ export class AccountService {
   registerUser(registerUserDto: RegisterUserDto): Observable<RegisterUserDto> {
     return this.http.post<RegisterUserDto>(this.baseUrl + 'account/register',registerUserDto);
   }
-  checkEmail(email: string): Observable<{ message: string }> {
-    let params = new HttpParams().set('email', email);
-    return this.http.get<{ message: string }>(`${this.baseUrl}account/check-email`, { params });
-  }
   
+  checkEmail(email: string): Observable<HttpResponse<any>> {
+  
+    let params = new HttpParams().set('email', email);
+
+    return this.http.get<any>(this.baseUrl + "account/check-email", { params, observe: 'response' });
+  }
   
   login(loginUserDto: LoginUserDto){
     return this.http.post<any>(this.baseUrl + 'account/login', loginUserDto).pipe(
