@@ -30,8 +30,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   isPersonalInformation: boolean = false;
   isSuccessRegister : boolean = false;
 
-  eMailCorrectServerSide: string | null = null;
-
   constructor(
     guineaPigService: GuineaPigService,
     public themeHelper: ThemeHelper,
@@ -49,38 +47,30 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   }
 
   checkEmailAndPassword(stepper: MatStepper) {
+    this.isCorrectPassword = this.validateService.validatePasswordRegister(this.model);
     this.isCorrectEmail = this.validateService.validateEmail(this.model.email);
 
-    if (this.isCorrectEmail) {
+    if (this.isCorrectEmail && this.isCorrectPassword) {
       this.accountService.checkEmail(this.model.email).subscribe({
         next: (response) => {
-          this.eMailCorrectServerSide = response.message;
-
-          if (this.eMailCorrectServerSide !== null) {
-            this.isCorrectPassword = this.validateService.validatePasswordRegister(this.model);
-
-            if (this.isCorrectPassword) {
-              this.isFirstStepCompleted = true;
-              this.cdr.detectChanges();
-              stepper.next();
-            }
+          console.log(response)
+          if(response.status === 200){
+            this.isFirstStepCompleted = true;
+            this.cdr.detectChanges();
+            stepper.next();
           }
         },
         error: (error) => {
           this.model = new RegisterUserDto();
-          this.toastr.error(error.error + '!');
+          if(error.status === 409){
+            this.toastr.error(error.error);
+          }
         },
       });
     }
 
     if (!this.isCorrectEmail) {
       this.model = new RegisterUserDto();
-    }
-
-    if (this.isCorrectEmail && this.isCorrectPassword) {
-      this.isFirstStepCompleted = true;
-      this.cdr.detectChanges();
-      stepper.next();
     }
   }
 
