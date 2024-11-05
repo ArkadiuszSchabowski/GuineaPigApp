@@ -9,6 +9,7 @@ import { ThemeHelper } from 'src/app/_service/themeHelper.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/_service/token.service';
+import { ValidateService } from 'src/app/_service/validate.service';
 
 @Component({
   selector: 'app-user-change-password',
@@ -24,6 +25,7 @@ export class UserChangePasswordComponent
   model: ChangePasswordDto = new ChangePasswordDto();
   token: any;
   email: string = '';
+  isValidPassword: boolean = false;
 
   hidePassword1: boolean = true;
   hidePassword2: boolean = true;
@@ -35,7 +37,8 @@ export class UserChangePasswordComponent
     public themeHelper: ThemeHelper,
     private toastr: ToastrService,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private validateService: ValidateService
   ) {
     super(guineaPigService);
   }
@@ -44,25 +47,30 @@ export class UserChangePasswordComponent
   }
 
   changePassword(model: ChangePasswordDto) {
+    this.isValidPassword = this.validateService.validatePassword(model);
 
-    model.email = this.tokenService.getEmailFromToken();
+    if (this.isValidPassword) {
+      model.email = this.tokenService.getEmailFromToken();
 
-    console.log(model);
-
-    this.accountService
-      .changePassword(this.model)
-      .pipe(
-        finalize(() => {
-          this.resetForm();
-        })
-      )
-      .subscribe({
-        next: () => {
-          this.toastr.success("Twoje hasło zostało zmienione!")
-          this.router.navigateByUrl("/user/profile")
-        },
-        error: (error) => this.toastr.error(error.error)
-      });
+      this.accountService
+        .changePassword(this.model)
+        .pipe(
+          finalize(() => {
+            this.resetForm();
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.toastr.success('Twoje hasło zostało zmienione!');
+            this.router.navigateByUrl('/user/profile');
+          },
+          error: (error) => {
+            if (error.status === 400) {
+              this.toastr.error(error.error);
+            }
+          },
+        });
+    }
   }
   resetForm() {
     (this.model.currentPassword = ''),
