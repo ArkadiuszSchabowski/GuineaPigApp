@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RegisterUserDto } from '../_models/register-user-dto';
 import { ToastrService } from 'ngx-toastr';
+import { ChangePasswordDto } from '../_models/change-password-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,16 @@ export class ValidateService {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       this.toastr.error('Podaj poprawny adres e-mail!');
+      return false;
+    }
+    return true;
+  }
+  validatePassword(model: ChangePasswordDto): boolean {
+    if (model.currentPassword.length < 5 || model.newPassword.length < 5 || model.repeatNewPassword.length < 5) {
+      this.toastr.error('Hasło musi składać się z conajmniej 5 znaków!');
+      return false;
+    } else if (model.newPassword !== model.repeatNewPassword) {
+      this.toastr.error('Podane hasła muszą być jednakowe!');
       return false;
     }
     return true;
