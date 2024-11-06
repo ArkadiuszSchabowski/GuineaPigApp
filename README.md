@@ -20,6 +20,16 @@ How to Run (Backend):
 - In the toolbar, select the dropdown next to the green arrow, choose the Development profile.
 - Press F5 or click the green arrow to build and run the application.
 
+How to Run (Frontend):
+- Navigate to the Frontend directory in Visual Studio Code
+- Open your terminal or command prompt and go to the frontend directory of the project. For example: C:\Users\YourUsername\Desktop\GuineaPigApp\Frontend\GuineaPigApp.Client
+- Install dependencies - Run the following command to install the necessary dependencies:
+- npm install
+- After the dependencies are installed, run the following command to start the Angular application:
+- ng serve -o
+
+This will build and serve the application, and it will open it automatically in your default web browser.
+
 Test User Accounts - To quickly test the application, you can use the following test user accounts:
 
 User:
