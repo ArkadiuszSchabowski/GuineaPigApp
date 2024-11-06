@@ -5,6 +5,27 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/Account/check-email": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/api/Account/register": {
             "post": {
                 "tags": [
@@ -277,10 +298,27 @@
                 }
             }
         },
-        "/api/Product/bad": {
+        "/api/GuineaPig/weights/{name}": {
             "get": {
                 "tags": [
-                    "Product"
+                    "GuineaPig"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -290,7 +328,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Product"
+                                        "$ref": "#/components/schemas/GuineaPigWeightsDto"
                                     }
                                 }
                             },
@@ -298,7 +336,7 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Product"
+                                        "$ref": "#/components/schemas/GuineaPigWeightsDto"
                                     }
                                 }
                             },
@@ -306,8 +344,103 @@
                                 "schema": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "#/components/schemas/Product"
+                                        "$ref": "#/components/schemas/GuineaPigWeightsDto"
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/GuineaPig/update-weight/{name}": {
+            "patch": {
+                "tags": [
+                    "GuineaPig"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GuineaPigWeightDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GuineaPigWeightDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GuineaPigWeightDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/Product/bad": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "parameters": [
+                    {
+                        "name": "PageNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "PageSize",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResultDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResultDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResultDto"
                                 }
                             }
                         }
@@ -320,32 +453,41 @@
                 "tags": [
                     "Product"
                 ],
+                "parameters": [
+                    {
+                        "name": "PageNumber",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "PageSize",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
                         "content": {
                             "text/plain": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Product"
-                                    }
+                                    "$ref": "#/components/schemas/ProductResultDto"
                                 }
                             },
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Product"
-                                    }
+                                    "$ref": "#/components/schemas/ProductResultDto"
                                 }
                             },
                             "text/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/Product"
-                                    }
+                                    "$ref": "#/components/schemas/ProductResultDto"
                                 }
                             }
                         }
@@ -444,6 +586,120 @@
                     }
                 }
             }
+        },
+        "/api/User": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/User/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetUserDto"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetUserDto"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GetUserDto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -479,6 +735,80 @@
                 },
                 "additionalProperties": false
             },
+            "DateOnly": {
+                "type": "object",
+                "properties": {
+                    "year": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "month": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "day": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "dayOfWeek": {
+                        "$ref": "#/components/schemas/DayOfWeek"
+                    },
+                    "dayOfYear": {
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": true
+                    },
+                    "dayNumber": {
+                        "type": "integer",
+                        "format": "int32",
+                        "readOnly": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "DayOfWeek": {
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                ],
+                "type": "integer",
+                "format": "int32"
+            },
+            "GetUserDto": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "roleId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "email": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "surname": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "GuineaPigDto": {
                 "required": [
                     "name",
@@ -496,6 +826,34 @@
                         "minimum": 50,
                         "type": "integer",
                         "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "GuineaPigWeightDto": {
+                "required": [
+                    "weight"
+                ],
+                "type": "object",
+                "properties": {
+                    "weight": {
+                        "maximum": 3000,
+                        "minimum": 50,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "GuineaPigWeightsDto": {
+                "type": "object",
+                "properties": {
+                    "weight": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "date": {
+                        "$ref": "#/components/schemas/DateOnly"
                     }
                 },
                 "additionalProperties": false
@@ -534,12 +892,12 @@
                     },
                     "name": {
                         "maxLength": 25,
-                        "minLength": 3,
+                        "minLength": 1,
                         "type": "string"
                     },
                     "description": {
-                        "maxLength": 200,
-                        "minLength": 15,
+                        "maxLength": 1000,
+                        "minLength": 1,
                         "type": "string"
                     },
                     "imageUrl": {
@@ -566,7 +924,7 @@
                         "type": "string"
                     },
                     "description": {
-                        "maxLength": 200,
+                        "maxLength": 1000,
                         "minLength": 15,
                         "type": "string"
                     },
@@ -576,6 +934,23 @@
                     },
                     "isGoodProduct": {
                         "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ProductResultDto": {
+                "type": "object",
+                "properties": {
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProductDto"
+                        },
+                        "nullable": true
+                    },
+                    "totalCount": {
+                        "type": "integer",
+                        "format": "int32"
                     }
                 },
                 "additionalProperties": false
@@ -604,6 +979,32 @@
                         "minLength": 5,
                         "type": "string"
                     },
+                    "name": {
+                        "maxLength": 25,
+                        "minLength": 3,
+                        "type": "string"
+                    },
+                    "surname": {
+                        "maxLength": 25,
+                        "minLength": 3,
+                        "type": "string"
+                    },
+                    "city": {
+                        "maxLength": 25,
+                        "minLength": 3,
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "UpdateUserDto": {
+                "required": [
+                    "city",
+                    "name",
+                    "surname"
+                ],
+                "type": "object",
+                "properties": {
                     "name": {
                         "maxLength": 25,
                         "minLength": 3,
