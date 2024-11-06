@@ -24,9 +24,11 @@ Test User Accounts - To quickly test the application, you can use the following 
 User:
 - Email: user@gmail.com
 - Password: User123
+
 Manager:
 - Email: manager@gmail.com
 - Password: Manager123
+
 Admin:
 - Email: admin@gmail.com
 - Password: Admin123
