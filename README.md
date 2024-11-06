@@ -6,14 +6,14 @@ Technology Stack:
 - Frontend: Angular, Angular Material
 - Backend: ASP.NET Core (C#)
 - Database: Azure SQL Database (demo version on a free plan)
-**Note: Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
+- **Note: Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
 - Communication: REST API
 
 Design Patterns:
 - Dependency Injection (DI)
 - Repository Pattern (RP)
 - Observer Pattern (OP)
-- 
+
 How to Run (Backend):
 - Clone the repository: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
 - Open the solution file GuineaPigCare.sln in Visual Studio.
