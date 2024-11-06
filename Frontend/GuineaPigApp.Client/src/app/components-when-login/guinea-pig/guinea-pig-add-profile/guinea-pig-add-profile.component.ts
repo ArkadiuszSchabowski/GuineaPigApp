@@ -58,9 +58,13 @@ export class GuineaPigAddProfileComponent
             this.toastr.success('Profil świnki morskiej został dodany!');
           },
           error: (error) => {
-            this.toastr.error(error.error);
-          },
-        });
+            if (error.error.errors) {
+              this.toastr.error('Wprowadzono niepopawne dane!');
+          }
+            if(error.status === 409){
+              this.toastr.error(error.error);
+            }
+        }});
     }
   }
 }
