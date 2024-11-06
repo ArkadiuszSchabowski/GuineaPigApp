@@ -42,10 +42,9 @@ export class GuineaPigRemoveProfileComponent extends BaseComponent implements On
   getGuineaPigs(){
     this.guineaPigService.getGuineaPigs(this.email).subscribe({
       next: (response: GuineaPigDto[]) => {
-        console.log(response)
         this.guineaPigs = response;
       },
-      error: error => console.log(error)
+      error: () => {}
     })
   }
   removeGuineaPigProfile() {

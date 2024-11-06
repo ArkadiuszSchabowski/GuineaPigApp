@@ -43,7 +43,6 @@ export class AccountService {
       map((response) => {
         if(response.message){
           this.token = response.message;
-          console.log(this.token + "token")
         }
         if (this.token) {
           localStorage.setItem('token', this.token);
