@@ -42,19 +42,8 @@ export class GuineaPigAddProfileComponent
   addGuineaPigProfile() {
     this.email = this.tokenService.getEmailFromToken();
 
+    this.guineaPigWeight = this.validateService.validateWeightGuineaPig(this.model.weight);
     this.guineaPigName = this.validateService.validateName(this.model.name);
-
-    if (this.guineaPigName) {
-      if (this.model.weight === null) {
-        this.toastr.error('Nie wpisałeś wagi świnki!');
-        return;
-      }
-      if (this.model.weight !== null) {
-        this.guineaPigWeight = this.validateService.validateWeightGuineaPig(
-          this.model.weight
-        );
-      }
-    }
 
     if (this.guineaPigWeight && this.guineaPigName) {
       this.guineaPigService
