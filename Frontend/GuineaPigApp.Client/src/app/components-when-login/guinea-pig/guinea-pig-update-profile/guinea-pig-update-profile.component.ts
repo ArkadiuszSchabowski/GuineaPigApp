@@ -75,7 +75,6 @@ export class GuineaPigUpdateProfileComponent
         .updateWeight(this.email, selectedPig)
         .pipe(
           finalize(() => {
-            console.log('finalize');
             this.model = new GuineaPigDto();
             this.selectedPig = null;
           })

@@ -39,7 +39,7 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
       next: (response) => {
         this.model = response;
       },
-      error: error => console.log(error)
+      error: () => {}
     });
   }
 }

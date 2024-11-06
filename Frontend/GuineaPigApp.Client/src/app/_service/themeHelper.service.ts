@@ -34,7 +34,7 @@ export class ThemeHelper {
       next: (response) => {
         this.currentTheme = response;
       },
-      error: (error) => console.log(error),
+      error: () => {}
     });
   }
   setBackground(url: string) {

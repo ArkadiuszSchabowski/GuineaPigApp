@@ -53,7 +53,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     if (this.isCorrectEmail && this.isCorrectPassword) {
       this.accountService.checkEmail(this.model.email).subscribe({
         next: (response) => {
-          console.log(response)
           if(response.status === 200){
             this.isFirstStepCompleted = true;
             this.cdr.detectChanges();
