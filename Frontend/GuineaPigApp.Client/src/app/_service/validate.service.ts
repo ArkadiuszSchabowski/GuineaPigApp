@@ -93,8 +93,11 @@ export class ValidateService {
     }
     return true;
   }
-  validateWeightGuineaPig(weight: number): boolean {
-    if (weight < 50 || weight > 3000) {
+  validateWeightGuineaPig(weight: number | null): boolean {
+    if (weight === null) {
+      this.toastr.error('Nie wpisałeś wagi świnki!');
+      return false;
+    } else if (weight < 50 || weight > 3000) {
       this.toastr.error(
         'Waga świnki musi mieścić się w przedziale 50 do 3000 gramów!'
       );
