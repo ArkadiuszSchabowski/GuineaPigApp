@@ -20,7 +20,7 @@ export class GuineaPigCheckWeightsComponent
   extends BaseComponent
   implements OnInit
 {
-  override cloudText: string = 'Ej! Moja waga przecież jest dobra!';
+  override cloudText: string = 'Ej! Przecież moja waga jest dobra!';
 
   public config: any;
   chart: any;
@@ -63,7 +63,7 @@ export class GuineaPigCheckWeightsComponent
 
   getGuineaPigWeights() {
     if (!this.selectedPig || !this.selectedPig.name) {
-      this.toastr.error('Nie wybrano profilu świnki');
+      this.toastr.error('Nie wybrano profilu świnki!');
       return;
     }
 
