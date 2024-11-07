@@ -51,6 +51,7 @@ namespace GuineaPigApp.Server.Services
 
             guineaPigWeight.Weight = newGuineaPig.Weight;
             guineaPigWeight.GuineaPig = newGuineaPig;
+            guineaPigWeight.Date = DateOnly.FromDateTime(DateTime.Now);
 
             _guineaPigRepository.AddGuineaPigWeight(guineaPigWeight);
         }
@@ -154,6 +155,7 @@ namespace GuineaPigApp.Server.Services
 
             guineaPigWeight.Weight = guineaPig.Weight;
             guineaPigWeight.GuineaPig = guineaPig;
+            guineaPigWeight.Date = DateOnly.FromDateTime(DateTime.Now);
 
             _guineaPigRepository.AddGuineaPigWeight(guineaPigWeight);
 
