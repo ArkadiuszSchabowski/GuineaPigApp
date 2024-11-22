@@ -1,11 +1,13 @@
 **Guinea Pig App - Application for Managing Guinea Pig Information**
 
+**Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net -  - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊
+
 **About the Project** - Guinea Pig App is an application designed to help users manage information about their guinea pigs. Users can create and manage profiles for their pets and monitor their weight to keep track of their health. This project demonstrates the use of modern web technologies to build a full-stack application.
 
 **Technology Stack:**
 - Frontend: Angular, Angular Material
 - Backend: ASP.NET Core (C#)
-- Database: Azure SQL Database (demo version on a free plan) - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
+- Database: Azure SQL Database (demo version on a free plan)
 - Communication: REST API
 
 **Design Patterns:**
@@ -42,8 +44,6 @@ Manager:
 Admin:
 - Email: admin@gmail.com
 - Password: Admin123
-
-**Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net
 
 **Contact** - Questions or feedback? Feel free to contact me at: arkadiuszschabowski@gmail.com
 
