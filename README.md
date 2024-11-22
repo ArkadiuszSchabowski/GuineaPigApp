@@ -1,6 +1,7 @@
 **Guinea Pig App - Application for Managing Guinea Pig Information**
 
-**Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net -  - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊
+**Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
+
 
 **About the Project** - Guinea Pig App is an application designed to help users manage information about their guinea pigs. Users can create and manage profiles for their pets and monitor their weight to keep track of their health. This project demonstrates the use of modern web technologies to build a full-stack application.
 
