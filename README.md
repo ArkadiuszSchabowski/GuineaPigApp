@@ -25,7 +25,7 @@
 **How to Run (Frontend) with Docker:**
 - Make sure you have Docker installed on your machine. If not, you can download Docker here. - https://www.docker.com/
 - First, clone the project repository to your local machine by running the following command: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
-- After cloning, use cd to navigate to the Frontend/GuineaPigApp.Client directory inside the project folder: cd <YourPath>/GuineaPigApp/Frontend/GuineaPigApp.Client
+- After cloning, use cd to navigate to the Frontend/GuineaPigApp.Client directory inside the project folder: cd YourPath/GuineaPigApp/Frontend/GuineaPigApp.Client
 - Once inside the Frontend/GuineaPigApp.Client directory, build the Docker image using this command: docker build -t guineapigapp:1.00 .
 - After building the image, run the container in detached mode with port mapping for 4200 using this command: docker run -d -p 4200:4200 guineapigapp:1.00
 - Once the container is running, you can access the Angular application in your web browser by visiting: http://localhost:4200
