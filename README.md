@@ -22,15 +22,13 @@
 - In the toolbar, select the dropdown next to the green arrow, choose the Development profile.
 - Press F5 or click the green arrow to build and run the application.
 
-**How to Run (Frontend):**
-- Navigate to the Frontend directory in Visual Studio Code.
-- Open your terminal or command prompt and go to the frontend directory of the project. For example: C:\Users\YourUsername\Desktop\GuineaPigApp\Frontend\GuineaPigApp.Client
-- Install dependencies - Run the following command to install the necessary dependencies:
-- npm install
-- After the dependencies are installed, run the following command to start the Angular application:
-- ng serve -o
-
-This will build and serve the application, and it will open it automatically in your default web browser.
+**How to Run (Frontend) with Docker:**
+- Make sure you have Docker installed on your machine. If not, you can download Docker here. - https://www.docker.com/
+- First, clone the project repository to your local machine by running the following command: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
+- After cloning, use cd to navigate to the Frontend/GuineaPigApp.Client directory inside the project folder: cd <YourPath>/GuineaPigApp/Frontend/GuineaPigApp.Client
+- Once inside the Frontend/GuineaPigApp.Client directory, build the Docker image using this command: docker build -t guineapigapp:1.00 .
+- After building the image, run the container in detached mode with port mapping for 4200 using this command: docker run -d -p 4200:4200 guineapigapp:1.00
+- Once the container is running, you can access the Angular application in your web browser by visiting: http://localhost:4200
 
 **Test User Accounts** - To quickly test the application, you can use the following test user accounts:
 
