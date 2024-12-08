@@ -1,0 +1,25 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
+WORKDIR /app
+
+COPY GuineaPigApp.Server/GuineaPigApp.Server.sln /app/GuineaPigApp.Server/
+COPY GuineaPigApp.Server/GuineaPigApp.Server.csproj /app/GuineaPigApp.Server/
+COPY GuineaPigApp.Server.Database/GuineaPigApp.Server.Database.csproj /app/GuineaPigApp.Server.Database/
+COPY GuineaPigApp.Server.UnitTests/GuineaPigApp.Server.UnitTests.csproj /app/GuineaPigApp.Server.UnitTests/
+COPY GuineaPigApp.Server.IntegrationTests/GuineaPigApp.Server.IntegrationTests.csproj /app/GuineaPigApp.Server.IntegrationTests/
+
+RUN dotnet restore /app/GuineaPigApp.Server/GuineaPigApp.Server.sln
+
+COPY . /app/
+
+RUN dotnet publish /app/GuineaPigApp.Server/GuineaPigApp.Server.csproj -c Release -o /publish
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS runtime
+
+WORKDIR /app/GuineaPigApp.Server/
+
+COPY --from=build /publish ./
+
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "GuineaPigApp.Server.dll"]
