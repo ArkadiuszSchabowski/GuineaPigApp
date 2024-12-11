@@ -78,8 +78,12 @@ app.UseCors("GuineaPigPolicy");
 
 using (var scope = app.Services.CreateScope())
 {
-    var accountSeeder = scope.ServiceProvider.GetRequiredService<IAccountSeeder>();
-    var productSeeder = scope.ServiceProvider.GetRequiredService<IProductSeeder>();
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<MyDbContext>();
+    context.Database.Migrate();
+
+    var accountSeeder = services.GetRequiredService<IAccountSeeder>();
+    var productSeeder = services.GetRequiredService<IProductSeeder>();
 
     accountSeeder.SeedData();
     productSeeder.SeedData();
