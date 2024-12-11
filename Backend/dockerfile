@@ -20,6 +20,10 @@ WORKDIR /app/GuineaPigApp.Server/
 
 COPY --from=build /publish ./
 
+COPY GuineaPigApp.Server/appsettings.Development.json /app/GuineaPigApp.Server/
+
+ENV ASPNETCORE_ENVIRONMENT=Development
+
 EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "GuineaPigApp.Server.dll"]
