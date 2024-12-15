@@ -16,19 +16,25 @@
 - Repository Pattern (RP)
 - Observer Pattern (OP)
 
-**How to Run (Backend):**
+**How to Run with Docker:**
 - Clone the repository: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
-- Open the solution file GuineaPigCare.sln in Visual Studio.
-- In the toolbar, select the dropdown next to the green arrow, choose the Development profile.
-- Press F5 or click the green arrow to build and run the application.
-
-**How to Run (Frontend) with Docker:**
 - Make sure you have Docker installed on your machine. If not, you can download Docker here. - https://www.docker.com/
-- First, clone the project repository to your local machine by running the following command: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
-- After cloning, use cd to navigate to the Frontend/GuineaPigApp.Client directory inside the project folder: cd YourPath/GuineaPigApp/Frontend/GuineaPigApp.Client
-- Once inside the Frontend/GuineaPigApp.Client directory, build the Docker image using this command: docker build -t guineapigapp:1.00 .
-- After building the image, run the container in detached mode with port mapping for 4200 using this command: docker run -d -p 4200:4200 guineapigapp:1.00
-- Once the container is running, you can access the Angular application in your web browser by visiting: http://localhost:4200
+
+**Database:**
+- Use cd to navigate in terminal to the GuineaPigApp/Backend/GuineaPigApp.Server.Database directory inside the project folder: cd YourPath/GuineaPigApp/Backend/GuineaPigApp.Server.Database
+- Once inside the GuineaPigApp/Backend/GuineaPigApp.Server.Database directory, build the Docker image using this command: docker build -t guineapigapp_db:1.0.0 .
+- After building the image, run the container in detached mode with port mapping for 1433 using this command: docker run -d -p 1433:1433 guineapigapp_db:1.0.0
+  
+**Backend:**
+- Use cd to navigate in terminal to the GuineaPigApp/Backend directory inside the project folder: cd YourPath/GuineaPigApp/Backend
+- Once inside the GuineaPigApp/Backend directory, build the Docker image using this command: docker build -t guineapigapp_server:1.0.0 .
+- After building the image, run the container in detached mode with port mapping from port 5000 on the host to port 8080 in the container using this command: docker run -d -p 5000:8080 guineapigapp_server:1.0.0
+
+**Frontend:**
+- Use cd to navigate in terminal to the Frontend/GuineaPigApp.Client directory inside the project folder: cd YourPath/GuineaPigApp/Frontend/GuineaPigApp.Client
+- Once inside the Frontend/GuineaPigApp.Client directory, build the Docker image using this command: docker build -t guineapigapp_client:1.0.0 .
+- After building the image, run the container in detached mode with port mapping for 4200 using this command: docker run -d -p 4200:4200 guineapigapp_client:1.0.0
+- Once the last container is running, you can access the Angular application in your web browser by visiting: http://localhost:4200
 
 **Test User Accounts** - To quickly test the application, you can use the following test user accounts:
 
