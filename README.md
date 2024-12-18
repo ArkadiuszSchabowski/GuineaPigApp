@@ -8,7 +8,7 @@
 **Technology Stack:**
 - Frontend: Angular, Angular Material
 - Backend: ASP.NET Core (C#)
-- Database: Azure SQL Database (demo version on a free plan)
+- Database: MSSQL, Azure SQL Database (demo version on a free plan)
 - Communication: REST API
 
 **Design Patterns:**
