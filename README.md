@@ -1,5 +1,7 @@
 **Guinea Pig App - Application for Managing Guinea Pig Information**
 
+**Presentation** - Watch the presentation of the "GuineaPigApp" on YouTube: https://www.youtube.com/watch?v=ik_C2L5AviA&t=0s
+
 **Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
 
 
