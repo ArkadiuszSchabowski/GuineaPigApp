@@ -400,6 +400,6 @@ FodyWeavers.xsd
 # Application configuration files
 appsettings.json
 
-/GuineaPigApp.Server.IntegrationTests/Properties/launchSettings.json
+/Backend/GuineaPigApp.Server.IntegrationTests/Properties/launchSettings.json
 
 .vs
