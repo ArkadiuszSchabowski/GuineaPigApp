@@ -10,17 +10,6 @@ import { GoodProductsComponent } from './components-when-logout/good-products/go
 import { LoginComponent } from './components-when-logout/login/login.component';
 import { MainPageComponent } from './components-when-logout/main-page/main-page.component';
 import { RegisterComponent } from './components-when-logout/register/register.component';
-
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSelectModule} from '@angular/material/select';
-import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { GuineaPigLayoutComponent } from './components-when-login/guinea-pig/_guinea-pig-layout/guinea-pig-layout.component';
@@ -34,12 +23,13 @@ import { UserEditProfileComponent } from './components-when-login/user/user-edit
 import { UserProfileComponent } from './components-when-login/user/user-profile/user-profile.component';
 import { NavbarComponent } from './components-common/navbar/navbar.component';
 import { FooterNavigationComponent } from './components-common/footer-navigation/footer-navigation.component';
-import {MatStepperModule} from '@angular/material/stepper';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorInterceptor } from './_inteceptors/error.interceptor';
 import { UserRemoveProfileComponent } from './components-when-login/user/user-remove-profile/user-remove-profile.component';
 import { GuineaPigCheckWeightsComponent } from './components-when-login/guinea-pig/guinea-pig-check-weights/guinea-pig-check-weights.component';
 import { InfoComponent } from './components-when-logout/info/info.component';
+import { AngularMaterialModule } from './_modules/angular-material/angular-material.module';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -68,19 +58,9 @@ import { InfoComponent } from './components-when-logout/info/info.component';
     BrowserModule,
      HttpClientModule, 
      BrowserAnimationsModule,
-     MatToolbarModule,
      AppRoutingModule,
-     MatSlideToggleModule,
      FormsModule,
-     MatIconModule,
-     MatButtonModule,
-     MatCardModule,
-     MatInputModule,
-     MatFormFieldModule,
-     MatMenuModule,
-     MatPaginatorModule,
-     MatSelectModule,
-     MatStepperModule,
+     AngularMaterialModule,
      ToastrModule.forRoot({ positionClass: 'toast-bottom-right' })
   ],
   providers: [
