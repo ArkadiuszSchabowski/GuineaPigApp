@@ -2,11 +2,13 @@ name: Backend - Pipeline
 
 on:
   push:
-    branches:
-      - master
+    paths:
+      - 'Backend/**'
   pull_request:
     branches: 
       - master
+    paths:
+      - 'Backend/**'
 
 jobs:
   build:
