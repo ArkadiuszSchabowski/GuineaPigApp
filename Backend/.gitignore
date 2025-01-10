@@ -401,3 +401,5 @@ FodyWeavers.xsd
 appsettings.json
 
 /GuineaPigApp.Server.IntegrationTests/Properties/launchSettings.json
+
+.vs
