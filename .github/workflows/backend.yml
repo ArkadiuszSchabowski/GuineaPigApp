@@ -1,17 +1,19 @@
-name: Master - Pipeline
+name: Backend - Pipeline
 
 on:
   push:
+    paths:
+      - 'Backend/**'
+  pull_request:
     branches:
       - master
-  pull_request:
-    branches: 
-      - master
+    paths:
+      - 'Backend/**'
 
 jobs:
   build:
     runs-on: windows-latest 
-    
+
     steps:
       - uses: actions/checkout@v3
           
@@ -25,7 +27,7 @@ jobs:
         working-directory: ./Backend/GuineaPigApp.Server
 
       - name: Build
-        run: dotnet build
+        run: dotnet build --no-restore
         working-directory: ./Backend/GuineaPigApp.Server
 
       - name: Test
