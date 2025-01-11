@@ -7,6 +7,8 @@ import { InfoComponent } from 'src/app/components-when-logout/info/info.componen
 import { LoginComponent } from 'src/app/components-when-logout/login/login.component';
 import { MainPageComponent } from 'src/app/components-when-logout/main-page/main-page.component';
 import { RegisterComponent } from 'src/app/components-when-logout/register/register.component';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { RegisterComponent } from 'src/app/components-when-logout/register/regis
     MainPageComponent,
     RegisterComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, AngularMaterialModule, FormsModule],
   exports: [
     BadProductsComponent,
     GoodProductsComponent,
@@ -25,6 +27,6 @@ import { RegisterComponent } from 'src/app/components-when-logout/register/regis
     LoginComponent,
     MainPageComponent,
     RegisterComponent,
-  ]
+  ],
 })
 export class PublicModule {}
