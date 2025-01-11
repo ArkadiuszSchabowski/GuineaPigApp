@@ -6,6 +6,9 @@ import { UserEditProfileComponent } from 'src/app/components-when-login/user/use
 import { UserLayoutComponent } from 'src/app/components-when-login/user/_user-layout/user-layout.component';
 import { UserProfileComponent } from 'src/app/components-when-login/user/user-profile/user-profile.component';
 import { UserRemoveProfileComponent } from 'src/app/components-when-login/user/user-remove-profile/user-remove-profile.component';
+import { FormsModule } from '@angular/forms';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,7 @@ import { UserRemoveProfileComponent } from 'src/app/components-when-login/user/u
     UserProfileComponent,
     UserRemoveProfileComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, AngularMaterialModule, AppRoutingModule],
   exports: [
     UserChangePasswordComponent,
     UserEditProfileComponent,

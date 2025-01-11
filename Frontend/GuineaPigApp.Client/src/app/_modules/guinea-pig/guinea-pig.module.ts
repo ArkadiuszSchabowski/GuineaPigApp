@@ -7,6 +7,9 @@ import { GuineaPigLayoutComponent } from 'src/app/components-when-login/guinea-p
 import { GuineaPigProfileComponent } from 'src/app/components-when-login/guinea-pig/guinea-pig-profile/guinea-pig-profile.component';
 import { GuineaPigRemoveProfileComponent } from 'src/app/components-when-login/guinea-pig/guinea-pig-remove-profile/guinea-pig-remove-profile.component';
 import { GuineaPigUpdateProfileComponent } from 'src/app/components-when-login/guinea-pig/guinea-pig-update-profile/guinea-pig-update-profile.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,7 @@ import { GuineaPigUpdateProfileComponent } from 'src/app/components-when-login/g
     GuineaPigRemoveProfileComponent,
     GuineaPigUpdateProfileComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, AppRoutingModule, AngularMaterialModule, FormsModule],
   exports: [
     GuineaPigAddProfileComponent,
     GuineaPigCheckWeightsComponent,
