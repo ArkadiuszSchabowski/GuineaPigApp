@@ -11,7 +11,7 @@
 - Backend: ASP.NET Core (C#)
 - Database: MSSQL, Azure SQL Database (demo version on a free plan)
 - Communication: REST API
-- Docker: Docker, Docker Compose (used for building and managing containerized applications)
+- Containerization: Docker, Docker Compose (used for building and managing containerized applications)
 - CI/CD: Custom CI/CD pipelines (for automating builds and unit tests)
 - Azure: Azure Cloud Services (used for hosting and managing both the application and databases)
 
