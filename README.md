@@ -12,6 +12,7 @@
 - Backend: ASP.NET Core (C#)
 - Database: MSSQL, Azure SQL Database (demo version on a free plan)
 - Communication: REST API
+- Docker: Docker, Docker Compose (used for building and managing containerized applications)
 
 **Design Patterns:**
 - Dependency Injection (DI)
@@ -20,9 +21,9 @@
 
 **How to Run with Docker Compose:**
 - Clone the repository: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
-- Make sure you have Docker and Docker Compose installed
+- Make sure you have Docker and Docker Compose installed.
 - Docker Compose is typically included with Docker Desktop.
-- Navigate to the main project directory where docker-compose.yml is located
+- Navigate to the main project directory where docker-compose.yml is located.
 - Run the following command in the terminal to start the application: **docker-compose up**
   
 - Once the last container is running, you can access the Angular application in your web browser by visiting: http://localhost:4200
