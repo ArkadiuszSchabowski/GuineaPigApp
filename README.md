@@ -4,7 +4,6 @@
 
 **Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
 
-
 **About the Project** - Guinea Pig App is an application designed to help users manage information about their guinea pigs. Users can create and manage profiles for their pets and monitor their weight to keep track of their health. This project demonstrates the use of modern web technologies to build a full-stack application.
 
 **Technology Stack:**
@@ -13,6 +12,8 @@
 - Database: MSSQL, Azure SQL Database (demo version on a free plan)
 - Communication: REST API
 - Docker: Docker, Docker Compose (used for building and managing containerized applications)
+- CI/CD: Custom CI/CD pipelines (for automating builds and unit tests)
+- Azure: Azure Cloud Services (used for hosting and managing both the application and databases)
 
 **Design Patterns:**
 - Dependency Injection (DI)
