@@ -9,6 +9,7 @@ import { MainPageComponent } from 'src/app/components-when-logout/main-page/main
 import { RegisterComponent } from 'src/app/components-when-logout/register/register.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms';
     MainPageComponent,
     RegisterComponent,
   ],
-  imports: [CommonModule, AngularMaterialModule, FormsModule],
+  imports: [CommonModule, AngularMaterialModule, FormsModule, AppRoutingModule],
   exports: [
     BadProductsComponent,
     GoodProductsComponent,
