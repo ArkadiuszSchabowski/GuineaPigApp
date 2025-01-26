@@ -45,9 +45,10 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void GetProduct_WhenCorrectId_ShouldReturnProduct()
         {
+
             int correctId = 1;
 
-            var product1 = new Product()
+            var product = new Product()
             {
                 Id = 1,
                 Name = "Test name 1",
@@ -55,15 +56,26 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 IsGoodProduct = true
             };
 
+            var productDto = new GetProductDto()
+            {
+                Name = "Test name 1",
+                Description = "Test description 1",
+                IsGoodProduct = true
+            };
+
             var mockRepository = new Mock<IProductRepository>();
+            var mockMapper = new Mock<IMapper>();
+            var mockPaginatorValidator = new Mock<IPaginatorValidator>();
 
-            var productService = new ProductService(mockRepository.Object, null, null);
+            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginatorValidator.Object);
 
-            mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product1);
+            mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product);
 
-            var result = productService.GetProduct(correctId);
+            mockMapper.Setup(x => x.Map<GetProductDto>(product)).Returns(productDto);
 
-            Assert.Equal(result, product1);
+            var result = productService.Get(correctId);
+
+            Assert.Equal(result, productDto);
         }
 
         [Theory]
@@ -74,7 +86,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         {
             var productService = new ProductService(null, null, null);
 
-            Action action = () => productService.GetProduct(id);
+            Action action = () => productService.Get(id);
             var exception = Assert.Throws<BadRequestException>(action);
 
             Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);

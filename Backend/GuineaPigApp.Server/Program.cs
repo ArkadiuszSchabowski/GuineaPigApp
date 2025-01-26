@@ -50,6 +50,7 @@ builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddScoped<IAddService<ProductDto>, ProductService>();
+builder.Services.AddScoped<IGetService<GetProductDto>, ProductService>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAccountService, AccountService>();

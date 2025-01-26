@@ -6,7 +6,7 @@ using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Services
 {
-    public class ProductService : IProductService, IAddService<ProductDto>
+    public class ProductService : IProductService, IAddService<ProductDto>, IGetService<GetProductDto>
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
@@ -70,7 +70,7 @@ namespace GuineaPigApp.Server.Services
             return productResultDto;
         }
 
-        public Product GetProduct(int id)
+        public GetProductDto Get(int id)
         {
             if (id <= 0)
             {
@@ -84,7 +84,9 @@ namespace GuineaPigApp.Server.Services
                 throw new BadRequestException("Nie znaleziono produktu o podanym Id!");
             }
 
-            return product;
+            var productDto = _mapper.Map<GetProductDto>(product);
+
+            return productDto;
         }
 
         public void RemoveProduct(int id)

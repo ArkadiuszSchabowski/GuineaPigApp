@@ -7,7 +7,6 @@ namespace GuineaPigApp.Server.Interfaces
     {
         ProductResultDto GetBadProductsResult(PaginationDto dto);
         ProductResultDto GetGoodProductsResult(PaginationDto dto);
-        Product GetProduct(int id);
         void RemoveProduct(int id);
     }
 }
