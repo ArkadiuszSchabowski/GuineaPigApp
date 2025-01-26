@@ -41,7 +41,7 @@ namespace GuineaPigApp.Server.Services
 
             var badProducts = _repository.GetBadProducts(dto);
 
-            var badProductsDto = _mapper.Map<List<ProductDto>>(badProducts);
+            var badProductsDto = _mapper.Map<List<GetProductDto>>(badProducts);
 
             var productResultDto = new ProductResultDto()
             {
@@ -60,7 +60,7 @@ namespace GuineaPigApp.Server.Services
 
             var goodProducts = _repository.GetGoodProducts(dto);
 
-            var goodProductsDto = _mapper.Map<List<ProductDto>>(goodProducts);
+            var goodProductsDto = _mapper.Map<List<GetProductDto>>(goodProducts);
 
             var productResultDto = new ProductResultDto()
             {

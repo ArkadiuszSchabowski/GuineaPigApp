@@ -103,11 +103,11 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 { Id = 2, Name = "Bad Product 2", Description = "Bad Product Description 2", IsGoodProduct = false }
             };
 
-            var productsDto = new List<ProductDto>()
+            var productsDto = new List<GetProductDto>()
             {
-                new ProductDto
+                new GetProductDto
                 { Name = "Bad Product 1", Description = "Bad Product Description 1", IsGoodProduct = false },
-                new ProductDto
+                new GetProductDto
                 { Name = "Bad Product 2", Description = "Bad Product Description 2", IsGoodProduct = false }
             };
 
@@ -126,7 +126,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
             mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
             mockRepository.Setup(x => x.CountBadProducts()).Returns(2);
             mockRepository.Setup(x => x.GetBadProducts(paginationDto)).Returns(products);
-            mockMapper.Setup(x => x.Map<List<ProductDto>>(products)).Returns(productsDto);
+            mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
 
             var expectedResult = new ProductResultDto()
             {
@@ -141,11 +141,11 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void GetGoodProductsResult_ShouldReturn_GoodProductsResult()
         {
-            var productsDto = new List<ProductDto>()
+            var productsDto = new List<GetProductDto>()
             {
-                new ProductDto
+                new GetProductDto
                 { Name = "Good Product 1", Description = "Good Product Description 1", IsGoodProduct = true },
-                new ProductDto
+                new GetProductDto
                 { Name = "Good Product 2", Description = "Good Product Description 2", IsGoodProduct = true }
             };
 
@@ -177,7 +177,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
             mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
             mockRepository.Setup(x => x.CountGoodProducts()).Returns(2);
             mockRepository.Setup(x => x.GetGoodProducts(paginationDto)).Returns(products);
-            mockMapper.Setup(x => x.Map<List<ProductDto>>(products)).Returns(productsDto);
+            mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
             
             var result = productService.GetGoodProductsResult(paginationDto);
 
