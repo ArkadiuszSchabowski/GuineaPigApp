@@ -6,7 +6,7 @@ using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductService, IAddService<ProductDto>
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
@@ -19,7 +19,7 @@ namespace GuineaPigApp.Server.Services
             _paginator = paginator;
         }
 
-        public void AddProduct(ProductDto dto)
+        public void Add(ProductDto dto)
         {
             var product = _repository.EnsureProductDoesNotExist(dto.Name);
 

@@ -35,7 +35,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
 
             mockRepository.Setup(x => x.EnsureProductDoesNotExist(productDto.Name)).Returns(product);
 
-            Action action = () => productService.AddProduct(productDto);
+            Action action = () => productService.Add(productDto);
 
             var exception = Assert.Throws<ConflictException>(action);
 

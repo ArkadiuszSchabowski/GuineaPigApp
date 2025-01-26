@@ -3,6 +3,7 @@ using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Middleware;
+using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Repositories;
 using GuineaPigApp.Server.Seeders;
 using GuineaPigApp.Server.Services;
@@ -47,6 +48,8 @@ builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(build
 
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+builder.Services.AddScoped<IAddService<ProductDto>, ProductService>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAccountService, AccountService>();

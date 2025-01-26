@@ -11,10 +11,12 @@ namespace GuineaPigApp.Server.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
+        private readonly IAddService<ProductDto> _addService;
 
-        public ProductController(IProductService service)
+        public ProductController(IProductService service, IAddService<ProductDto> addService)
         {
             _service = service;
+            _addService = addService;
         }
 
         [HttpGet("bad")]
@@ -24,6 +26,7 @@ namespace GuineaPigApp.Server.Controllers
 
             return Ok(result);
         }
+
         [HttpGet("good")]
         public ActionResult<ProductResultDto> GetGoodProducts([FromQuery] PaginationDto dto)
         {
@@ -44,7 +47,7 @@ namespace GuineaPigApp.Server.Controllers
         [HttpPost]
         public ActionResult AddProduct(ProductDto dto)
         {
-            _service.AddProduct(dto);
+            _addService.Add(dto);
 
             return Created();
         }
