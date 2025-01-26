@@ -2,7 +2,7 @@
 {
     public class ProductResultDto
     {
-        public List<ProductDto> Products { get; set; } = new List<ProductDto>();
+        public List<GetProductDto> Products { get; set; } = new List<GetProductDto>();
         public int TotalCount { get; set; }
     }
 }

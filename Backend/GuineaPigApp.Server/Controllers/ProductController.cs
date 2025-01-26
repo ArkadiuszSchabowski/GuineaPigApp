@@ -1,5 +1,4 @@
-﻿using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Interfaces;
+﻿using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
