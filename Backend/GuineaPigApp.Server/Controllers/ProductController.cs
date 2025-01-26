@@ -44,8 +44,7 @@ namespace GuineaPigApp.Server.Controllers
 
             return Ok(product);
         }
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
         public ActionResult AddProduct(ProductDto dto)
         {
@@ -53,8 +52,8 @@ namespace GuineaPigApp.Server.Controllers
 
             return Created();
         }
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Manager")]
+
+        [Authorize(Roles = "Admin,Manager")]
         [HttpDelete("{id}")]
         public ActionResult RemoveProduct(int id)
         {
