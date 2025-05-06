@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 
@@ -6,19 +6,11 @@ namespace GuineaPigApp.Server.Validators
 {
     public class UserValidator : IUserValidator
     {
-        private static readonly Regex EmailRegex = new Regex(
-            @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-
-        public void ValidateEmailFormat(string email)
+        public void ThrowIfUserIsNull(User? user)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            if (user == null)
             {
-                throw new BadRequestException("Adres e-mail nie może być pusty.");
-            }
-
-            if (!EmailRegex.IsMatch(email))
-            {
-                throw new BadRequestException("Podany adres e-mail jest niepoprawny.");
+                throw new NotFoundException("Nie znaleziono użytkownika o podanym adresie e-mail!");
             }
         }
     }

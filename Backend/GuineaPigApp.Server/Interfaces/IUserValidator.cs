@@ -1,7 +1,9 @@
-﻿namespace GuineaPigApp.Server.Interfaces
+﻿using GuineaPigApp.Server.Database.Entities;
+
+namespace GuineaPigApp.Server.Interfaces
 {
     public interface IUserValidator
     {
-        void ValidateEmailFormat(string email);
+        void ThrowIfUserIsNull(User? user);
     }
 }
