@@ -66,7 +66,7 @@ builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
 builder.Services.AddScoped<IProductSeeder, ProductSeeder>();
 
 builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
-builder.Services.AddScoped<IUserValidator, UserValidator>();
+builder.Services.AddScoped<IEmailValidator, EmailValidator>();
 
 builder.Services.AddCors(options =>
 {
