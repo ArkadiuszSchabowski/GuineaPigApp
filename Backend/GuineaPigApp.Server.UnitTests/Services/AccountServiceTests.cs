@@ -1,7 +1,6 @@
 ﻿#nullable disable
 
 using AutoMapper;
-using GuineaPigApp;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
@@ -18,18 +17,16 @@ namespace GuineaPigApp.Server.UnitTests.Services
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<IPasswordHasher<User>> _mockPasswordHasher;
         private readonly Mock<IMapper> _mockMapper;
-        private readonly Mock<AuthenticationSettings> _mockAuthenticationSettings;
         public AccountServiceTests()
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockPasswordHasher = new Mock<IPasswordHasher<User>>();
             _mockMapper = new Mock<IMapper>();
-            _mockAuthenticationSettings = new Mock<AuthenticationSettings>();
         }
         [Fact]
         public void RegisterUser_WhenPasswordsNotSame_ShouldThrowConflictException()
         {
-            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var dto = new RegisterUserDto()
             {
@@ -52,7 +49,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void DeleteAccount_WhenUserIsNull_ShouldThrowBadRequestException()
         {
-            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var email = "wrongEmail@gmail.com";
 
@@ -68,7 +65,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void DeleteAccount_WithDefaultUser_ShouldThrowForbiddenException()
         {
-            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var defaultUserEmail = "user@gmail.com";
 
@@ -94,7 +91,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void GenerateJWT_WhenValidLogin_ShouldGenerateJWTToken()
         {
-            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var loginUserDto = new LoginUserDto()
             {
@@ -132,7 +129,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void ChangePassword_WhenInvalidCurrentPassword_ShouldThrowBadRequestException()
         {
-            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, null);
 
             var dto = new ChangePasswordDto()
             {
