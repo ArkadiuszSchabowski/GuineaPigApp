@@ -19,7 +19,7 @@ namespace GuineaPigApp.Server.UnitTests.Validators
                 IsGoodProduct = true
             };
 
-            Action action = () => productValidator.ValidateProduct(productDto);
+            Action action = () => productValidator.ThrowIfProductIsNotCorrect(productDto);
 
             var exception = Assert.Throws<BadRequestException>(action);
 
@@ -41,7 +41,7 @@ namespace GuineaPigApp.Server.UnitTests.Validators
                 IsGoodProduct = true
             };
 
-            Action action = () => productValidator.ValidateProduct(productDto);
+            Action action = () => productValidator.ThrowIfProductIsNotCorrect(productDto);
 
             var exception = Assert.Throws<BadRequestException>(action);
 
