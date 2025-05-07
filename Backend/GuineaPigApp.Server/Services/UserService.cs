@@ -8,16 +8,16 @@ namespace GuineaPigApp.Server.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
         private readonly IEmailValidator _emailValidator;
         private readonly IUserValidator _userValidator;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper, IUserValidator userValidator, IEmailValidator emailValidator)
+        public UserService(IUserRepository userRepository, IUserValidator userValidator, IEmailValidator emailValidator, IMapper mapper)
         {
             _userRepository = userRepository;
-            _mapper = mapper;
             _emailValidator = emailValidator;
             _userValidator = userValidator;
+            _mapper = mapper;
         }
         public GetUserDto GetUser(string email)
         {

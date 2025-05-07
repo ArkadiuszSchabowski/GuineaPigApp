@@ -13,17 +13,17 @@ namespace GuineaPigApp.Server.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _hasher;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
         private readonly AuthenticationSettings _authenticationSettings;
 
-        public AccountService(IPasswordHasher<User> hasher, IMapper mapper, AuthenticationSettings authenticationSettings, IUserRepository userRepository)
+        public AccountService(IUserRepository userRepository, IPasswordHasher<User> hasher, IMapper mapper, AuthenticationSettings authenticationSettings)
         {
+            _userRepository = userRepository;
             _hasher = hasher;
             _mapper = mapper;
             _authenticationSettings = authenticationSettings;
-            _userRepository = userRepository;
         }
         public void CheckEmail(string email)
         {
