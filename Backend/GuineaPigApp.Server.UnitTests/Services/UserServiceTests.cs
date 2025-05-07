@@ -10,19 +10,25 @@ namespace GuineaPigApp.Server.UnitTests.Services
 {
     public class UserServiceTests
     {
+        private readonly Mock<IUserRepository> _mockUserRepository;
+        private readonly Mock<IUserValidator> _mockUserValidator;
+        private readonly Mock<IEmailValidator> _mockEmailValidator;
+        private readonly Mock<IMapper> _mockMapper;
+        public UserServiceTests()
+        {
+            _mockUserRepository = new Mock<IUserRepository>();
+            _mockUserValidator = new Mock<IUserValidator>();
+            _mockEmailValidator = new Mock<IEmailValidator>();
+            _mockMapper = new Mock<IMapper>();
+        }
         [Fact]
         public void GetUser_WithInvalidEmail_ShouldThrowNotFoundException()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockUserValidator = new Mock<IUserValidator>();
+            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockEmailValidator.Object, _mockMapper.Object);
 
             var email = "notfound@gmail.com";
 
-            var userService = new UserService(mockUserRepository.Object, mockMapper.Object, mockUserValidator.Object);
-
-            mockUserValidator.Setup(x => x.ValidateEmailFormat(email));
-            mockUserRepository.Setup(x => x.GetUser(email)).Returns((User?)null);
+            _mockUserRepository.Setup(x => x.GetUser(email)).Returns((User?)null);
 
             Action action = () => userService.GetUser(email);
 
@@ -33,13 +39,9 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void UpdateUser_WithCorrectValues_ShouldMapOnce()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockUserValidator = new Mock<IUserValidator>();
+            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockEmailValidator.Object, _mockMapper.Object);
 
             var email = "test@gmail.com";
-
-            var userService = new UserService(mockUserRepository.Object, mockMapper.Object, mockUserValidator.Object);
 
             var user = new User
             {
@@ -57,33 +59,28 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 City = "Warszawa"
             };
 
-            mockUserValidator.Setup(x => x.ValidateEmailFormat(email));
-            mockUserRepository.Setup(x => x.GetUser(email)).Returns(user);
-            mockMapper.Setup(x => x.Map(updateUserDto, user)).Returns(user);
-            mockUserRepository.Setup(x => x.SaveChanges());
+            _mockUserRepository.Setup(x => x.GetUser(email)).Returns(user);
+            _mockMapper.Setup(x => x.Map(updateUserDto, user)).Returns(user);
+            _mockUserRepository.Setup(x => x.SaveChanges());
 
             userService.UpdateUser(email, updateUserDto);
 
-            mockMapper.Verify(x => x.Map(updateUserDto, user), Times.Once());
+            _mockMapper.Verify(x => x.Map(updateUserDto, user), Times.Once());
         }
         [Fact]
         public void GetUsers_WhenCalled_ShouldMapOnce()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockUserValidator = new Mock<IUserValidator>();
-
-            var userService = new UserService(mockUserRepository.Object, mockMapper.Object, mockUserValidator.Object);
+            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockEmailValidator.Object, _mockMapper.Object);
 
             var users = new List<User>();
             var usersDto = new List<GetUserDto>();
 
-            mockUserRepository.Setup(x => x.GetUsers()).Returns(users);
-            mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
+            _mockUserRepository.Setup(x => x.GetUsers()).Returns(users);
+            _mockMapper.Setup(x => x.Map<List<GetUserDto>>(users)).Returns(usersDto);
 
             userService.GetUsers();
 
-            mockMapper.Verify(x =>x.Map<List<GetUserDto>>(users), Times.Once());
+            _mockMapper.Verify(x =>x.Map<List<GetUserDto>>(users), Times.Once());
         }
     }
 }

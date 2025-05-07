@@ -15,11 +15,20 @@ namespace GuineaPigApp.Server.UnitTests.Services
     [Trait("Category", "Unit")]
     public class ProductServiceTests
     {
+        private readonly Mock<IProductRepository> _mockProductRepository;
+        private readonly Mock<IProductValidator> _mockProductValidator;
+        private readonly Mock<IPaginatorValidator> _mockPaginatorValidator;
+        private readonly Mock<INumberValidator> _mockNumberValidator;
+        private readonly Mock<IMapper> _mockMapper;
+
+        public ProductServiceTests()
+        {
+            
+        }
         [Fact]
         public void AddProduct_WhenProductExist_ShouldThrowConflictException()
         {
-            var mockRepository = new Mock<IProductRepository>();
-            var productService = new ProductService(mockRepository.Object, null, null);
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
 
             var productDto = new ProductDto()
             {
@@ -33,7 +42,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 IsGoodProduct = true
             };
 
-            mockRepository.Setup(x => x.EnsureProductDoesNotExist(productDto.Name)).Returns(product);
+            _mockProductRepository.Setup(x => x.GetProduct(productDto.Name)).Returns(product);
 
             Action action = () => productService.Add(productDto);
 
@@ -45,6 +54,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void GetProduct_WhenCorrectId_ShouldReturnProduct()
         {
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
 
             int correctId = 1;
 
@@ -63,15 +73,9 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 IsGoodProduct = true
             };
 
-            var mockRepository = new Mock<IProductRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockPaginatorValidator = new Mock<IPaginatorValidator>();
+            _mockProductRepository.Setup(x => x.GetProduct(correctId)).Returns(product);
 
-            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginatorValidator.Object);
-
-            mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product);
-
-            mockMapper.Setup(x => x.Map<GetProductDto>(product)).Returns(productDto);
+            _mockMapper.Setup(x => x.Map<GetProductDto>(product)).Returns(productDto);
 
             var result = productService.Get(correctId);
 
@@ -84,9 +88,10 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [InlineData(-5)]
         public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
         {
-            var productService = new ProductService(null, null, null);
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
 
             Action action = () => productService.Get(id);
+
             var exception = Assert.Throws<BadRequestException>(action);
 
             Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
@@ -95,6 +100,8 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void GetBadProductsResult_ShouldReturn_BadProductsResult()
         {
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
+
             var products = new List<Product>()
             {
                 new Product
@@ -117,16 +124,10 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 PageSize = 10
             };
 
-            var mockRepository = new Mock<IProductRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockPaginator = new Mock<IPaginatorValidator>();
-
-            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginator.Object);
-
-            mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
-            mockRepository.Setup(x => x.CountBadProducts()).Returns(2);
-            mockRepository.Setup(x => x.GetBadProducts(paginationDto)).Returns(products);
-            mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
+            _mockPaginatorValidator.Setup(x => x.ValidatePagination(paginationDto));
+            _mockProductRepository.Setup(x => x.CountBadProducts()).Returns(2);
+            _mockProductRepository.Setup(x => x.GetBadProducts(paginationDto)).Returns(products);
+            _mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
 
             var expectedResult = new ProductResultDto()
             {
@@ -141,6 +142,8 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void GetGoodProductsResult_ShouldReturn_GoodProductsResult()
         {
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
+
             var productsDto = new List<GetProductDto>()
             {
                 new GetProductDto
@@ -168,16 +171,10 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 TotalCount = 2
             };
 
-            var mockRepository = new Mock<IProductRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockPaginator = new Mock<IPaginatorValidator>();
-
-            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginator.Object);
-
-            mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
-            mockRepository.Setup(x => x.CountGoodProducts()).Returns(2);
-            mockRepository.Setup(x => x.GetGoodProducts(paginationDto)).Returns(products);
-            mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
+            _mockPaginatorValidator.Setup(x => x.ValidatePagination(paginationDto));
+            _mockProductRepository.Setup(x => x.CountGoodProducts()).Returns(2);
+            _mockProductRepository.Setup(x => x.GetGoodProducts(paginationDto)).Returns(products);
+            _mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
             
             var result = productService.GetGoodProductsResult(paginationDto);
 
@@ -190,9 +187,10 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [InlineData(-5)]
         public void RemoveProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
         {
-            var productService = new ProductService(null, null, null);
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
 
             Action action = () => productService.RemoveProduct(id);
+
             var exception = Assert.Throws<BadRequestException>(action);
 
             Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);

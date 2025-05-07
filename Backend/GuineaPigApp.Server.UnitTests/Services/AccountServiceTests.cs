@@ -1,5 +1,6 @@
 ﻿#nullable disable
 
+using AutoMapper;
 using GuineaPigApp;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Exceptions;
@@ -14,12 +15,21 @@ namespace GuineaPigApp.Server.UnitTests.Services
     [Trait("Category", "Unit")]
     public class AccountServiceTests
     {
+        private readonly Mock<IUserRepository> _mockUserRepository;
+        private readonly Mock<IPasswordHasher<User>> _mockPasswordHasher;
+        private readonly Mock<IMapper> _mockMapper;
+        private readonly Mock<AuthenticationSettings> _mockAuthenticationSettings;
+        public AccountServiceTests()
+        {
+            _mockUserRepository = new Mock<IUserRepository>();
+            _mockPasswordHasher = new Mock<IPasswordHasher<User>>();
+            _mockMapper = new Mock<IMapper>();
+            _mockAuthenticationSettings = new Mock<AuthenticationSettings>();
+        }
         [Fact]
         public void RegisterUser_WhenPasswordsNotSame_ShouldThrowConflictException()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-
-            var accountService = new AccountService(null, null, null, mockUserRepository.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
 
             var dto = new RegisterUserDto()
             {
@@ -31,7 +41,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 RepeatPassword = "Wrong Password",
             };
 
-            mockUserRepository.Setup(x => x.GetUser(dto.Email)).Returns((User)null);
+            _mockUserRepository.Setup(x => x.GetUser(dto.Email)).Returns((User)null);
 
             Action action = () => accountService.RegisterUser(dto);
 
@@ -42,26 +52,23 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void DeleteAccount_WhenUserIsNull_ShouldThrowBadRequestException()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-
-            var accountService = new AccountService(null, null, null, mockUserRepository.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
 
             var email = "wrongEmail@gmail.com";
 
-            mockUserRepository.Setup(x => x.GetUser(email)).Returns((User)null);
+            _mockUserRepository.Setup(x => x.GetUser(email)).Returns((User)null);
 
             Action action = () => accountService.DeleteAccount(email);
 
             var exception = Assert.Throws<BadRequestException>(action);
+
             Assert.Equal("Taki użytkownik nie istnieje!", exception.Message);
         }
 
         [Fact]
         public void DeleteAccount_WithDefaultUser_ShouldThrowForbiddenException()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-
-            var accountService = new AccountService(null, null, null, mockUserRepository.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
 
             var defaultUserEmail = "user@gmail.com";
 
@@ -75,19 +82,19 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 RoleId = 1
             };
 
-            mockUserRepository.Setup(x => x.GetUser(defaultUserEmail)).Returns(defaultUser);
+            _mockUserRepository.Setup(x => x.GetUser(defaultUserEmail)).Returns(defaultUser);
 
             Action action = () => accountService.DeleteAccount(defaultUserEmail);
 
             var exception = Assert.Throws<ForbiddenException>(action);
+
             Assert.Equal("Nie możesz usunąć domyślnego konta użytkownika!", exception.Message);
         }
 
         [Fact]
         public void GenerateJWT_WhenValidLogin_ShouldGenerateJWTToken()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockPasswordHasher = new Mock<IPasswordHasher<User>>();
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
 
             var loginUserDto = new LoginUserDto()
             {
@@ -113,11 +120,9 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 JwtIssuer = "Test Issuer"
             };
 
-            var accountService = new AccountService(mockPasswordHasher.Object, null, testAuthenticationSettings, mockUserRepository.Object);
+            _mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, loginUserDto.Password)).Returns(PasswordVerificationResult.Success);
 
-            mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, loginUserDto.Password)).Returns(PasswordVerificationResult.Success);
-
-            mockUserRepository.Setup(x => x.GetUser(loginUserDto.Email)).Returns(user);
+            _mockUserRepository.Setup(x => x.GetUser(loginUserDto.Email)).Returns(user);
 
             var result = accountService.GenerateJWT(loginUserDto);
 
@@ -127,10 +132,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void ChangePassword_WhenInvalidCurrentPassword_ShouldThrowBadRequestException()
         {
-            var mockUserRepository = new Mock<IUserRepository>();
-            var mockPasswordHasher = new Mock<IPasswordHasher<User>>();
-
-            var accountService = new AccountService(mockPasswordHasher.Object, null, null, mockUserRepository.Object);
+            var accountService = new AccountService(_mockUserRepository.Object, _mockPasswordHasher.Object, _mockMapper.Object, _mockAuthenticationSettings.Object);
 
             var dto = new ChangePasswordDto()
             {
@@ -142,12 +144,13 @@ namespace GuineaPigApp.Server.UnitTests.Services
 
             var user = new User();
 
-            mockUserRepository.Setup(x => x.GetUser(dto.Email)).Returns(user);
-            mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, dto.CurrentPassword)).Returns(PasswordVerificationResult.Failed);
+            _mockUserRepository.Setup(x => x.GetUser(dto.Email)).Returns(user);
+            _mockPasswordHasher.Setup(x => x.VerifyHashedPassword(user, user.PasswordHash, dto.CurrentPassword)).Returns(PasswordVerificationResult.Failed);
 
             Action action = () => accountService.ChangePassword(dto);
 
             var exception = Assert.Throws<BadRequestException>(action);
+
             Assert.Equal("Wprowadzono niepoprawne hasło!", exception.Message);
         }
     }
