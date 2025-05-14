@@ -14,7 +14,7 @@ namespace GuineaPigApp.Server.Repositories
             _context = context;
         }
 
-        public void AddGuineaPig(GuineaPig guineaPig)
+        public void Add(GuineaPig guineaPig)
         {
             _context.GuineaPigs.Add(guineaPig);
             _context.SaveChanges();

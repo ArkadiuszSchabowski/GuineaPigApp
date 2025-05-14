@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 
@@ -23,7 +22,7 @@ namespace GuineaPigApp.Server.Services
             _userValidator = userValidator;
             _mapper = mapper;
         }
-        public void AddGuineaPig(string email, GuineaPigDto dto)
+        public void Add(string email, GuineaPigDto dto)
         {
             User? user = _userRepository.GetUser(email);
 
@@ -31,23 +30,20 @@ namespace GuineaPigApp.Server.Services
 
             _guineaPigValidator.ThrowIfWeightIsNotCorrect(dto.Weight);
 
-            var guineaPig = _guineaPigRepository.PigExists(user!, dto.Name);
+            bool isGuineaPig = _guineaPigRepository.PigExists(user!, dto.Name);
 
-            if (guineaPig)
-            {
-                throw new ConflictException("Posiadasz już taką świnkę morską o takim imieniu!");
-            }
+            _guineaPigValidator.ThrowIfUserGuineaPigExists(isGuineaPig);
 
-            var newGuineaPig = _mapper.Map<GuineaPig>(dto);
+            GuineaPig guineaPig = _mapper.Map<GuineaPig>(dto);
 
-            newGuineaPig.User = user!;
+            guineaPig.User = user!;
 
-            _guineaPigRepository.AddGuineaPig(newGuineaPig);
+            _guineaPigRepository.Add(guineaPig);
 
             var guineaPigWeight = new GuineaPigWeight();
 
-            guineaPigWeight.Weight = newGuineaPig.Weight;
-            guineaPigWeight.GuineaPig = newGuineaPig;
+            guineaPigWeight.Weight = guineaPig.Weight;
+            guineaPigWeight.GuineaPig = guineaPig;
             guineaPigWeight.Date = DateOnly.FromDateTime(DateTime.Now);
 
             _guineaPigRepository.AddGuineaPigWeight(guineaPigWeight);
@@ -117,7 +113,7 @@ namespace GuineaPigApp.Server.Services
 
             _userValidator.ThrowIfUserIsNull(user);
 
-            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, guineaPigName);
+            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user!.Id, guineaPigName);
 
             _guineaPigValidator.ThrowIfGuineaPigIsNull(guineaPig);
 

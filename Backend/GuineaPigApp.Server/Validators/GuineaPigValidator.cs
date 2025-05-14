@@ -14,11 +14,19 @@ namespace GuineaPigApp.Server.Validators
             }
         }
 
+        public void ThrowIfUserGuineaPigExists(bool guineaPig)
+        {
+            if (guineaPig)
+            {
+                throw new ConflictException("Posiadasz już świnkę morską o takim imieniu!");
+            }
+        }
+
         public void ThrowIfWeightIsNotCorrect(int weight)
         {
             if (weight < 50 || weight > 3000)
             {
-                throw new BadRequestException("Waga świnki musi mieścić się w przedziale 50 do 3000gram!");
+                throw new BadRequestException("Waga świnki musi mieścić się w przedziale 50 do 3000 gram!");
             }
         }
     }

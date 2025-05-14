@@ -10,7 +10,7 @@ namespace GuineaPigApp.Server.Validators
         {
             if (user == null)
             {
-                throw new NotFoundException("Nie znaleziono użytkownika o podanym adresie e-mail!");
+                throw new NotFoundException("Nie znaleziono takiego użytkownika!");
             }
         }
     }
