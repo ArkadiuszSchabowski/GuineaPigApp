@@ -33,20 +33,33 @@ namespace GuineaPigApp.Server.Services
             _ProductRepository.AddProduct(newProduct);
         }
 
+        public GetProductDto Get(int id)
+        {
+            _numberValidator.ThrowIfIdIsNonPositive(id);
+
+            var product = _ProductRepository.GetProduct(id);
+
+            _productValidator.ThrowIfProductIsNull(product);
+
+            var productDto = _mapper.Map<GetProductDto>(product);
+
+            return productDto;
+        }
+
         public ProductResultDto GetBadProductsResult(PaginationDto dto)
         {
             _paginatorValidator.ValidatePagination(dto);
 
-            int countBadProducts = _ProductRepository.CountBadProducts();
+            int counterProducts = _ProductRepository.CountBadProducts();
 
-            var badProducts = _ProductRepository.GetBadProducts(dto);
+            var products = _ProductRepository.GetBadProducts(dto);
 
-            var badProductsDto = _mapper.Map<List<GetProductDto>>(badProducts);
+            var productsDto = _mapper.Map<List<GetProductDto>>(products);
 
             var productResultDto = new ProductResultDto()
             {
-                Products = badProductsDto,
-                TotalCount = countBadProducts,
+                Products = productsDto,
+                TotalCount = counterProducts,
             };
 
             return productResultDto;
@@ -68,19 +81,6 @@ namespace GuineaPigApp.Server.Services
                 TotalCount = countGoodProducts,
             };
             return productResultDto;
-        }
-
-        public GetProductDto Get(int id)
-        {
-            _numberValidator.ThrowIfIdIsNonPositive(id);
-
-            var product = _ProductRepository.GetProduct(id);
-
-            _productValidator.ThrowIfProductIsNull(product);
-
-            var productDto = _mapper.Map<GetProductDto>(product);
-
-            return productDto;
         }
 
         public void RemoveProduct(int id)
