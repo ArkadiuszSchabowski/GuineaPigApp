@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using Microsoft.AspNetCore.Identity;
@@ -13,46 +12,34 @@ namespace GuineaPigApp.Server.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly IUserRepository _userRepository;
+        private readonly IUserValidator _userValidator;
+        private readonly ILoginValidator _loginValidator;
         private readonly IPasswordHasher<User> _hasher;
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
         private readonly AuthenticationSettings _authenticationSettings;
 
-        public AccountService(IPasswordHasher<User> hasher, IMapper mapper, AuthenticationSettings authenticationSettings, IUserRepository userRepository)
+        public AccountService(IUserRepository userRepository, IUserValidator userValidator, ILoginValidator loginValidator, IPasswordHasher<User> hasher, IMapper mapper, AuthenticationSettings authenticationSettings)
         {
+            _userRepository = userRepository;
+            _userValidator = userValidator;
+            _loginValidator = loginValidator;
             _hasher = hasher;
             _mapper = mapper;
             _authenticationSettings = authenticationSettings;
-            _userRepository = userRepository;
-        }
-        public void CheckEmail(string email)
-        {
-            User? result = _userRepository.CheckEmail(email);
-            if (result != null) {
-                throw new ConflictException("Istnieje już użytkownik z takim adresem e-mail!");
-            }
         }
 
         public void ChangePassword(ChangePasswordDto dto)
         {
             var user = _userRepository.GetUser(dto.Email);
 
-            if (user == null)
-            {
-                throw new NotFoundException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            var result = _hasher.VerifyHashedPassword(user, user.PasswordHash, dto.CurrentPassword);
+            var result = _hasher.VerifyHashedPassword(user!, user!.PasswordHash, dto.CurrentPassword);
 
-            if (result == PasswordVerificationResult.Failed)
-            {
-                throw new BadRequestException("Wprowadzono niepoprawne hasło!");
-            }
+            _loginValidator.ThrowIfInvalidPassword(result);
 
-            if (dto.NewPassword != dto.RepeatNewPassword)
-            {
-                throw new BadRequestException("Wprowadzone hasła nie są zgodne!");
-            }
+            _loginValidator.ThrowIfPasswordsDoNotMatch(dto.NewPassword, dto.RepeatNewPassword);
 
             user.PasswordHash = _hasher.HashPassword(user, dto.NewPassword);
 
@@ -63,26 +50,19 @@ namespace GuineaPigApp.Server.Services
         {
             var user = _userRepository.GetUser(loginUserDto.Email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Błędne dane logowania!");
-            }
+            _loginValidator.ThrowIfInvalidLogin(user);
 
-            var password = _hasher.VerifyHashedPassword(user, user.PasswordHash, loginUserDto.Password);
+            var password = _hasher.VerifyHashedPassword(user!, user!.PasswordHash, loginUserDto.Password);
 
-            if (password != PasswordVerificationResult.Success)
-            {
-                throw new BadRequestException("Błędne dane logowania!");
-            }
+            _loginValidator.ThrowIfInvalidLogin(password);
 
-            if(user.Role == null) {
-                throw new Exception("Użytkownik nie ma przypisanej roli!");
-            }
+            _userValidator.ThrowIfUserRoleIsNull(user.Role);
+
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role.Name.ToString())
+                new Claim(ClaimTypes.Role, user.Role!.Name.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
@@ -95,6 +75,7 @@ namespace GuineaPigApp.Server.Services
                 signingCredentials: cred);
 
             var tokenHandler = new JwtSecurityTokenHandler();
+
             return tokenHandler.WriteToken(token);
         }
 
@@ -102,15 +83,9 @@ namespace GuineaPigApp.Server.Services
         {
             var user = _userRepository.GetUser(dto.Email);
 
-            if (user != null)
-            {
-                throw new ConflictException("Taki użytkownik istnieje już w bazie danych!");
-            }
+            _userValidator.ThrowIfUserExist(user);
 
-            if (dto.Password != dto.RepeatPassword)
-            {
-                throw new ConflictException("Wprowadzone hasła są róźne!");
-            }
+            _loginValidator.ThrowIfPasswordsDoNotMatch(dto.Password, dto.RepeatPassword);
 
             var newUser = _mapper.Map<User>(dto);
 
@@ -124,21 +99,11 @@ namespace GuineaPigApp.Server.Services
         {
             var user = _userRepository.GetUser(email);
 
-            var defaultUserEmail = "user@gmail.com";
-            var defaultManagerEmail = "manager@gmail.com";
-            var defaultAdminEmail = "admin@gmail.com";
+            _userValidator.ThrowIfUserIsNull(user);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfRemovingDefaultAccount(user!.Email);
 
-
-            if(user.Email == defaultUserEmail || user.Email == defaultManagerEmail || user.Email == defaultAdminEmail)
-            {
-                throw new ForbiddenException("Nie możesz usunąć domyślnego konta użytkownika!");
-            }
-                _userRepository.RemoveUser(user);
+            _userRepository.RemoveUser(user);
         }
     }
 }

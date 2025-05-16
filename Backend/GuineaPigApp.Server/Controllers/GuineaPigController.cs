@@ -39,7 +39,7 @@ namespace GuineaPigApp.Server.Controllers
         [HttpPost]
         public ActionResult AddGuineaPig([FromQuery] string email, [FromBody] GuineaPigDto dto)
         {
-            _guineaPigService.AddGuineaPig(email, dto);
+            _guineaPigService.Add(email, dto);
             return Ok(new { message = "Profil świnki morskiej został dodany!" });
         }
         [HttpPatch("update-weight/{name}")]

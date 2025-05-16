@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 
@@ -10,47 +8,42 @@ namespace GuineaPigApp.Server.Services
     public class GuineaPigService : IGuineaPigService
     {
         private readonly IGuineaPigRepository _guineaPigRepository;
+        private readonly IGuineaPigValidator _guineaPigValidator;
         private readonly IUserRepository _userRepository;
+        private readonly IUserValidator _userValidator;
         private readonly IMapper _mapper;
 
 
-        public GuineaPigService(IGuineaPigRepository guineaPigRepository, IUserRepository userRepository, IMapper mapper)
+        public GuineaPigService(IGuineaPigRepository guineaPigRepository, IGuineaPigValidator guineaPigValidator, IUserRepository userRepository, IUserValidator userValidator, IMapper mapper)
         {
             _guineaPigRepository = guineaPigRepository;
+            _guineaPigValidator = guineaPigValidator;
             _userRepository = userRepository;
+            _userValidator = userValidator;
             _mapper = mapper;
         }
-        public void AddGuineaPig(string email, GuineaPigDto dto)
+        public void Add(string email, GuineaPigDto dto)
         {
             User? user = _userRepository.GetUser(email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            if(dto.Weight < 50 || dto.Weight > 3000)
-            {
-                throw new BadRequestException("Waga świnki musi mieścić się w przedziale 50 do 3000gram!");
-            }
+            _guineaPigValidator.ThrowIfWeightIsNotCorrect(dto.Weight);
 
-            var guineaPig = _guineaPigRepository.PigExists(user, dto.Name);
+            bool isGuineaPig = _guineaPigRepository.PigExists(user!, dto.Name);
 
-            if (guineaPig)
-            {
-                throw new ConflictException("Posiadasz już taką świnkę morską o takim imieniu!");
-            }
+            _guineaPigValidator.ThrowIfUserGuineaPigExists(isGuineaPig);
 
-            var newGuineaPig = _mapper.Map<GuineaPig>(dto);
+            GuineaPig guineaPig = _mapper.Map<GuineaPig>(dto);
 
-            newGuineaPig.User = user;
+            guineaPig.User = user!;
 
-            _guineaPigRepository.AddGuineaPig(newGuineaPig);
+            _guineaPigRepository.Add(guineaPig);
 
             var guineaPigWeight = new GuineaPigWeight();
 
-            guineaPigWeight.Weight = newGuineaPig.Weight;
-            guineaPigWeight.GuineaPig = newGuineaPig;
+            guineaPigWeight.Weight = guineaPig.Weight;
+            guineaPigWeight.GuineaPig = guineaPig;
             guineaPigWeight.Date = DateOnly.FromDateTime(DateTime.Now);
 
             _guineaPigRepository.AddGuineaPigWeight(guineaPigWeight);
@@ -60,17 +53,11 @@ namespace GuineaPigApp.Server.Services
         {
             User? user = _userRepository.GetUser(email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, name);
+            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user!.Id, name);
 
-            if (guineaPig == null)
-            {
-                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
-            }
+            _guineaPigValidator.ThrowIfGuineaPigIsNull(guineaPig);
 
             var guineaPigDto = _mapper.Map<GuineaPigDto>(guineaPig);
 
@@ -81,12 +68,9 @@ namespace GuineaPigApp.Server.Services
         {
             User? user = _userRepository.GetUser(email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            List<GuineaPig> guineaPigs = _guineaPigRepository.GetGuineaPigs(user.Id);
+            List<GuineaPig> guineaPigs = _guineaPigRepository.GetGuineaPigs(user!.Id);
 
             var guineaPigsDto = _mapper.Map<List<GuineaPigDto>>(guineaPigs);
 
@@ -97,20 +81,16 @@ namespace GuineaPigApp.Server.Services
         {
             User? user = _userRepository.GetUser(email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            var guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, guineaPigName);
+            var guineaPig = _guineaPigRepository.GetGuineaPig(user!.Id, guineaPigName);
 
-            if (guineaPig == null)
-            {
-                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
-            }
+            _guineaPigValidator.ThrowIfGuineaPigIsNull(guineaPig);
 
-            List<GuineaPigWeight> weights = _guineaPigRepository.GetWeights(guineaPig);
+            List<GuineaPigWeight> weights = _guineaPigRepository.GetWeights(guineaPig!);
+
             var weightsDto = _mapper.Map<List<GuineaPigWeightsDto>>(weights);
+
             return weightsDto;
         }
 
@@ -118,42 +98,30 @@ namespace GuineaPigApp.Server.Services
         {
             User? user = _userRepository.GetUser(email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            var guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, guineaPigName);
+            var guineaPig = _guineaPigRepository.GetGuineaPig(user!.Id, guineaPigName);
 
-            if (guineaPig == null)
-            {
-                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
-            }
+            _guineaPigValidator.ThrowIfGuineaPigIsNull(guineaPig);
 
-            _guineaPigRepository.RemoveGuineaPig(guineaPig);
+            _guineaPigRepository.RemoveGuineaPig(guineaPig!);
         }
 
         public void UpdateWeight(string email, string guineaPigName, GuineaPigWeightDto dto)
         {
             User? user = _userRepository.GetUser(email);
 
-            if (user == null)
-            {
-                throw new BadRequestException("Taki użytkownik nie istnieje!");
-            }
+            _userValidator.ThrowIfUserIsNull(user);
 
-            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user.Id, guineaPigName);
+            GuineaPig? guineaPig = _guineaPigRepository.GetGuineaPig(user!.Id, guineaPigName);
 
-            if (guineaPig == null)
-            {
-                throw new BadRequestException("Nie posiadasz świnki morskiej o takim imieniu!");
-            }
+            _guineaPigValidator.ThrowIfGuineaPigIsNull(guineaPig);
 
             _mapper.Map(dto, guineaPig);
 
             var guineaPigWeight = new GuineaPigWeight();
 
-            guineaPigWeight.Weight = guineaPig.Weight;
+            guineaPigWeight.Weight = guineaPig!.Weight;
             guineaPigWeight.GuineaPig = guineaPig;
             guineaPigWeight.Date = DateOnly.FromDateTime(DateTime.Now);
 

@@ -2,9 +2,7 @@
 
 using AutoMapper;
 using FluentAssertions;
-using GuineaPigApp;
 using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Services;
@@ -15,100 +13,78 @@ namespace GuineaPigApp.Server.UnitTests.Services
     [Trait("Category", "Unit")]
     public class ProductServiceTests
     {
-        [Fact]
-        public void AddProduct_WhenProductExist_ShouldThrowConflictException()
+        private readonly Mock<IProductRepository> _mockProductRepository;
+        private readonly Mock<IProductValidator> _mockProductValidator;
+        private readonly Mock<IPaginatorValidator> _mockPaginatorValidator;
+        private readonly Mock<INumberValidator> _mockNumberValidator;
+        private readonly Mock<IMapper> _mockMapper;
+
+        public ProductServiceTests()
         {
-            var mockRepository = new Mock<IProductRepository>();
-            var productService = new ProductService(mockRepository.Object, null, null);
-
-            var productDto = new ProductDto()
-            {
-                Name = "Test ProductDto",
-                IsGoodProduct = true
-            };
-
-            var product = new Product()
-            {
-                Name = "Test Product",
-                IsGoodProduct = true
-            };
-
-            mockRepository.Setup(x => x.EnsureProductDoesNotExist(productDto.Name)).Returns(product);
-
-            Action action = () => productService.Add(productDto);
-
-            var exception = Assert.Throws<ConflictException>(action);
-
-            Assert.Equal("Podany produkt istnieje już w bazie danych!", exception.Message);
+            _mockProductRepository = new Mock<IProductRepository>();
+            _mockProductValidator = new Mock<IProductValidator>();
+            _mockPaginatorValidator = new Mock<IPaginatorValidator>();
+            _mockNumberValidator = new Mock<INumberValidator>();
+            _mockMapper = new Mock<IMapper>();
         }
 
         [Fact]
-        public void GetProduct_WhenCorrectId_ShouldReturnProduct()
+        public void Get_WhenCorrectId_ShouldReturnProductDto()
         {
-
-            int correctId = 1;
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
 
             var product = new Product()
             {
-                Id = 1,
-                Name = "Test name 1",
-                Description = "Test description 1",
-                IsGoodProduct = true
+                Id = 1, Name = "Apple", Description = "Apples are a good snack for guinea pigs.", IsGoodProduct = true
             };
 
             var productDto = new GetProductDto()
             {
-                Name = "Test name 1",
-                Description = "Test description 1",
-                IsGoodProduct = true
+                Name = "Apple", Description = "Apples are a good snack for guinea pigs.", IsGoodProduct = true
             };
 
-            var mockRepository = new Mock<IProductRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockPaginatorValidator = new Mock<IPaginatorValidator>();
+            _mockProductRepository.Setup(x => x.GetProduct(product.Id)).Returns(product);
 
-            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginatorValidator.Object);
+            _mockMapper.Setup(x => x.Map<GetProductDto>(product)).Returns(productDto);
 
-            mockRepository.Setup(x => x.GetProduct(correctId)).Returns(product);
-
-            mockMapper.Setup(x => x.Map<GetProductDto>(product)).Returns(productDto);
-
-            var result = productService.Get(correctId);
+            var result = productService.Get(product.Id);
 
             Assert.Equal(result, productDto);
         }
 
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-5)]
-        public void GetProduct_WhenInvalidId_ShouldThrowBadRequestException(int id)
-        {
-            var productService = new ProductService(null, null, null);
-
-            Action action = () => productService.Get(id);
-            var exception = Assert.Throws<BadRequestException>(action);
-
-            Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
-        }
-
         [Fact]
-        public void GetBadProductsResult_ShouldReturn_BadProductsResult()
+        public void GetBadProductsResult_WithValidData_ReturnsBadProductsResult()
         {
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
+
             var products = new List<Product>()
             {
                 new Product
-                { Id = 1, Name = "Bad Product 1", Description = "Bad Product Description 1", IsGoodProduct = false },
+                { 
+                    Id = 1, Name = "Mushroom",
+                    Description = "Mushrooms may contain toxins that are harmful to guinea pigs.",
+                    IsGoodProduct = false },
+
                 new Product
-                { Id = 2, Name = "Bad Product 2", Description = "Bad Product Description 2", IsGoodProduct = false }
+                { 
+                    Id = 2, Name = "Garlic",
+                    Description = "Garlic is completely banned for guinea pigs!",
+                    IsGoodProduct = false }
             };
 
             var productsDto = new List<GetProductDto>()
             {
                 new GetProductDto
-                { Name = "Bad Product 1", Description = "Bad Product Description 1", IsGoodProduct = false },
+                { 
+                    Name = "Mushroom",
+                    Description = "Mushrooms may contain toxins that are harmful to guinea pigs.",
+                    IsGoodProduct = false },
+
                 new GetProductDto
-                { Name = "Bad Product 2", Description = "Bad Product Description 2", IsGoodProduct = false }
+                { 
+                    Name = "Garlic",
+                    Description = "Garlic is completely banned for guinea pigs!",
+                    IsGoodProduct = false }
             };
 
             var paginationDto = new PaginationDto()
@@ -117,16 +93,9 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 PageSize = 10
             };
 
-            var mockRepository = new Mock<IProductRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockPaginator = new Mock<IPaginatorValidator>();
-
-            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginator.Object);
-
-            mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
-            mockRepository.Setup(x => x.CountBadProducts()).Returns(2);
-            mockRepository.Setup(x => x.GetBadProducts(paginationDto)).Returns(products);
-            mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
+            _mockProductRepository.Setup(x => x.CountBadProducts()).Returns(2);
+            _mockProductRepository.Setup(x => x.GetBadProducts(paginationDto)).Returns(products);
+            _mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
 
             var expectedResult = new ProductResultDto()
             {
@@ -139,22 +108,24 @@ namespace GuineaPigApp.Server.UnitTests.Services
             result.Should().BeEquivalentTo(expectedResult);
         }
         [Fact]
-        public void GetGoodProductsResult_ShouldReturn_GoodProductsResult()
+        public void GetGoodProductsResult_WithValidData_ReturnsGoodProductsResult()
         {
+            var productService = new ProductService(_mockProductRepository.Object, _mockProductValidator.Object, _mockPaginatorValidator.Object, _mockNumberValidator.Object, _mockMapper.Object);
+
             var productsDto = new List<GetProductDto>()
             {
                 new GetProductDto
-                { Name = "Good Product 1", Description = "Good Product Description 1", IsGoodProduct = true },
+                { Name = "Apple", Description = "Apples are a good snack for guinea pigs.", IsGoodProduct = true },
                 new GetProductDto
-                { Name = "Good Product 2", Description = "Good Product Description 2", IsGoodProduct = true }
+                { Name = "Cucumber", Description = "Cucumbers are low in calories and rich in water.", IsGoodProduct = true }
             };
 
             var products = new List<Product>()
             {
                 new Product
-                { Id =1, Name = "Good Product 1", Description = "Good Product Description 1", IsGoodProduct = true },
+                { Id =1, Name = "Apple", Description = "Apples are a good snack for guinea pigs.", IsGoodProduct = true },
                 new Product
-                { Id = 2, Name = "Good Product 2", Description = "Good Product Description 2", IsGoodProduct = true }
+                { Id = 2, Name = "Cucumber", Description = "Cucumbers are low in calories and rich in water.", IsGoodProduct = true }
             };
 
             var paginationDto = new PaginationDto()
@@ -162,40 +133,20 @@ namespace GuineaPigApp.Server.UnitTests.Services
                 PageNumber = 1,
                 PageSize = 10
             };
-            var productResultDto = new ProductResultDto()
+
+            _mockProductRepository.Setup(x => x.CountGoodProducts()).Returns(2);
+            _mockProductRepository.Setup(x => x.GetGoodProducts(paginationDto)).Returns(products);
+            _mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
+
+            var expectedResult = new ProductResultDto()
             {
                 Products = productsDto,
                 TotalCount = 2
             };
 
-            var mockRepository = new Mock<IProductRepository>();
-            var mockMapper = new Mock<IMapper>();
-            var mockPaginator = new Mock<IPaginatorValidator>();
-
-            var productService = new ProductService(mockRepository.Object, mockMapper.Object, mockPaginator.Object);
-
-            mockPaginator.Setup(x => x.ValidatePagination(paginationDto));
-            mockRepository.Setup(x => x.CountGoodProducts()).Returns(2);
-            mockRepository.Setup(x => x.GetGoodProducts(paginationDto)).Returns(products);
-            mockMapper.Setup(x => x.Map<List<GetProductDto>>(products)).Returns(productsDto);
-            
             var result = productService.GetGoodProductsResult(paginationDto);
 
-            result.Should().BeEquivalentTo(productResultDto);
-        }
-
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        [InlineData(-5)]
-        public void RemoveProduct_WhenInvalidId_ShouldReturnBadRequestException(int id)
-        {
-            var productService = new ProductService(null, null, null);
-
-            Action action = () => productService.RemoveProduct(id);
-            var exception = Assert.Throws<BadRequestException>(action);
-
-            Assert.Equal("Wartość Id musi być większa od 0!", exception.Message);
+            result.Should().BeEquivalentTo(expectedResult);
         }
     }
 }

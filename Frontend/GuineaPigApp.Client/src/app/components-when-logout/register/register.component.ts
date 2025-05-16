@@ -7,7 +7,7 @@ import { ThemeHelper } from 'src/app/_service/themeHelper.service';
 import { ValidateService } from 'src/app/_service/validate.service';
 import { MatStepper } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -49,24 +49,6 @@ export class RegisterComponent extends BaseComponent implements OnInit {
   checkEmailAndPassword(stepper: MatStepper) {
     this.isCorrectPassword = this.validateService.validatePasswordRegister(this.model);
     this.isCorrectEmail = this.validateService.validateEmail(this.model.email);
-
-    if (this.isCorrectEmail && this.isCorrectPassword) {
-      this.accountService.checkEmail(this.model.email).subscribe({
-        next: (response) => {
-          if(response.status === 200){
-            this.isFirstStepCompleted = true;
-            this.cdr.detectChanges();
-            stepper.next();
-          }
-        },
-        error: (error) => {
-          this.model = new RegisterUserDto();
-          if(error.status === 409){
-            this.toastr.error(error.error);
-          }
-        },
-      });
-    }
 
     if (!this.isCorrectEmail) {
       this.model = new RegisterUserDto();

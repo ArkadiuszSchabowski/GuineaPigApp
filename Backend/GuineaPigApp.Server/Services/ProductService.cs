@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Exceptions;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 
@@ -8,45 +7,59 @@ namespace GuineaPigApp.Server.Services
 {
     public class ProductService : IProductService, IAddService<ProductDto>, IGetService<GetProductDto>
     {
-        private readonly IProductRepository _repository;
+        private readonly IProductRepository _ProductRepository;
+        private readonly IProductValidator _productValidator;
+        private readonly IPaginatorValidator _paginatorValidator;
+        private readonly INumberValidator _numberValidator;
         private readonly IMapper _mapper;
-        private readonly IPaginatorValidator _paginator;
 
-        public ProductService(IProductRepository repository, IMapper mapper, IPaginatorValidator paginator)
+        public ProductService(IProductRepository productRepository, IProductValidator productValidator, IPaginatorValidator paginatorValidator, INumberValidator numberValidator, IMapper mapper)
         {
-            _repository = repository;
+            _ProductRepository = productRepository;
+            _productValidator = productValidator;
+            _paginatorValidator = paginatorValidator;
+            _numberValidator = numberValidator;
             _mapper = mapper;
-            _paginator = paginator;
         }
 
         public void Add(ProductDto dto)
         {
-            var product = _repository.EnsureProductDoesNotExist(dto.Name);
+            var product = _ProductRepository.GetProduct(dto.Name);
 
-            if (product != null)
-            {
-                throw new ConflictException("Podany produkt istnieje już w bazie danych!");
-            }
+            _productValidator.ThrowIfProductExist(product);
 
             var newProduct = _mapper.Map<Product>(dto);
 
-            _repository.AddProduct(newProduct);
+            _ProductRepository.AddProduct(newProduct);
+        }
+
+        public GetProductDto Get(int id)
+        {
+            _numberValidator.ThrowIfIdIsNonPositive(id);
+
+            var product = _ProductRepository.GetProduct(id);
+
+            _productValidator.ThrowIfProductIsNull(product);
+
+            var productDto = _mapper.Map<GetProductDto>(product);
+
+            return productDto;
         }
 
         public ProductResultDto GetBadProductsResult(PaginationDto dto)
         {
-            _paginator.ValidatePagination(dto);
+            _paginatorValidator.ValidatePagination(dto);
 
-            int countBadProducts = _repository.CountBadProducts();
+            int counterProducts = _ProductRepository.CountBadProducts();
 
-            var badProducts = _repository.GetBadProducts(dto);
+            var products = _ProductRepository.GetBadProducts(dto);
 
-            var badProductsDto = _mapper.Map<List<GetProductDto>>(badProducts);
+            var productsDto = _mapper.Map<List<GetProductDto>>(products);
 
             var productResultDto = new ProductResultDto()
             {
-                Products = badProductsDto,
-                TotalCount = countBadProducts,
+                Products = productsDto,
+                TotalCount = counterProducts,
             };
 
             return productResultDto;
@@ -54,11 +67,11 @@ namespace GuineaPigApp.Server.Services
 
         public ProductResultDto GetGoodProductsResult(PaginationDto dto)
         {
-            _paginator.ValidatePagination(dto);
+            _paginatorValidator.ValidatePagination(dto);
 
-            int countGoodProducts = _repository.CountGoodProducts();
+            int countGoodProducts = _ProductRepository.CountGoodProducts();
 
-            var goodProducts = _repository.GetGoodProducts(dto);
+            var goodProducts = _ProductRepository.GetGoodProducts(dto);
 
             var goodProductsDto = _mapper.Map<List<GetProductDto>>(goodProducts);
 
@@ -70,40 +83,15 @@ namespace GuineaPigApp.Server.Services
             return productResultDto;
         }
 
-        public GetProductDto Get(int id)
-        {
-            if (id <= 0)
-            {
-                throw new BadRequestException("Wartość Id musi być większa od 0!");
-            }
-
-            var product = _repository.GetProduct(id);
-
-            if (product == null)
-            {
-                throw new BadRequestException("Nie znaleziono produktu o podanym Id!");
-            }
-
-            var productDto = _mapper.Map<GetProductDto>(product);
-
-            return productDto;
-        }
-
         public void RemoveProduct(int id)
         {
-            if (id <= 0)
-            {
-                throw new BadRequestException("Wartość Id musi być większa od 0!");
-            }
+            _numberValidator.ThrowIfIdIsNonPositive(id);
 
-            var product = _repository.GetProduct(id);
+            var product = _ProductRepository.GetProduct(id);
 
-            if (product == null)
-            {
-                throw new BadRequestException("Nie znaleziono produktu o podanym Id!");
-            }
+            _productValidator.ThrowIfProductIsNull(product);
 
-            _repository.RemoveProduct(product);
+            _ProductRepository.RemoveProduct(product!);
         }
     }
 }

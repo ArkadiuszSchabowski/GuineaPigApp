@@ -60,7 +60,7 @@ namespace GuineaPigApp.Server.Repositories
             _context.Products.Remove(product);
             _context.SaveChanges();
         }
-        public Product? EnsureProductDoesNotExist(string name)
+        public Product? GetProduct(string name)
         {
             var product = _context.Products.SingleOrDefault(x => x.Name == name);
 

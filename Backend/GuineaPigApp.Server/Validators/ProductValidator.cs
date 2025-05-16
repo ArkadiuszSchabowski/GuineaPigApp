@@ -1,11 +1,21 @@
-﻿using GuineaPigApp.Server.Exceptions;
+﻿using GuineaPigApp.Server.Database.Entities;
+using GuineaPigApp.Server.Exceptions;
+using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Validators
 {
-    public class ProductValidator
+    public class ProductValidator : IProductValidator
     {
-        public void ValidateProduct(ProductDto productDto)
+        public void ThrowIfProductExist(Product? product)
+        {
+            if (product != null)
+            {
+                throw new ConflictException("Podany produkt istnieje już w bazie danych!");
+            }
+        }
+
+        public void ThrowIfProductIsNotCorrect(ProductDto productDto)
         {
             if (string.IsNullOrWhiteSpace(productDto.Name))
             {
@@ -31,6 +41,14 @@ namespace GuineaPigApp.Server.Validators
             if (productDto.Description.Length > 1000)
             {
                 throw new BadRequestException("Opis produktu nie może być dłuższy niż 1000 znaków!");
+            }
+        }
+
+        public void ThrowIfProductIsNull(Product? product)
+        {
+            if (product == null)
+            {
+                throw new BadRequestException("Nie znaleziono produktu o podanym Id!");
             }
         }
     }

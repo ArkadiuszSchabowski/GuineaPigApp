@@ -1,7 +1,6 @@
 ﻿using GuineaPigApp.Server.Database;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
-using GuineaPigApp.Server.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GuineaPigApp.Server.Repositories
@@ -15,7 +14,7 @@ namespace GuineaPigApp.Server.Repositories
             _context = context;
         }
 
-        public void AddGuineaPig(GuineaPig guineaPig)
+        public void Add(GuineaPig guineaPig)
         {
             _context.GuineaPigs.Add(guineaPig);
             _context.SaveChanges();
