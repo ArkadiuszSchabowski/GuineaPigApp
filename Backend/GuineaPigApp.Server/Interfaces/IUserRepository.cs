@@ -1,5 +1,4 @@
 ﻿using GuineaPigApp.Server.Database.Entities;
-using GuineaPigApp.Server.Models;
 
 namespace GuineaPigApp.Server.Interfaces
 {
@@ -11,6 +10,5 @@ namespace GuineaPigApp.Server.Interfaces
         void UpdateUser(User user);
         void SaveChanges();
         List<User> GetUsers();
-        User? CheckEmail(string email);
     }
 }

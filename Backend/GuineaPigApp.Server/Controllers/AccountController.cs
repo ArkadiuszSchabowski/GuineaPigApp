@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GuineaPigApp.Server.Interfaces;
+﻿using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +14,6 @@ namespace GuineaPigApp.Server.Controllers
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-        }
-        [HttpGet("check-email")]
-        public ActionResult CheckEmail([FromQuery] string email) {
-
-            _accountService.CheckEmail(email);
-            return Ok();
         }
 
         [HttpPost("register")]
@@ -38,6 +31,7 @@ namespace GuineaPigApp.Server.Controllers
 
             return Ok(new { message = token });
         }
+
         [Authorize]
         [HttpPost("change-password")]
         public ActionResult ChangePassword([FromBody] ChangePasswordDto dto)
@@ -45,6 +39,7 @@ namespace GuineaPigApp.Server.Controllers
             _accountService.ChangePassword(dto);
             return Ok(new { message = "Twoje hasło zostało zmienione!" });
         }
+
         [Authorize]
         [HttpDelete]
         public ActionResult DeleteAccount([FromQuery] string email)
