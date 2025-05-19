@@ -65,9 +65,13 @@ builder.Services.AddScoped<IProductSeederRepository, ProductSeederRepository>();
 builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
 builder.Services.AddScoped<IProductSeeder, ProductSeeder>();
 
-builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
 builder.Services.AddScoped<IEmailValidator, EmailValidator>();
+builder.Services.AddScoped<IGuineaPigValidator, GuineaPigValidator>();
 builder.Services.AddScoped<ILoginValidator, LoginValidator>();
+builder.Services.AddScoped<INumberValidator, NumberValidator>();
+builder.Services.AddScoped<IPaginatorValidator, PaginatorValidator>();
+builder.Services.AddScoped<IProductValidator, ProductValidator>();
+builder.Services.AddScoped<IUserValidator, UserValidator>();
 
 builder.Services.AddCors(options =>
 {
