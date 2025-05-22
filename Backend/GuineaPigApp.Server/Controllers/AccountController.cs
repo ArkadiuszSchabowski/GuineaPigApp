@@ -42,9 +42,9 @@ namespace GuineaPigApp.Server.Controllers
 
         [Authorize]
         [HttpDelete]
-        public ActionResult DeleteAccount([FromQuery] string email)
+        public ActionResult RemoveAccount([FromQuery] string email)
         {
-            _accountService.DeleteAccount(email);
+            _accountService.RemoveAccount(email);
             return Ok();
         }
     }
