@@ -87,15 +87,15 @@ namespace GuineaPigApp.Server.Services
 
             _loginValidator.ThrowIfPasswordsDoNotMatch(dto.Password, dto.RepeatPassword);
 
-            var newUser = _mapper.Map<User>(dto);
+            var registerUser = _mapper.Map<User>(dto);
 
-            newUser.PasswordHash = _hasher.HashPassword(newUser, dto.Password);
-            newUser.RoleId = 1;
+            registerUser.PasswordHash = _hasher.HashPassword(registerUser, dto.Password);
+            registerUser.RoleId = 1;
 
-            _userRepository.AddUser(newUser);
+            _userRepository.AddUser(registerUser);
         }
 
-        public void DeleteAccount(string email)
+        public void RemoveAccount(string email)
         {
             var user = _userRepository.GetUser(email);
 

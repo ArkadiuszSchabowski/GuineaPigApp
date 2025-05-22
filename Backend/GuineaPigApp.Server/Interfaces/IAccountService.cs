@@ -7,6 +7,6 @@ namespace GuineaPigApp.Server.Interfaces
         void ChangePassword(ChangePasswordDto dto);
         string GenerateJWT(LoginUserDto loginUserDto);
         void RegisterUser(RegisterUserDto registerUserDto);
-        void DeleteAccount(string email);
+        void RemoveAccount(string email);
     }
 }
