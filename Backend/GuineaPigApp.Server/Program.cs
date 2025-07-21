@@ -17,7 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.WebHost.UseUrls("http://*:5000");
+var isDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+if (isDocker)
+{
+    builder.WebHost.UseUrls("http://*:5000");
+}
 
 var authenticationSettings = new AuthenticationSettings();
 
