@@ -1,17 +1,16 @@
 ﻿using FluentAssertions;
 using GuineaPigApp.Server.Models;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace GuineaPigApp.Server.IntegrationTests.Controllers
 {
     [Trait("Category", "Integration")]
-    public class ProductControllerTests : IClassFixture<WebApplicationFactory<Program>>
+    public class ProductControllerTests : IClassFixture<CustomWebApplicationFactory>
     {
         private HttpClient _client;
 
-        public ProductControllerTests(WebApplicationFactory<Program> factory)
+        public ProductControllerTests(CustomWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }
