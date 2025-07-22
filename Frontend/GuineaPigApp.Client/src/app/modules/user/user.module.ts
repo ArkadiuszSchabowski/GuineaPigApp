@@ -7,7 +7,7 @@ import { UserLayoutComponent } from 'src/app/components/auth/user/_user-layout/u
 import { UserProfileComponent } from 'src/app/components/auth/user/user-profile/user-profile.component';
 import { UserRemoveProfileComponent } from 'src/app/components/auth/user/user-remove-profile/user-remove-profile.component';
 import { FormsModule } from '@angular/forms';
-import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { AngularMaterialModule } from '../angular-material/material.module';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 @NgModule({

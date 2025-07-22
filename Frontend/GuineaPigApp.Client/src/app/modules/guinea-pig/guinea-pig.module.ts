@@ -8,7 +8,7 @@ import { GuineaPigProfileComponent } from 'src/app/components/auth/guinea-pig/gu
 import { GuineaPigRemoveProfileComponent } from 'src/app/components/auth/guinea-pig/guinea-pig-remove-profile/guinea-pig-remove-profile.component';
 import { GuineaPigUpdateProfileComponent } from 'src/app/components/auth/guinea-pig/guinea-pig-update-profile/guinea-pig-update-profile.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { AngularMaterialModule } from '../angular-material/angular-material.module';
+import { AngularMaterialModule } from '../angular-material/material.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

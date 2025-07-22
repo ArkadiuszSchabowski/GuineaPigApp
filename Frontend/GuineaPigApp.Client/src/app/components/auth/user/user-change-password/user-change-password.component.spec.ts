@@ -4,8 +4,8 @@ import { UserChangePasswordComponent } from './user-change-password.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
-import { AngularMaterialModule } from 'src/app/_modules/angular-material/angular-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from 'src/app/modules/angular-material/material.module';
 
 describe('UserChangePasswordComponent', () => {
   let component: UserChangePasswordComponent;
