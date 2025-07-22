@@ -15,6 +15,10 @@
 - CI/CD: Custom CI/CD pipelines (for automating builds and unit tests)
 - Azure: Azure Cloud Services (used for hosting and managing both the application and databases)
 
+**Testing:**
+- Backend: Unit and integration tests written with xUnit (ASP.NET Core)
+- Frontend: Unit tests written with Jasmine, executed using Karma test runner
+
 **Design Patterns:**
 - Dependency Injection (DI)
 - Repository Pattern (RP)
