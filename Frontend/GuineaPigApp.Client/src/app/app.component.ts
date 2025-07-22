@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from './_service/theme.service';
-import { ThemeHelper } from './_service/themeHelper.service';
+import { ThemeService } from './_services/theme.service';
+import { ThemeHelper } from './_services/themeHelper.service';
 
 @Component({
   selector: 'app-root',
