@@ -24,12 +24,12 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: ./Backend/GuineaPigApp.Server
+        working-directory: ./Backend/GuineaPigApp_Server
 
       - name: Build
         run: dotnet build --no-restore
-        working-directory: ./Backend/GuineaPigApp.Server
+        working-directory: ./Backend/GuineaPigApp_Server
 
       - name: Test
         run: dotnet test --filter Category=Unit
-        working-directory: ./Backend/GuineaPigApp.Server
+        working-directory: ./Backend/GuineaPigApp_Server
