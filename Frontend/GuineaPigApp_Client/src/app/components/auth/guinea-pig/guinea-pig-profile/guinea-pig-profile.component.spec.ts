@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GuineaPigProfileComponent } from './guinea-pig-profile.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('GuineaPigProfileComponent', () => {
   let component: GuineaPigProfileComponent;
@@ -10,7 +10,7 @@ describe('GuineaPigProfileComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [GuineaPigProfileComponent],
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     });
     fixture = TestBed.createComponent(GuineaPigProfileComponent);
     component = fixture.componentInstance;

@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserRemoveProfileComponent } from './user-remove-profile.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { AngularMaterialModule } from 'src/app/modules/angular-material/material.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UserRemoveProfileComponent', () => {
   let component: UserRemoveProfileComponent;
@@ -20,7 +20,7 @@ describe('UserRemoveProfileComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [UserRemoveProfileComponent],
-      imports: [AngularMaterialModule, FormsModule, HttpClientModule],
+      imports: [AngularMaterialModule, FormsModule, HttpClientTestingModule],
       providers: [{ provide: ToastrService, useClass: MockToastrService }],
     });
     fixture = TestBed.createComponent(UserRemoveProfileComponent);

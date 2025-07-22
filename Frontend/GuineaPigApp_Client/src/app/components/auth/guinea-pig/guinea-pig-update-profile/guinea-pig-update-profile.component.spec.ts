@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GuineaPigUpdateProfileComponent } from './guinea-pig-update-profile.component';
-import { HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { TokenService } from 'src/app/_services/token.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from 'src/app/modules/angular-material/material.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('GuineaPigUpdateProfileComponent', () => {
   let component: GuineaPigUpdateProfileComponent;
@@ -29,7 +29,7 @@ describe('GuineaPigUpdateProfileComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [GuineaPigUpdateProfileComponent],
-      imports: [AngularMaterialModule, BrowserAnimationsModule, FormsModule, HttpClientModule],
+      imports: [AngularMaterialModule, BrowserAnimationsModule, FormsModule, HttpClientTestingModule],
       providers: [
         { provide: ToastrService, useClass: MockToastrService },
         { provide: TokenService, useClass: MockTokenService },

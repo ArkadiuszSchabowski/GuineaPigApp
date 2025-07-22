@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterNavigationComponent } from './footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('FooterNavigationComponent', () => {
   let component: FooterNavigationComponent;
@@ -10,7 +10,7 @@ describe('FooterNavigationComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [FooterNavigationComponent],
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     });
     fixture = TestBed.createComponent(FooterNavigationComponent);
     component = fixture.componentInstance;

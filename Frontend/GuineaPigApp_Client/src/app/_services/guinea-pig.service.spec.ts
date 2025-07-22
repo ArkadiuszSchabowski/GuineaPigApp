@@ -1,14 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { GuineaPigService } from './guinea-pig.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('GuineaPigService', () => {
   let service: GuineaPigService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule],
+      providers: [GuineaPigService]
     });
     service = TestBed.inject(GuineaPigService);
   });
