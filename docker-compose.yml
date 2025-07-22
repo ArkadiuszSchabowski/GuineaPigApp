@@ -18,7 +18,7 @@ services:
 
   client:
     build:
-      context: ./Frontend/GuineaPigApp.Client
+      context: ./Frontend/GuineaPigApp_Client
     ports:
       - "4200:4200"
     depends_on:
