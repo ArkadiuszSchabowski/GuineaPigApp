@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "GuineaPigApp.Client": {
+    "GuineaPigApp_Client": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
