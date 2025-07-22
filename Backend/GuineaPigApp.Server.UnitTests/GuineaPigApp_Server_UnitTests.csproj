@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GuineaPigApp.Server\GuineaPigApp.Server.csproj" />
+    <ProjectReference Include="..\GuineaPigApp.Server\GuineaPigApp_Server.csproj" />
   </ItemGroup>
 
   <ItemGroup>
