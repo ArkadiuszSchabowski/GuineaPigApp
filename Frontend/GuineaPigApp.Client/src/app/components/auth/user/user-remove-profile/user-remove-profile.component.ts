@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UpdateUserDto } from 'src/app/models/update-user-dto';
 import { AccountService } from 'src/app/_services/account.service';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { TokenService } from 'src/app/_services/token.service';
 import { UserService } from 'src/app/_services/user.service';
 import { BaseComponent } from 'src/app/shared/base.component';

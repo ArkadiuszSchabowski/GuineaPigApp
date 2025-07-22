@@ -5,7 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { ProductDto } from '../../../models/product-dto';
 import { ProductResult } from '../../../models/product-result';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { ProductService } from 'src/app/_services/product.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDto } from 'src/app/models/user-dto';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { TokenService } from 'src/app/_services/token.service';
 import { UserService } from 'src/app/_services/user.service';
 import { BaseComponent } from 'src/app/shared/base.component';

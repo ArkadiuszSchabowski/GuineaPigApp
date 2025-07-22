@@ -3,7 +3,7 @@ import { GuineaPigService } from '../../../_services/guinea-pig.service';
 import { AccountService } from '../../../_services/account.service';
 import { RegisterUserDto } from '../../../models/register-user-dto';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { ValidateService } from 'src/app/_services/validate.service';
 import { MatStepper } from '@angular/material/stepper';
 import { ToastrService } from 'ngx-toastr';

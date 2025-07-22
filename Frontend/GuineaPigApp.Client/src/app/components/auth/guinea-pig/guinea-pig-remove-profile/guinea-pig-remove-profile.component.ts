@@ -4,7 +4,7 @@ import { finalize } from 'rxjs';
 import { GuineaPigDto } from 'src/app/models/guinea-pig-dto';
 import { RemoveGuineaPigDto } from 'src/app/models/remove-guinea-pig-dto';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { TokenService } from 'src/app/_services/token.service';
 import { BaseComponent } from 'src/app/shared/base.component';
 

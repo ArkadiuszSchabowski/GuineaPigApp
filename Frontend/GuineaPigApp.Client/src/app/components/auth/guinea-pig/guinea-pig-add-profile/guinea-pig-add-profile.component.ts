@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { GuineaPigDto } from 'src/app/models/guinea-pig-dto';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { TokenService } from 'src/app/_services/token.service';
 import { ValidateService } from 'src/app/_services/validate.service';
 import { BaseComponent } from 'src/app/shared/base.component';

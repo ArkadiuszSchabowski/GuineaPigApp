@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { UpdateUserDto } from 'src/app/models/update-user-dto';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { TokenService } from 'src/app/_services/token.service';
 import { UserService } from 'src/app/_services/user.service';
 import { ValidateService } from 'src/app/_services/validate.service';

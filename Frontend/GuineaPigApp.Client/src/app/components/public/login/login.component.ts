@@ -3,7 +3,7 @@ import { GuineaPigService } from '../../../_services/guinea-pig.service';
 import { AccountService } from '../../../_services/account.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { LoginUserDto } from 'src/app/models/login-user-dto';
 import { finalize } from 'rxjs';
 import { ValidateService } from 'src/app/_services/validate.service';

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 
 @Component({
   selector: 'app-user-layout',

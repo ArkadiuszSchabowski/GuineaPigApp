@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GuineaPigService } from '../../../_services/guinea-pig.service';
 import { BaseComponent } from 'src/app/shared/base.component';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 
 @Component({
   selector: 'app-info',

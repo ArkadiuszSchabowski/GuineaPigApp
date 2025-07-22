@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
 import { finalize } from 'rxjs';
-import { ThemeHelper } from 'src/app/_services/themeHelper.service';
+import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/app/_services/token.service';
