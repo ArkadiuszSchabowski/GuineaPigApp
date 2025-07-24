@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-@use 'src/custom-theme' as theme;
+@use 'src/styles' as theme;
 
 #footer-container {
   display: flex;
@@ -16,7 +16,7 @@
   width: 100%;
   min-height: 70px;
   justify-content: center;
-  background-color: mat.get-color-from-palette(theme.$guineapigcare_client-warn);
+  background-color: mat.get-color-from-palette(theme.$warn);
 }
 
 #photoGuineaPig {
