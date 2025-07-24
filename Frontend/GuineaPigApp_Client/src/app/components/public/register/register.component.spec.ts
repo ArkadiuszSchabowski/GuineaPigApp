@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
 import { ToastrService } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from 'src/app/modules/angular-material/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -21,7 +21,7 @@ describe('RegisterComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [RegisterComponent],
-      imports: [AngularMaterialModule, BrowserAnimationsModule, FormsModule, HttpClientTestingModule],
+      imports: [AngularMaterialModule, BrowserAnimationsModule, ReactiveFormsModule, HttpClientTestingModule],
       providers: [{provide: ToastrService, useClass: MockToastrService}]
     });
     fixture = TestBed.createComponent(RegisterComponent);

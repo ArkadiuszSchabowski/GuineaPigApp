@@ -1,4 +1,4 @@
-export class RemoveGuineaPigDto{
-    email: string ="";
-    name: string = "";
+export class RemoveGuineaPigDto {
+  email: string = '';
+  name: string = '';
 }

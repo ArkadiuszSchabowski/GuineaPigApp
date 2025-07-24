@@ -1,13 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, ViewChild } from '@angular/core';
 import { GuineaPigService } from '../../../_services/guinea-pig.service';
 import { AccountService } from '../../../_services/account.service';
-import { RegisterUserDto } from '../../../models/register-user-dto';
 import { BaseComponent } from 'src/app/shared/base.component';
 import { ThemeHelper } from 'src/app/_services/theme-helper.service';
-import { ValidateService } from 'src/app/_services/validate.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RegisterStepOneDto } from 'src/app/models/add/register-step-one-dto';
 import { MatStepper } from '@angular/material/stepper';
-import { ToastrService } from 'ngx-toastr';
-import { catchError, map, Observable, of } from 'rxjs';
+import { RegisterUserDto } from 'src/app/models/add/register-user-dto';
 
 @Component({
   selector: 'app-register',
@@ -15,28 +14,62 @@ import { catchError, map, Observable, of } from 'rxjs';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent extends BaseComponent implements OnInit {
+  @ViewChild('stepper') stepper!: MatStepper;
   backgroundUrl: string = 'assets/images/backgrounds/no-login/register.jpg';
   override cloudText: string = 'Stwórz konto i odblokuj wszystkie funkcje!';
+  validationModelErrors: string[] = [];
+  conflictError: string = '';
 
-  hide: boolean = true;
-  hide2: boolean = true;
-  model: RegisterUserDto = new RegisterUserDto();
+  form = new FormGroup({
+    loginForm: new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(25),
+      ]),
+      repeatPassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(25),
+      ]),
+    }),
+    personalForm: new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+      surname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+      city: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(25),
+      ]),
+    }),
+  });
 
-  isFirstStepCompleted: boolean = false;
-  isSecondStepCompleted: boolean = false;
+  passwordHiddenSignal = signal(true);
+  repeatPasswordHiddenSignal = signal(true);
 
-  isCorrectEmail: boolean = false;
-  isCorrectPassword: boolean = false;
-  isPersonalInformation: boolean = false;
-  isSuccessRegister : boolean = false;
+    changePasswordVisibility(event: MouseEvent) {
+    this.passwordHiddenSignal.set(!this.passwordHiddenSignal());
+    event.stopPropagation();
+  }
+
+    changeRepeatPasswordVisibility(event: MouseEvent) {
+    this.repeatPasswordHiddenSignal.set(!this.repeatPasswordHiddenSignal());
+    event.stopPropagation();
+  }
 
   constructor(
     guineaPigService: GuineaPigService,
     public themeHelper: ThemeHelper,
-    public accountService: AccountService,
-    private cdr: ChangeDetectorRef,
-    private validateService: ValidateService,
-    private toastr: ToastrService
+    private accountService: AccountService
   ) {
     super(guineaPigService);
   }
@@ -46,47 +79,64 @@ export class RegisterComponent extends BaseComponent implements OnInit {
     this.themeHelper.setBackground(this.backgroundUrl);
   }
 
-  checkEmailAndPassword(stepper: MatStepper) {
-    this.isCorrectPassword = this.validateService.validatePasswordRegister(this.model);
-    this.isCorrectEmail = this.validateService.validateEmail(this.model.email);
+  get loginForm() {
+    return this.form.get('loginForm') as FormGroup;
+  }
 
-    if (!this.isCorrectEmail) {
-      this.model = new RegisterUserDto();
+  get personalForm() {
+    return this.form.get('personalForm') as FormGroup;
+  }
+
+  validateLoginForm() {
+    this.validationModelErrors = [];
+    this.conflictError = '';
+
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
     }
-  }
 
-  checkPersonalInformation(stepper: MatStepper) {
-    this.isPersonalInformation =
-      this.validateService.validatePersonalInformation(this.model);
+    let credentials: RegisterStepOneDto = {
+      email: this.loginForm.get('email')!.value,
+      password: this.loginForm.get('password')!.value,
+      repeatPassword: this.loginForm.get('repeatPassword')!.value,
+    };
 
-     if (this.isPersonalInformation) {
-      this.registerUser().subscribe(success => {
-        if (success) {
-          this.isSecondStepCompleted = true;
-          this.cdr.detectChanges();
-          stepper.next();
+    this.accountService.validateRegisterStepOne(credentials).subscribe({
+      next: () => {
+        this.stepper.next();
+      },
+      error: (error) => {
+        if (error.status === 409) {
+          this.conflictError = error.error;
+          return;
         }
-      })
+        this.validationModelErrors = error;
+      },
+    });
   }
-}
 
-  registerUser(): Observable<boolean> {
-    return this.accountService.registerUser(this.model).pipe(
-      map(() => {
-        return true;
-      }),
-      catchError(error => {
-        this.toastr.error(error.error || 'Wystąpił błąd podczas rejestracji.');
-        return of(false);
-      })
-    );
-  }
-  
+  validateForm() {
+    if (this.personalForm.invalid) {
+      this.personalForm.markAllAsTouched();
+      return;
+    }
 
-  hidePassword() {
-    this.hide = !this.hide;
-  }
-  hideRepeatPassword() {
-    this.hide2 = !this.hide2;
+    let credentials: RegisterUserDto = {
+      email: this.loginForm.get('email')!.value,
+      password: this.loginForm.get('password')!.value,
+      repeatPassword: this.loginForm.get('repeatPassword')!.value,
+      name: this.personalForm.get('name')!.value,
+      surname: this.personalForm.get('surname')!.value,
+      city: this.personalForm.get('city')!.value,
+    };
+    this.accountService.register(credentials).subscribe({
+      next: () => {
+        this.stepper.next();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 }

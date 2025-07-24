@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserDto } from '../models/user-dto';
-import { UpdateUserDto } from '../models/update-user-dto';
+import { UpdateUserDto } from '../models/add/update-user-dto';
 import { environment } from '../environments/environment';
 
 
