@@ -43,7 +43,6 @@ export class GuineaPigAddProfileComponent
     this.email = this.tokenService.getEmailFromToken();
 
     this.guineaPigWeight = this.validateService.validateWeightGuineaPig(this.model.weight);
-    this.guineaPigName = this.validateService.validateName(this.model.name);
 
     if (this.guineaPigWeight && this.guineaPigName) {
       this.guineaPigService

@@ -27,7 +27,6 @@ export class UserEditProfileComponent extends BaseComponent implements OnInit {
     guineaPigService: GuineaPigService,
     public themeHelper: ThemeHelper,
     public userService: UserService,
-    private validateService: ValidateService,
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService
@@ -44,7 +43,6 @@ export class UserEditProfileComponent extends BaseComponent implements OnInit {
 
     this.email = this.tokenService.getEmailFromToken();
 
-    this.isPersonalInformation = this.validateService.validatePersonalInformation(this.model);
     this.updateUser(this.email, this.model);
   }
 
