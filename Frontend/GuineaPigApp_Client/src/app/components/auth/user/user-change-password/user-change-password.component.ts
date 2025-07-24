@@ -38,7 +38,6 @@ export class UserChangePasswordComponent
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService,
-    private validateService: ValidateService
   ) {
     super(guineaPigService);
   }
@@ -47,7 +46,6 @@ export class UserChangePasswordComponent
   }
 
   changePassword(model: ChangePasswordDto) {
-    this.isValidPassword = this.validateService.validatePassword(model);
 
     if (this.isValidPassword) {
       model.email = this.tokenService.getEmailFromToken();
