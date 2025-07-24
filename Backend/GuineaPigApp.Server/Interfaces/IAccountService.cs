@@ -1,4 +1,4 @@
-﻿using GuineaPigApp.Server.Models;
+﻿using GuineaPigApp_Server.Models.Add;
 
 namespace GuineaPigApp.Server.Interfaces
 {
