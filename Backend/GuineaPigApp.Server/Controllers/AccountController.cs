@@ -24,6 +24,13 @@ namespace GuineaPigApp.Server.Controllers
             return Ok(new { message = "Pomyślnie zarejestrowano użytkownika!" });
         }
 
+        [HttpPost("register/step1/validate")]
+        public ActionResult ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
+        {
+            _accountService.ValidateRegisterStepOne(dto);
+            return Ok();
+        }
+
         [HttpPost("login")]
         public ActionResult Login([FromBody] LoginUserDto loginUserDto)
         {

@@ -8,6 +8,7 @@ using GuineaPigApp.Server.Repositories;
 using GuineaPigApp.Server.Seeders;
 using GuineaPigApp.Server.Services;
 using GuineaPigApp.Server.Validators;
+using GuineaPigApp_Server.Models.Get;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -69,7 +70,6 @@ builder.Services.AddScoped<IProductSeederRepository, ProductSeederRepository>();
 builder.Services.AddScoped<IAccountSeeder, AccountSeeder>();
 builder.Services.AddScoped<IProductSeeder, ProductSeeder>();
 
-builder.Services.AddScoped<IEmailValidator, EmailValidator>();
 builder.Services.AddScoped<IGuineaPigValidator, GuineaPigValidator>();
 builder.Services.AddScoped<ILoginValidator, LoginValidator>();
 builder.Services.AddScoped<INumberValidator, NumberValidator>();

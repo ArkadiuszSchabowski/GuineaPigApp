@@ -10,14 +10,14 @@ namespace GuineaPigApp.Server.Validators
         {
             if (user == null)
             {
-                throw new NotFoundException("Nie znaleziono takiego użytkownika!");
+                throw new NotFoundException("Nie znaleziono takiego użytkownika.");
             }
         }
         public void ThrowIfUserExist(User? user)
         {
             if (user != null)
             {
-                throw new ConflictException("Taki użytkownik istnieje już w bazie danych!");
+                throw new ConflictException("Taki użytkownik istnieje już w bazie danych.");
             }
         }
         public void ThrowIfRemovingDefaultAccount(string email)
@@ -28,7 +28,7 @@ namespace GuineaPigApp.Server.Validators
 
             if (email == defaultUserEmail || email == defaultManagerEmail || email == defaultAdminEmail)
             {
-                throw new ForbiddenException("Nie możesz usunąć domyślnego konta użytkownika!");
+                throw new ForbiddenException("Nie możesz usunąć domyślnego konta użytkownika.");
             }
         }
 
@@ -36,7 +36,7 @@ namespace GuineaPigApp.Server.Validators
         {
             if (role == null)
             {
-                throw new Exception("Użytkownik nie ma przypisanej roli!");
+                throw new Exception("Użytkownik nie ma przypisanej roli.");
             }
         }
     }

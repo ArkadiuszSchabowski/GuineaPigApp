@@ -39,8 +39,6 @@ namespace GuineaPigApp.Server.Services
 
             _loginValidator.ThrowIfInvalidPassword(result);
 
-            _loginValidator.ThrowIfPasswordsDoNotMatch(dto.NewPassword, dto.RepeatNewPassword);
-
             user.PasswordHash = _hasher.HashPassword(user, dto.NewPassword);
 
             _userRepository.UpdateUser(user);
@@ -85,8 +83,6 @@ namespace GuineaPigApp.Server.Services
 
             _userValidator.ThrowIfUserExist(user);
 
-            _loginValidator.ThrowIfPasswordsDoNotMatch(dto.Password, dto.RepeatPassword);
-
             var registerUser = _mapper.Map<User>(dto);
 
             registerUser.PasswordHash = _hasher.HashPassword(registerUser, dto.Password);
@@ -104,6 +100,13 @@ namespace GuineaPigApp.Server.Services
             _userValidator.ThrowIfRemovingDefaultAccount(user!.Email);
 
             _userRepository.RemoveUser(user);
+        }
+
+        public void ValidateRegisterStepOne(RegisterStepOneDto dto)
+        {
+            var user = _userRepository.GetUser(dto.Email);
+
+            _userValidator.ThrowIfUserExist(user);
         }
     }
 }

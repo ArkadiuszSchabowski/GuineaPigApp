@@ -8,6 +8,5 @@ namespace GuineaPigApp.Server.Interfaces
         void ThrowIfInvalidLogin(User? user);
         void ThrowIfInvalidLogin(PasswordVerificationResult password);
         void ThrowIfInvalidPassword(PasswordVerificationResult result);
-        void ThrowIfPasswordsDoNotMatch(string password, string repeatPassword);
     }
 }

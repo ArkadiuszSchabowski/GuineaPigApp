@@ -3,6 +3,8 @@ using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Services;
+using GuineaPigApp_Server.Models.Add;
+using GuineaPigApp_Server.Models.Get;
 using Moq;
 
 namespace GuineaPigApp.Server.UnitTests.Services
@@ -11,21 +13,19 @@ namespace GuineaPigApp.Server.UnitTests.Services
     {
         private readonly Mock<IUserRepository> _mockUserRepository;
         private readonly Mock<IUserValidator> _mockUserValidator;
-        private readonly Mock<IEmailValidator> _mockEmailValidator;
         private readonly Mock<IMapper> _mockMapper;
 
         public UserServiceTests()
         {
             _mockUserRepository = new Mock<IUserRepository>();
             _mockUserValidator = new Mock<IUserValidator>();
-            _mockEmailValidator = new Mock<IEmailValidator>();
             _mockMapper = new Mock<IMapper>();
         }
 
         [Fact]
         public void GetUsers_WhenCalled_ShouldMapOnce()
         {
-            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockEmailValidator.Object, _mockMapper.Object);
+            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockMapper.Object);
 
             var users = new List<User>();
             var usersDto = new List<GetUserDto>();
@@ -40,7 +40,7 @@ namespace GuineaPigApp.Server.UnitTests.Services
         [Fact]
         public void UpdateUser_WithCorrectValues_ShouldMapOnce()
         {
-            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockEmailValidator.Object, _mockMapper.Object);
+            var userService = new UserService(_mockUserRepository.Object, _mockUserValidator.Object, _mockMapper.Object);
 
             var user = new User
             {

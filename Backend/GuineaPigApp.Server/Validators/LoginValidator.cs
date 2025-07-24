@@ -11,7 +11,7 @@ namespace GuineaPigApp.Server.Validators
         {
             if (user == null)
             {
-                throw new BadRequestException("Błędne dane logowania!");
+                throw new BadRequestException("Błędne dane logowania.");
             }
         }
 
@@ -28,14 +28,6 @@ namespace GuineaPigApp.Server.Validators
             if (result == PasswordVerificationResult.Failed)
             {
                 throw new BadRequestException("Wprowadzono niepoprawne hasło!");
-            }
-        }
-
-        public void ThrowIfPasswordsDoNotMatch(string password, string repeatPassword)
-        {
-            if (password != repeatPassword)
-            {
-                throw new BadRequestException("Wprowadzone hasła są różne!");
             }
         }
     }
