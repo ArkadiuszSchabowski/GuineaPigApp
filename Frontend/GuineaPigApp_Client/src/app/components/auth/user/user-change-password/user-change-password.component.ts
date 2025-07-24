@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChangePasswordDto } from 'src/app/models/change-password-dto';
+import { ChangePasswordDto } from 'src/app/models/add/change-password-dto';
 import { AccountService } from 'src/app/_services/account.service';
 import { jwtDecode } from 'jwt-decode';
 import { BaseComponent } from 'src/app/shared/base.component';

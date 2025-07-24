@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
-import { UpdateUserDto } from 'src/app/models/update-user-dto';
+import { UpdateUserDto } from 'src/app/models/add/update-user-dto';
 import { GuineaPigService } from 'src/app/_services/guinea-pig.service';
 import { ThemeHelper } from 'src/app/_services/theme-helper.service';
 import { TokenService } from 'src/app/_services/token.service';
