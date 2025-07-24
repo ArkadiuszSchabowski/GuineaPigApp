@@ -1,4 +1,6 @@
-﻿namespace GuineaPigApp.Server.Models
+﻿using GuineaPigApp_Server.Models.Get;
+
+namespace GuineaPigApp.Server.Models
 {
     public class ProductResultDto
     {

@@ -1,4 +1,4 @@
-﻿namespace GuineaPigApp.Server.Models
+﻿namespace GuineaPigApp_Server.Models.Get
 {
     public class GetUserDto
     {

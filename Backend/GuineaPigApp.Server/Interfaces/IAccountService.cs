@@ -1,4 +1,4 @@
-﻿using GuineaPigApp.Server.Models;
+﻿using GuineaPigApp_Server.Models.Add;
 
 namespace GuineaPigApp.Server.Interfaces
 {
@@ -8,5 +8,6 @@ namespace GuineaPigApp.Server.Interfaces
         string GenerateJWT(LoginUserDto loginUserDto);
         void RegisterUser(RegisterUserDto registerUserDto);
         void RemoveAccount(string email);
+        void ValidateRegisterStepOne(RegisterStepOneDto dto);
     }
 }

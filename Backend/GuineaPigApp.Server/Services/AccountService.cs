@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
-using GuineaPigApp.Server.Models;
+using GuineaPigApp_Server.Models.Add;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,8 +38,6 @@ namespace GuineaPigApp.Server.Services
             var result = _hasher.VerifyHashedPassword(user!, user!.PasswordHash, dto.CurrentPassword);
 
             _loginValidator.ThrowIfInvalidPassword(result);
-
-            _loginValidator.ThrowIfPasswordsDoNotMatch(dto.NewPassword, dto.RepeatNewPassword);
 
             user.PasswordHash = _hasher.HashPassword(user, dto.NewPassword);
 
@@ -85,8 +83,6 @@ namespace GuineaPigApp.Server.Services
 
             _userValidator.ThrowIfUserExist(user);
 
-            _loginValidator.ThrowIfPasswordsDoNotMatch(dto.Password, dto.RepeatPassword);
-
             var registerUser = _mapper.Map<User>(dto);
 
             registerUser.PasswordHash = _hasher.HashPassword(registerUser, dto.Password);
@@ -104,6 +100,13 @@ namespace GuineaPigApp.Server.Services
             _userValidator.ThrowIfRemovingDefaultAccount(user!.Email);
 
             _userRepository.RemoveUser(user);
+        }
+
+        public void ValidateRegisterStepOne(RegisterStepOneDto dto)
+        {
+            var user = _userRepository.GetUser(dto.Email);
+
+            _userValidator.ThrowIfUserExist(user);
         }
     }
 }

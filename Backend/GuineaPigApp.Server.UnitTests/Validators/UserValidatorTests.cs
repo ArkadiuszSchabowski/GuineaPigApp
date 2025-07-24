@@ -17,7 +17,7 @@ namespace GuineaPigApp.Server.UnitTests.Validators
 
             var exception = Assert.Throws<NotFoundException>(action);
 
-            Assert.Equal("Nie znaleziono takiego użytkownika!", exception.Message);
+            Assert.Equal("Nie znaleziono takiego użytkownika.", exception.Message);
         }
     }
 }

@@ -2,6 +2,7 @@
 using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
+using GuineaPigApp_Server.Models.Get;
 
 namespace GuineaPigApp.Server.Services
 {

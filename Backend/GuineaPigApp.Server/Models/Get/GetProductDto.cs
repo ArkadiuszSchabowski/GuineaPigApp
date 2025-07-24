@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace GuineaPigApp.Server.Models
+﻿namespace GuineaPigApp_Server.Models.Get
 {
     public class GetProductDto
     {

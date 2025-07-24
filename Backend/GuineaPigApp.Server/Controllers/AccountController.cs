@@ -1,5 +1,5 @@
 ﻿using GuineaPigApp.Server.Interfaces;
-using GuineaPigApp.Server.Models;
+using GuineaPigApp_Server.Models.Add;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +22,13 @@ namespace GuineaPigApp.Server.Controllers
             _accountService.RegisterUser(registerUserDto);
 
             return Ok(new { message = "Pomyślnie zarejestrowano użytkownika!" });
+        }
+
+        [HttpPost("register/step1/validate")]
+        public ActionResult ValidateRegisterStepOne([FromBody] RegisterStepOneDto dto)
+        {
+            _accountService.ValidateRegisterStepOne(dto);
+            return Ok();
         }
 
         [HttpPost("login")]

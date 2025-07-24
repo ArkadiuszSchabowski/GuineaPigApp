@@ -6,6 +6,7 @@ using GuineaPigApp.Server.Database.Entities;
 using GuineaPigApp.Server.Interfaces;
 using GuineaPigApp.Server.Models;
 using GuineaPigApp.Server.Services;
+using GuineaPigApp_Server.Models.Get;
 using Moq;
 
 namespace GuineaPigApp.Server.UnitTests.Services
