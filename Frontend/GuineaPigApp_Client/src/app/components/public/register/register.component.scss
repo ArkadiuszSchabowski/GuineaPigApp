@@ -1,41 +1,12 @@
-@use "@angular/material" as mat;
-@use "src/custom-theme" as theme;
-
-mat-vertical-stepper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: auto;
-  justify-content: center;
-  align-items: center;
+mat-vertical-stepper{
   background-color: transparent;
 }
-mat-step {
+
+.form{
   display: flex;
-  width: 100%;
-  height: 100%;
-}
-mat-card {
-  height: 380px;
-}
-#mat-card-personal-information {
-  height: 450px !important;
-}
-#mat-card-confirm-register {
-  height: 200px;
-}
-label {
-  margin-bottom: 20px;
-}
-label {
-  margin-bottom: 20px;
-  font-size: 26px;
-}
-ng-deep .light-theme-font-color {
-  color: black !important;
-}
-::ng-deep .dark-theme-font-color {
-  color: white !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1199px) {

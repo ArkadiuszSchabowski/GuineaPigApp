@@ -1,14 +1,17 @@
-<mat-vertical-stepper linear #stepper>
-  <mat-step [editable]="false">
-    <ng-template matStepLabel>
-      <div [ngClass]="{
-        'light-theme-font-color': themeHelper.currentTheme,
-        'dark-theme-font-color': !themeHelper.currentTheme
-      }">Krok pierwszy - Email oraz hasło</div>
-    </ng-template>
-    <form #ngForm="ngForm">
+<form [formGroup]="form">
+  <mat-vertical-stepper linear #stepper>
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>
+        <div
+          [ngClass]="{
+            'light-theme-font-color': themeHelper.currentTheme,
+            'dark-theme-font-color': !themeHelper.currentTheme
+          }"
+        >
+          Krok pierwszy - dane logowania
+        </div>
+      </ng-template>
       <mat-card
-        id="mat-card-email-and-password"
         appearance="outlined"
         [ngClass]="{
           'light-theme': themeHelper.currentTheme,
@@ -16,95 +19,184 @@
         }"
       >
         <mat-card-content>
-          <label class="mat-card-label">Formularz rejestracji</label>
-          <mat-form-field>
-            <mat-label
-              [ngClass]="{
-                'light-theme-icon': themeHelper.currentTheme,
-                'dark-theme-icon': !themeHelper.currentTheme
-              }"
-              >Podaj swój e-mail:</mat-label
-            >
-            <input matInput name="email" [(ngModel)]="model.email" autocomplete="off"/>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label
-              [ngClass]="{
-                'light-theme-icon': themeHelper.currentTheme,
-                'dark-theme-icon': !themeHelper.currentTheme
-              }"
-              >Podaj swoje hasło:</mat-label
-            >
+          <div id="loginForm" class="form" formGroupName="loginForm">
+            <label class="mat-card-label">Formularz rejestracji</label>
+            <mat-form-field>
+              <mat-label
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                >Podaj swój e-mail:</mat-label
+              >
+              <input
+                matInput
+                id="email"
+                formControlName="email"
+                autocomplete="off"
+                type="text"
+              />
+            </mat-form-field>
+            <mat-form-field class="margin-top-10">
+              <mat-label
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                >Podaj swoje hasło:</mat-label
+              >
             <input
-              name="password"
-              [(ngModel)]="model.password" autocomplete="off"
+              id="password"
+              formControlName="password"
+              autocomplete="off"
               matInput
-              [type]="hide ? 'password' : 'text'"
+              [type]="passwordHiddenSignal() ? 'password' : 'text'"
             />
             <button
-              type="button"
               mat-icon-button
               matSuffix
-              (click)="hidePassword()"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide"
-            >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-            </button>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label
+              type="button"
               [ngClass]="{
                 'light-theme-icon': themeHelper.currentTheme,
                 'dark-theme-icon': !themeHelper.currentTheme
               }"
-              >Powtórz hasło:</mat-label
+              (click)="changePasswordVisibility($event)"
+              [attr.aria-label]="
+                passwordHiddenSignal() ? 'Show password' : 'Hide password'
+              "
+              [attr.aria-pressed]="passwordHiddenSignal()"
             >
+              <mat-icon>{{
+                passwordHiddenSignal() ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            </mat-form-field>
+            <mat-form-field class="margin-top-10">
+              <mat-label
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                >Powtórz hasło:</mat-label
+              >
             <input
-              name="repeatPassword"
-              [(ngModel)]="model.repeatPassword" autocomplete="off"
+              id="repeatPassword"
+              formControlName="repeatPassword"
+              autocomplete="off"
               matInput
-              [type]="hide2 ? 'password' : 'text'"
+              [type]="repeatPasswordHiddenSignal() ? 'password' : 'text'"
             />
             <button
-              type="button"
               mat-icon-button
               matSuffix
-              (click)="hideRepeatPassword()"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide2"
+              type="button"
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              (click)="changeRepeatPasswordVisibility($event)"
+              [attr.aria-label]="
+                repeatPasswordHiddenSignal() ? 'Show password' : 'Hide password'
+              "
+              [attr.aria-pressed]="repeatPasswordHiddenSignal()"
             >
-              <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
+              <mat-icon>{{
+                repeatPasswordHiddenSignal() ? "visibility_off" : "visibility"
+              }}</mat-icon>
             </button>
-          </mat-form-field>
+            </mat-form-field>
+            <div class="margin-top-10">
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="validateLoginForm()"
+                class="submit-button"
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+              >
+                Dalej
+              </button>
+            </div>
+            <ul
+              *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']"
+            >
+              Adres e-mail jest wymagany.
+            </ul>
 
-          <button
-            mat-flat-button
-            color="primary"
-            (click)="checkEmailAndPassword(stepper)"
-            class="submit-button"
-            [ngClass]="{
-              'light-theme-icon': themeHelper.currentTheme,
-              'dark-theme-icon': !themeHelper.currentTheme
-            }"
-          >
-            Dalej
-          </button>
+            <ul
+              *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']"
+            >
+              Niepoprawny format adresu e-mail.
+            </ul>
+
+            <ul
+              *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
+            >
+              Hasło jest wymagane.
+            </ul>
+
+            <ul
+              *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['minlength']"
+            >
+              Hasło musi mieć minimum 5 znaków.
+            </ul>
+
+            <ul
+              *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['maxlength']"
+            >
+              Hasło może mieć maksymalnie 25 znaków.
+            </ul>
+
+            <ul
+              *ngIf="loginForm.get('repeatPassword')?.touched && loginForm.get('repeatPassword')?.errors?.['required']"
+            >
+              Powtórzenie hasła jest wymagane.
+            </ul>
+
+            <ul
+              *ngIf="loginForm.get('repeatPassword')?.touched && loginForm.get('repeatPassword')?.errors?.['minlength']"
+            >
+              Powtórzone hasło musi mieć minimum 5 znaków.
+            </ul>
+
+            <ul
+              *ngIf="loginForm.get('repeatPassword')?.touched && loginForm.get('repeatPassword')?.errors?.['maxlength']"
+            >
+              Powtórzone hasło może mieć maksymalnie 25 znaków.
+            </ul>
+            <div *ngIf="validationModelErrors?.length">
+              <ul *ngFor="let error of validationModelErrors">
+                {{
+                  error
+                }}
+              </ul>
+            </div>
+            <div>
+              <ul *ngIf="conflictError">
+                {{
+                  conflictError
+                }}
+              </ul>
+            </div>
+          </div>
         </mat-card-content>
       </mat-card>
-    </form>
-  </mat-step>
+    </mat-step>
 
-  <mat-step [editable]="false" [completed]="isSecondStepCompleted">
-    <ng-template matStepLabel>
-      <div [ngClass]="{
-        'light-theme-font-color': themeHelper.currentTheme,
-        'dark-theme-font-color': !themeHelper.currentTheme
-      }">Krok drugi - dane personalne</div></ng-template>
-    <form #ngForm="ngForm">
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>
+        <div
+          [ngClass]="{
+            'light-theme-font-color': themeHelper.currentTheme,
+            'dark-theme-font-color': !themeHelper.currentTheme
+          }"
+        >
+          Krok drugi - dane personalne
+        </div></ng-template
+      >
       <mat-card
-        id="mat-card-personal-information"
         appearance="outlined"
         [ngClass]="{
           'light-theme': themeHelper.currentTheme,
@@ -112,65 +204,133 @@
         }"
       >
         <mat-card-content>
-          <label class="mat-card-label">Formularz rejestracji</label>
-          <mat-form-field>
-            <mat-label
-              [ngClass]="{
-                'light-theme-icon': themeHelper.currentTheme,
-                'dark-theme-icon': !themeHelper.currentTheme
-              }"
-              >Imię:</mat-label
-            >
-            <input matInput name="name" [(ngModel)]="model.name" autocomplete="off"/>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label
-              [ngClass]="{
-                'light-theme-icon': themeHelper.currentTheme,
-                'dark-theme-icon': !themeHelper.currentTheme
-              }"
-              >Nazwisko:</mat-label
-            >
-            <input name="surname" [(ngModel)]="model.surname" autocomplete="off" matInput />
-          </mat-form-field>
+          <div formGroupName="personalForm" class="form">
+            <label class="mat-card-label">Formularz rejestracji</label>
+            <mat-form-field>
+              <mat-label
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                >Imię:</mat-label
+              >
+              <input
+                matInput
+                id="name"
+                formControlName="name"
+                autocomplete="off"
+              />
+            </mat-form-field>
+            <mat-form-field class="margin-top-10">
+              <mat-label
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                >Nazwisko:</mat-label
+              >
+              <input
+                id="surname"
+                formControlName="surname"
+                autocomplete="off"
+                matInput
+              />
+            </mat-form-field>
 
-          <mat-form-field>
-            <mat-label
-              [ngClass]="{
-                'light-theme-icon': themeHelper.currentTheme,
-                'dark-theme-icon': !themeHelper.currentTheme
-              }"
-              >Miasto:</mat-label
+            <mat-form-field class="margin-top-10">
+              <mat-label
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                >Miasto:</mat-label
+              >
+              <input
+                id="city"
+                formControlName="city"
+                autocomplete="off"
+                matInput
+              />
+            </mat-form-field>
+            <div class="margin-top-10">
+              <button
+                mat-flat-button
+                class="submit-button"
+                [ngClass]="{
+                  'light-theme-icon': themeHelper.currentTheme,
+                  'dark-theme-icon': !themeHelper.currentTheme
+                }"
+                color="primary"
+                (click)="validateForm()"
+              >
+                Dalej
+              </button>
+            </div>
+            <ul
+              *ngIf="personalForm.get('name')?.touched && personalForm.get('name')?.errors?.['required']"
             >
-            <input name="city" [(ngModel)]="model.city" autocomplete="off" matInput />
-          </mat-form-field>
+              Imię jest wymagane.
+            </ul>
+            <ul
+              *ngIf="personalForm.get('name')?.touched && personalForm.get('name')?.errors?.['minlength']"
+            >
+              Długość imienia nie może być krótsza niż 3 znaki.
+            </ul>
 
-          <button
-            mat-flat-button
-            class="submit-button"
-            [ngClass]="{
-              'light-theme-icon': themeHelper.currentTheme,
-              'dark-theme-icon': !themeHelper.currentTheme
-            }"
-            color="primary"
-            (click)="checkPersonalInformation(stepper)"
-          >
-            Dalej
-          </button>
+            <ul
+              *ngIf="personalForm.get('name')?.touched && personalForm.get('name')?.errors?.['maxlength']"
+            >
+              Długość imienia nie może być dłuższa niż 25 znaków.
+            </ul>
+            <ul
+              *ngIf="personalForm.get('surname')?.touched && personalForm.get('surname')?.errors?.['required']"
+            >
+              Nazwisko jest wymagane.
+            </ul>
+            <ul
+              *ngIf="personalForm.get('surname')?.touched && personalForm.get('surname')?.errors?.['minlength']"
+            >
+              Długość nazwiska nie może być krótsza niż 3 znaki.
+            </ul>
+
+            <ul
+              *ngIf="personalForm.get('surname')?.touched && personalForm.get('surname')?.errors?.['maxlength']"
+            >
+              Długość nazwiska nie może być dłuższa niż 25 znaków.
+            </ul>
+            <ul
+              *ngIf="personalForm.get('city')?.touched && personalForm.get('city')?.errors?.['required']"
+            >
+              Miasto jest wymagane.
+            </ul>
+            <ul
+              *ngIf="personalForm.get('city')?.touched && personalForm.get('city')?.errors?.['minlength']"
+            >
+              Długość nazwy miasta nie może być krótsza niż 3 znaki.
+            </ul>
+
+            <ul
+              *ngIf="personalForm.get('city')?.touched && personalForm.get('city')?.errors?.['maxlength']"
+            >
+              Długość nazwy miasta nie może być dłuższa niż 25 znaków.
+            </ul>
+          </div>
         </mat-card-content>
       </mat-card>
-    </form>
-  </mat-step>
+    </mat-step>
 
-  <mat-step [editable]="false">
-    <ng-template matStepLabel>
-      <div [ngClass]="{
-        'light-theme-font-color': themeHelper.currentTheme,
-        'dark-theme-font-color': !themeHelper.currentTheme
-      }">Krok trzeci - potwierdzenie</div></ng-template>
-    <form #ngForm="ngForm">
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>
+        <div
+          [ngClass]="{
+            'light-theme-font-color': themeHelper.currentTheme,
+            'dark-theme-font-color': !themeHelper.currentTheme
+          }"
+        >
+          Krok trzeci - potwierdzenie
+        </div></ng-template
+      >
       <mat-card
-        id="mat-card-confirm-register"
         appearance="outlined"
         [ngClass]="{
           'light-theme': themeHelper.currentTheme,
@@ -178,9 +338,11 @@
         }"
       >
         <mat-card-content>
-          <label>Twoje konto zostało zarejestrowane!</label>
+          <div class="form">
+            <label>Gratulacje! Twoje konto zostało zarejestrowane!</label>
+          </div>
         </mat-card-content>
       </mat-card>
-    </form>
-  </mat-step>
-</mat-vertical-stepper>
+    </mat-step>
+  </mat-vertical-stepper>
+</form>

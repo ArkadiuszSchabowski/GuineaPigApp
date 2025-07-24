@@ -1,6 +1,6 @@
 <div class="container">
   <div id="left-container">
-    <form #ngForm="ngForm" (ngSubmit)="validateModel()">
+    <form [formGroup]="form" (ngSubmit)="login()">
       <mat-card
         appearance="outlined"
         [ngClass]="{
@@ -16,41 +16,72 @@
                 'light-theme-icon': themeHelper.currentTheme,
                 'dark-theme-icon': !themeHelper.currentTheme
               }"
-              >Podaj swój e-mail</mat-label
-            >
-            <input matInput name="email" [(ngModel)]="model.email" autocomplete="off"/>
+              >Podaj swój email:
+            </mat-label>
+            <input
+              id="email"
+              formControlName="email"
+              matInput
+              type="text"
+              autocomplete="off"
+            />
           </mat-form-field>
-          <mat-form-field>
+          <mat-form-field class="margin-top-10">
             <mat-label
               [ngClass]="{
                 'light-theme-icon': themeHelper.currentTheme,
                 'dark-theme-icon': !themeHelper.currentTheme
               }"
-              >Podaj swoje hasło</mat-label
+              >Podaj swoje hasło:</mat-label
             >
             <input
-              name="password"
-              [(ngModel)]="model.password" autocomplete="off"
+              id="password"
+              formControlName="password"
+              autocomplete="off"
               matInput
-              [type]="hidePassword ? 'password' : 'text'"
+              [type]="passwordHiddenSignal() ? 'password' : 'text'"
             />
             <button
-              type="button"
               mat-icon-button
               matSuffix
-              (click)="changePasswordVisibility()"
-              [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hidePassword"
+              type="button"
+              [ngClass]="{
+                'light-theme-icon': themeHelper.currentTheme,
+                'dark-theme-icon': !themeHelper.currentTheme
+              }"
+              (click)="changePasswordVisibility($event)"
+              [attr.aria-label]="
+                passwordHiddenSignal() ? 'Show password' : 'Hide password'
+              "
+              [attr.aria-pressed]="passwordHiddenSignal()"
             >
               <mat-icon>{{
-                hidePassword ? "visibility_off" : "visibility"
+                passwordHiddenSignal() ? "visibility_off" : "visibility"
               }}</mat-icon>
             </button>
           </mat-form-field>
+          <ul
+            *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['required']"
+          >
+            Adres e-mail jest wymagany.
+          </ul>
+          <ul
+            *ngIf="form.get('email')?.touched && form.get('email')?.errors?.['email']"
+          >
+            Niepoprawny format adresu email.
+          </ul>
+          <ul
+            *ngIf="form.get('password')?.touched && form.get('password')?.errors?.['required']"
+          >
+            Hasło jest wymagane.
+          </ul>
+          <div *ngIf="validationServerErrors?.length" class="server-error-list">
+              <ul *ngFor="let error of validationServerErrors">{{ error }}</ul>
+          </div>
           <button
             type="submit"
             mat-flat-button
-            class="submit-button"
+            class="submit-button margin-top-10"
             [ngClass]="{
               'light-theme-icon': themeHelper.currentTheme,
               'dark-theme-icon': !themeHelper.currentTheme
