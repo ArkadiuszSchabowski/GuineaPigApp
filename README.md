@@ -1,12 +1,16 @@
-**Guinea Pig App - Application for Managing Guinea Pig Information**
+# 🐹 Guinea Pig App
+
+**About the Project:**
+Application for Managing Guinea Pig Information. This app helps users manage guinea pig profiles and track their weights.
 
 **Presentation** - Watch on YouTube: https://www.youtube.com/watch?v=ik_C2L5AviA
 
 **Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
 
-**About the Project** - Guinea Pig App is an application designed to help users manage information about their guinea pigs. Users can create and manage profiles for their pets and monitor their weight to keep track of their health. This project demonstrates the use of modern web technologies to build a full-stack application.
+---
 
-**Technology Stack:**
+## ⚙️ Technology Stack
+
 - Frontend: Angular, Angular Material
 - Backend: ASP.NET Core (C#)
 - Database: MSSQL, Azure SQL Database (demo version on a free plan)
@@ -15,16 +19,25 @@
 - CI/CD: Custom CI/CD pipelines (for automating builds and unit tests)
 - Azure: Azure Cloud Services (used for hosting and managing both the application and databases)
 
-**Testing:**
+---
+
+## 🧪 Testing
+
 - Backend: Unit and integration tests written with xUnit (ASP.NET Core)
 - Frontend: Unit tests written with Jasmine, executed using Karma test runner
 
-**Design Patterns:**
+---
+
+## 🧩 Design Patterns
+
 - Dependency Injection (DI)
 - Repository Pattern (RP)
 - Observer Pattern (OP)
 
-**How to Run with Docker Compose:**
+---
+
+## 🚀 How to run the project with Docker Compose
+
 - Clone the repository: git clone https://github.com/ArkadiuszSchabowski/GuineaPigApp.git
 - Make sure you have Docker and Docker Compose installed.
 - Docker Compose is typically included with Docker Desktop.
@@ -33,20 +46,28 @@
   
 - Once the last container is running, you can access the Angular application in your web browser by visiting: http://localhost:4200
 
+---
+
+## 👥 Test User Accounts
+
 **Test User Accounts** - To quickly test the application, you can use the following test user accounts:
 
-User:
+**User:**
 - Email: user@gmail.com
 - Password: User123
 
-Manager:
+**Manager:**
 - Email: manager@gmail.com
 - Password: Manager123
 
-Admin:
+**Admin:**
 - Email: admin@gmail.com
 - Password: Admin123
 
-**Contact** - Questions or feedback? Feel free to contact me at: arkadiuszschabowski@gmail.com
+---
 
-**Guinea Pig App** - Keep your guinea pigs happy and healthy! Manage their profiles and track their weight to monitor their health. 🐹🎉
+## 📩 Contact
+
+Questions or feedback? Feel free to contact me at: arkadiuszschabowski@gmail.com
+
+**Guinea Pig App** – Help your guinea pigs stay happy and healthy! Easily manage their profiles and keep an eye on their weights. 🐹🎉
