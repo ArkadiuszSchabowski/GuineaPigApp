@@ -5,8 +5,6 @@ Application for Managing Guinea Pig Information. This app helps users manage gui
 
 **Presentation** - Watch on YouTube: https://www.youtube.com/watch?v=ik_C2L5AviA
 
-**Demo** - To quickly experience the application, simply visit the: https://guineapigapp.azurewebsites.net - **Since this is a free plan, it may take up to a minute to fully start up the database after periods of inactivity. Thank you for your patience! 😊**
-
 ---
 
 ## ⚙️ Technology Stack
